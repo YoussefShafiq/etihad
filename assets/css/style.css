@@ -700,6 +700,53 @@ slider styles
   }
 }
 
+#top-movies-section {
+  padding: 40px 28px;
+  background-color: var(--dark2);
+
+  h2 {
+    color: white;
+    text-align: center;
+    font-size: 50px;
+  }
+
+  @media (max-width: 768px) {
+    padding: 30px 28px;
+
+    h2 {
+      font-size: 40px;
+      margin-bottom: 16px;
+    }
+  }
+
+}
+
+#upcoming-movies-section {
+  padding: 40px 28px;
+  background-color: var(--dark2);
+
+  >h2 {
+    color: white;
+    text-align: center;
+    font-size: 50px;
+  }
+
+  .content {
+    h2 {
+      font-size: 20px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    padding: 30px 28px;
+
+    h2 {
+      font-size: 40px;
+      margin-bottom: 16px;
+    }
+  }
+}
+
 .news-slide {
   height: 400px;
   display: flex;

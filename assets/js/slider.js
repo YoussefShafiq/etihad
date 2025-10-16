@@ -353,3 +353,21 @@ const moviesSlider = new CustomSlider(document.getElementById('top-movies-slider
     spaceBetween: 20   // Gap between slides (px)
 });
 
+const upcomingmoviesslider = new CustomSlider(document.getElementById('upcoming-movies-slider'), {
+    loop: true,
+    autoplay: true,
+    autoplayDelay: 3000,
+    keyboard: true,
+    mousewheel: true,
+    slidesPerView: {
+        mobile: 1,    // 1 slide on mobile
+        tablet: 2,    // 2 slides on tablet
+        desktop: 5    // 3 slides on desktop
+    },
+    breakpoints: {
+        mobile: 640,   // Mobile breakpoint (px)
+        tablet: 1024   // Tablet breakpoint (px)
+    },
+    spaceBetween: 20   // Gap between slides (px)
+});
+
