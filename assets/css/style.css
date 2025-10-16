@@ -332,6 +332,7 @@ slider styles
   /* top 10 movies section start */
   .clipped-card {
     position: relative;
+    border-radius: 24px;
   }
 
   .clipped-card:hover .clipped-card-img img {
@@ -341,6 +342,7 @@ slider styles
 
   .clipped-card .clipped-card-img img {
     transition-duration: 300ms;
+    border-radius: 30px;
   }
 
   .clipped-card:hover .number {
@@ -373,6 +375,7 @@ slider styles
     /* Add this */
     aspect-ratio: 2/2.5;
     /* Maintain card proportions */
+    border-radius: 30px;
   }
 
   .clipped-card-img img {
