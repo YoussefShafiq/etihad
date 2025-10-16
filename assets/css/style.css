@@ -40,17 +40,30 @@ slider styles
 
 
 /* colors variables */
-
 :root {
   --base: #f0f0f0;
-  --dark: #101010;
+  --dark: #0d0316;
+  --dark2: #0f0319;
   --darktext: #888;
-  --darkgray: #131313;
   --highlight: #cd0000;
   --font-inter: "Almarai", sans-serif;
   --font-barlow: "Barlow", sans-serif;
 }
 
+#theme-toggle {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--dark2);
+  border: white solid 1px;
+  border-radius: 100%;
+  color: white;
+}
 
 #sub-nav {
   background-color: var(--dark);
@@ -99,7 +112,7 @@ slider styles
   z-index: -1;
   height: 400px;
   width: 100%;
-  background-color: var(--darkgray);
+  background-color: var(--dark2);
 }
 
 #hero-section {
@@ -123,7 +136,7 @@ slider styles
     }
 
     #image {
-      width: 13rem;
+      width: 15rem;
 
       img {
         width: 100%;
@@ -183,27 +196,18 @@ slider styles
       font-size: 18px;
       transition-duration: 300ms;
       position: relative;
-      padding: 2px;
-      border-radius: 4px;
+      padding: 4px 10px;
+      border-radius: 50px;
+      border: var(--highlight) solid 1px;
+
     }
 
     a.active {
       background-color: var(--highlight);
     }
 
-    a::after {
-      position: absolute;
-      content: '';
-      bottom: -4px;
-      right: 0;
-      width: 0%;
-      height: 2px;
-      background-color: var(--highlight);
-      transition-duration: 300ms;
-    }
-
-    a:hover::after {
-      width: 100%;
+    a:hover {
+      border-color: green;
     }
 
 
@@ -297,7 +301,6 @@ slider styles
     }
   }
 }
-
 
 
 /* slider styles start */
