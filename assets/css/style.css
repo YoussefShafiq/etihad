@@ -114,6 +114,10 @@ slider styles
   height: 400px;
   width: 100%;
   background-color: var(--dark2);
+
+  @media (max-width: 768px) {
+    height: 600px;
+  }
 }
 
 #hero-section {
@@ -219,6 +223,10 @@ slider styles
 #horizontal-cards-section {
   padding: 40px 28px;
 
+  @media (max-width: 768px) {
+    padding: 30px 18px;
+  }
+
   #cards-grid {
     display: grid;
     display: grid;
@@ -312,6 +320,15 @@ slider styles
     font-size: 50px;
   }
 
+  @media (max-width: 768px) {
+    padding: 30px 28px;
+
+    h2 {
+      font-size: 40px;
+      margin-bottom: 16px;
+    }
+  }
+
   /* top 10 movies section start */
   .clipped-card {
     position: relative;
@@ -350,11 +367,19 @@ slider styles
         5.078% 99.929%, 4.145% 99.723%, 3.275% 99.393%, 2.481% 98.951%, 1.775% 98.408%,
         1.169% 97.775%, 0.676% 97.063%, 0.309% 96.283%, 0.079% 95.447%, 0% 94.565%,
         0% 27.174%);
-
+    position: relative;
+    /* Add this */
+    overflow: hidden;
+    /* Add this */
+    aspect-ratio: 2/2.5;
+    /* Maintain card proportions */
   }
 
   .clipped-card-img img {
     width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
   }
 
   .clipped-card .number {
