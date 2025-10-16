@@ -127,7 +127,8 @@ slider styles
 
     #image {
       width: 13rem;
-      img{
+
+      img {
         width: 100%;
       }
     }
@@ -135,11 +136,11 @@ slider styles
 
     #presedent {
       text-align: center;
-      font-size: 14px;
       width: 18rem;
 
       h1 {
         text-align: end;
+        font-size: 14px;
       }
     }
   }
