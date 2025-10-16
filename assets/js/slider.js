@@ -129,14 +129,14 @@ class CustomSlider {
             });
         }
 
-        // Mousewheel
-        if (this.opts.mousewheel) {
-            this.el.addEventListener('wheel', (e) => {
-                e.preventDefault();
-                if (e.deltaY > 0) this.next();
-                else this.prev();
-            }, { passive: false });
-        }
+        // // Mousewheel
+        // if (this.opts.mousewheel) {
+        //     this.el.addEventListener('wheel', (e) => {
+        //         e.preventDefault();
+        //         if (e.deltaY > 0) this.next();
+        //         else this.prev();
+        //     }, { passive: false });
+        // }
 
         // Resize
         window.addEventListener('resize', () => {
@@ -320,7 +320,7 @@ const slider = new CustomSlider(document.getElementById('slider'), {
     loop: true,
     autoplay: true,
     autoplayDelay: 3000,
-    keyboard: true,     
+    keyboard: true,
     mousewheel: true,
     slidesPerView: {
         mobile: 1,    // 1 slide on mobile
@@ -333,3 +333,23 @@ const slider = new CustomSlider(document.getElementById('slider'), {
     },
     spaceBetween: 20   // Gap between slides (px)
 });
+
+
+const moviesSlider = new CustomSlider(document.getElementById('top-movies-slider'), {
+    loop: true,
+    autoplay: true,
+    autoplayDelay: 3000,
+    keyboard: true,
+    mousewheel: true,
+    slidesPerView: {
+        mobile: 1,    // 1 slide on mobile
+        tablet: 2,    // 2 slides on tablet
+        desktop: 5    // 3 slides on desktop
+    },
+    breakpoints: {
+        mobile: 640,   // Mobile breakpoint (px)
+        tablet: 1024   // Tablet breakpoint (px)
+    },
+    spaceBetween: 20   // Gap between slides (px)
+});
+
