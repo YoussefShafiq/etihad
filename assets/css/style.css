@@ -127,6 +127,9 @@ slider styles
 
     #image {
       width: 13rem;
+      img{
+        width: 100%;
+      }
     }
 
 

@@ -320,7 +320,7 @@ const slider = new CustomSlider(document.getElementById('slider'), {
     loop: true,
     autoplay: true,
     autoplayDelay: 3000,
-    keyboard: true,
+    keyboard: true,     
     mousewheel: true,
     slidesPerView: {
         mobile: 1,    // 1 slide on mobile
