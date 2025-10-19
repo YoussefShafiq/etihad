@@ -284,87 +284,93 @@ body {
 
   #cards-grid {
     display: grid;
-    display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
 
-    .horizontal-card {
-      border-radius: 12px;
-      overflow: hidden;
+  }
+
+  .horizontal-card {
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row-reverse;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+    color: white;
+    width: 100%;
+    height: fit-content;
+
+    @media (max-width: 768px) {
+      font-size: 12px;
+    }
+
+    .floating-number {
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      width: 50px;
+      height: 32px;
       display: flex;
-      flex-direction: row-reverse;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      justify-content: center;
+      align-items: center;
+      font-weight: 800;
+      font-size: 24px;
+
+      @media (max-width: 768px) {
+        width: fit-content;
+        z-index: 10;
+      }
+    }
+
+    .img {
+      width: 40%;
+      overflow: hidden;
+      aspect-ratio: 16/9;
+      clip-path: polygon(0.32% 39.22%, 0.65% 37.51%, 1.29% 35.53%, 1.89% 34.21%, 2.58% 33.02%, 3.28% 32.47%, 4.24% 32.02%, 5.21% 31.75%, 6.19% 31.49%, 18.18% 31.49%, 18.18% 31.49%, 19.17% 31.42%, 20.28% 31.25%, 21.39% 31.08%, 22.33% 30.31%, 23% 29.02%, 23.66% 27.73%, 24.06% 25.93%, 24.18% 7.19%, 24.55% 5.06%, 25.01% 3.66%, 25.55% 2.66%, 26.1% 1.66%, 26.81% 1.13%, 27.6% 0.7%, 28.46% 0.39%, 29.38% 0.19%, 30.3% 0%, 93.94% 0%, 100% 0%, 100% 100%, 5.08% 99.93%, 4.15% 99.72%, 3.28% 99.39%, 2.48% 98.95%, 1.78% 98.41%, 1.17% 97.78%, 0.68% 97.06%, 0.31% 96.28%, 0.08% 95.45%, 0% 94.57%, 0.08% 41.8%);
       position: relative;
-      color: white;
+      overflow: hidden;
 
-      .floating-number {
-        position: absolute;
-        top: 0px;
-        left: 0px;
-        width: 50px;
-        height: 32px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-weight: 800;
-        font-size: 24px;
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: top;
+      }
+    }
 
-        @media (max-width: 768px) {
-          width: fit-content;
-          z-index: 10;
-        }
+    .content {
+      padding-left: 20px;
+      padding: 12px;
+      width: 60%;
+      background-color: rgba(255, 255, 255, 0.155);
+      border-radius: 12px;
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+      border-left: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 8px;
+
+      h2 {
+        font-size: 18px;
+        font-weight: 700;
       }
 
-      .img {
-        width: 40%;
-        overflow: hidden;
-        aspect-ratio: 16/8;
-        clip-path: polygon(0.32% 39.22%, 0.65% 37.51%, 1.29% 35.53%, 1.89% 34.21%, 2.58% 33.02%, 3.28% 32.47%, 4.24% 32.02%, 5.21% 31.75%, 6.19% 31.49%, 18.18% 31.49%, 18.18% 31.49%, 19.17% 31.42%, 20.28% 31.25%, 21.39% 31.08%, 22.33% 30.31%, 23% 29.02%, 23.66% 27.73%, 24.06% 25.93%, 24.18% 7.19%, 24.55% 5.06%, 25.01% 3.66%, 25.55% 2.66%, 26.1% 1.66%, 26.81% 1.13%, 27.6% 0.7%, 28.46% 0.39%, 29.38% 0.19%, 30.3% 0%, 93.94% 0%, 100% 0%, 100% 100%, 5.08% 99.93%, 4.15% 99.72%, 3.28% 99.39%, 2.48% 98.95%, 1.78% 98.41%, 1.17% 97.78%, 0.68% 97.06%, 0.31% 96.28%, 0.08% 95.45%, 0% 94.57%, 0.08% 41.8%);
-        position: relative;
-        overflow: hidden;
-
-        img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          object-position: top;
-        }
-      }
-
-      .content {
-        padding-left: 20px;
-        padding: 12px;
-        width: 60%;
-        background-color: rgba(255, 255, 255, 0.155);
-        border-radius: 12px;
-        border-top-left-radius: 0;
-        border-bottom-left-radius: 0;
-        border-left: none;
+      .footer {
+        font-size: 18px;
         display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        gap: 8px;
+        width: 100%;
+        gap: 12px;
 
-        h2 {
-          font-size: 18px;
-          font-weight: 700;
-        }
-
-        .footer {
-          font-size: 18px;
+        div {
           display: flex;
-          width: 100%;
-          gap: 12px;
+          flex-direction: row;
+          gap: 4px;
+          align-items: center;
 
-          div {
-            display: flex;
-            flex-direction: row;
-            gap: 4px;
-            align-items: center;
-
-            i {
-              color: var(--darktext);
-            }
+          i {
+            color: var(--darktext);
           }
         }
       }
@@ -388,6 +394,8 @@ body {
       }
     }
   }
+
+
 }
 
 #pricing-section {
@@ -413,7 +421,7 @@ body {
       border: 1px solid rgba(39, 28, 46, 0.3);
       box-shadow: 0 4px 12px rgba(0, 0, 20, 0.4);
 
-      
+
 
       .tab {
         flex: 1;
@@ -432,7 +440,8 @@ body {
           margin-left: 8px;
           font-size: 18px;
         }
-        span{
+
+        span {
           display: block;
         }
 
@@ -1399,6 +1408,206 @@ body.light-mode {
   }
 }
 
+#last-new-section {
+  padding: 40px 28px;
+  background-color: var(--dark2);
+
+  >h2 {
+    color: white;
+    text-align: center;
+    font-size: 50px;
+  }
+
+  @media (max-width: 768px) {
+    padding: 30px 28px;
+
+    h2 {
+      font-size: 40px;
+      margin-bottom: 16px;
+    }
+  }
+
+
+
+  .last-new-section {
+    display: flex;
+    gap: 10px;
+    color: white;
+
+    @media (max-width: 768px) {
+      flex-direction: column-reverse;
+    }
+
+    .last-news {
+      .horizontal-card {
+        border-radius: 12px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: row-reverse;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        position: relative;
+        color: white;
+        width: 100%;
+        height: fit-content;
+
+        @media (max-width: 768px) {
+          font-size: 12px;
+        }
+
+        .floating-number {
+          position: absolute;
+          top: 0px;
+          left: 0px;
+          width: 50px;
+          height: 32px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          font-weight: 800;
+          font-size: 24px;
+
+          @media (max-width: 768px) {
+            width: fit-content;
+            z-index: 10;
+          }
+        }
+
+        .img {
+          width: 40%;
+          overflow: hidden;
+          aspect-ratio: 16/9;
+          clip-path: polygon(0.32% 39.22%, 0.65% 37.51%, 1.29% 35.53%, 1.89% 34.21%, 2.58% 33.02%, 3.28% 32.47%, 4.24% 32.02%, 5.21% 31.75%, 6.19% 31.49%, 18.18% 31.49%, 18.18% 31.49%, 19.17% 31.42%, 20.28% 31.25%, 21.39% 31.08%, 22.33% 30.31%, 23% 29.02%, 23.66% 27.73%, 24.06% 25.93%, 24.18% 7.19%, 24.55% 5.06%, 25.01% 3.66%, 25.55% 2.66%, 26.1% 1.66%, 26.81% 1.13%, 27.6% 0.7%, 28.46% 0.39%, 29.38% 0.19%, 30.3% 0%, 93.94% 0%, 100% 0%, 100% 100%, 5.08% 99.93%, 4.15% 99.72%, 3.28% 99.39%, 2.48% 98.95%, 1.78% 98.41%, 1.17% 97.78%, 0.68% 97.06%, 0.31% 96.28%, 0.08% 95.45%, 0% 94.57%, 0.08% 41.8%);
+          position: relative;
+          overflow: hidden;
+
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top;
+          }
+        }
+
+        .content {
+          padding-left: 20px;
+          padding: 12px;
+          width: 60%;
+          background-color: rgba(255, 255, 255, 0.155);
+          border-radius: 12px;
+          border-top-left-radius: 0;
+          border-bottom-left-radius: 0;
+          border-left: none;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          gap: 8px;
+
+          h2 {
+            font-size: 18px;
+            font-weight: 700;
+          }
+
+          .footer {
+            font-size: 18px;
+            display: flex;
+            width: 100%;
+            gap: 12px;
+
+            div {
+              display: flex;
+              flex-direction: row;
+              gap: 4px;
+              align-items: center;
+
+              i {
+                color: var(--darktext);
+              }
+            }
+          }
+        }
+      }
+
+      width: 40%;
+
+      @media (max-width: 768px) {
+        width: 100%;
+      }
+
+      display: grid;
+      grid-template-columns: repeat(1, 1fr);
+      gap: 8px;
+      height: fit-content;
+    }
+
+    .last-new {
+      width: 60%;
+
+      @media (max-width: 768px) {
+        width: 100%;
+      }
+
+      position: relative;
+
+
+      img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+        border-radius: 20px;
+      }
+
+      .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.4) 50%, transparent 100%);
+        color: white;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        transition: opacity 0.3s ease;
+        border-radius: 20px;
+      }
+
+      .channel {
+        font-size: 14px;
+        font-weight: 600;
+        margin-bottom: 8px;
+        color: #fff;
+      }
+
+      .title {
+        font-size: 16px;
+        font-weight: 700;
+        margin-bottom: 12px;
+        line-height: 1.2;
+      }
+
+      .stats {
+        display: flex;
+        gap: 16px;
+        font-size: 12px;
+        color: #ccc;
+      }
+
+      .stats span {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+
+      .icon {
+        font-size: 14px;
+      }
+    }
+
+  }
+}
+
 #top-movies-section {
   padding: 40px 28px;
   background-color: var(--dark2);
@@ -1422,7 +1631,7 @@ body.light-mode {
 
 #upcoming-movies-section {
   padding: 40px 28px;
-  background-color: var(--dark2);
+  /* background-color: var(--dark2); */
 
   >h2 {
     color: white;
@@ -1523,6 +1732,7 @@ body.light-mode {
 
 #grid-test {
   padding: 40px 28px;
+  background-color: var(--dark2);
 
   h2 {
     color: white;
@@ -1836,7 +2046,9 @@ body.light-mode {
   }
 }
 
-.section-heading{
+
+
+.section-heading {
   font-size: 36px;
   font-weight: bold;
   color: white;
