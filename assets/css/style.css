@@ -38,6 +38,7 @@ slider styles
   font-family: var(--font-inter);
 }
 
+
 body {
   background: linear-gradient(to top left, #170408 0%, #240c3a 50%, #130417 100%);
 }
@@ -203,7 +204,6 @@ body {
       }
     }
   }
-
 
 
   nav {
@@ -1438,6 +1438,79 @@ body.light-mode {
     h2 {
       font-size: 40px;
       margin-bottom: 16px;
+    }
+  }
+}
+
+#articles-section {
+  /* overflow-x: hidden; */
+  padding: 40px 28px;
+
+  h2 {
+    color: white;
+    text-align: center;
+    font-size: 50px;
+    margin-bottom: 20px;
+  }
+
+  @media (max-width: 768px) {
+    padding: 30px 28px;
+
+    h2 {
+      font-size: 40px;
+      margin-bottom: 16px;
+    }
+  }
+
+  .articles-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+
+    @media (max-width: 768px) {
+      grid-template-columns: repeat(1, 1fr);
+      gap: 50px;
+    }
+
+    .article-card {
+      position: relative;
+      color: white;
+
+      .author-name{
+        padding-bottom: 10px;
+        font-size: 20px;
+      }
+
+      .content {
+        border: white 4px solid;
+        border-radius: 12px;
+        padding: 18px;
+        height: 200px;
+
+        p {
+          font-size: 24px;
+          width: 50%;
+          text-align: center;
+          font-weight: 600;
+        }
+      }
+
+      .author-image {
+        position: absolute;
+        top: 20px;
+        left: 0px;
+        height: 100%;
+        width: 50%;
+        object-fit: cover;
+
+        img {
+          height: 100%;
+          width: 100%;
+          transform: scale(1.15);
+          border-radius: 50%;
+          object-fit: contain;
+        }
+      }
     }
   }
 }
