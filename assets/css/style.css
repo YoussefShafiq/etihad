@@ -38,10 +38,16 @@ slider styles
   font-family: var(--font-inter);
 }
 
+body {
+  background: linear-gradient(to top left, #170408 0%, #240c3a 50%, #130417 100%);
+}
+
 
 /* colors variables */
 :root {
   --base: #f0f0f0;
+  --cardbase: #ffffff;
+  --faded-background: rgba(255, 255, 255, 0.048);
   --dark: #0d0316;
   --dark2: #0f0319;
   --darktext: #888;
@@ -113,6 +119,8 @@ slider styles
   z-index: -1;
   height: 400px;
   width: 100%;
+  background: linear-gradient(to top left, #170408 0%, #240c3a 50%, #130417 100%);
+  /* background: none; */
   background-color: var(--dark2);
 
   @media (max-width: 768px) {
@@ -122,6 +130,10 @@ slider styles
 
 #hero-section {
   padding-inline: 2rem;
+
+  @media (max-width: 768px) {
+    padding-inline: 1rem;
+  }
 
   #leftside {
     display: flex;
@@ -152,6 +164,12 @@ slider styles
     #presedent {
       text-align: center;
       width: 18rem;
+
+      @media (max-width: 768px) {
+        display: flex;
+        justify-content: center;
+        gap: 3px;
+      }
 
       h1 {
         text-align: end;
@@ -189,10 +207,20 @@ slider styles
 
 
   nav {
+    overflow-x: auto;
     display: flex;
-    flex-wrap: wrap;
+    width: 100%;
     gap: 8px;
-    justify-content: center;
+    padding-block: 5px;
+
+
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.206) transparent;
+    -webkit-overflow-scrolling: touch;
+
+    @media (min-width: 768px) {
+      justify-content: center;
+    }
 
     a {
       display: inline-block;
@@ -207,12 +235,38 @@ slider styles
 
     }
 
+    .سياسه {
+      border: #e42e58 solid 2px;
+    }
+
+    .فن {
+      border: #8a2be2 solid 2px;
+    }
+
+    .رياضه {
+      border: #32cda1 solid 2px;
+    }
+
+    .اقتصاد {
+      border: #14aadd solid 2px;
+    }
+
+    .تكنولوجيا {
+      border: #ff7300 solid 2px;
+    }
+
+    .انساني {
+      border: #e5dcd6 solid 2px;
+    }
+
+
+
     a.active {
       background-color: var(--highlight);
     }
 
     a:hover {
-      border-color: green;
+      transform: translateY(-2px);
     }
 
 
@@ -227,6 +281,9 @@ slider styles
     padding: 30px 18px;
   }
 
+  max-width: 1200px;
+  margin: auto;
+
   #cards-grid {
     display: grid;
     display: grid;
@@ -237,27 +294,50 @@ slider styles
       border-radius: 12px;
       overflow: hidden;
       display: flex;
-      gap: 8px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.263);
+      flex-direction: row-reverse;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      position: relative;
+      color: white;
 
-
+      .floating-number {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        width: 50px;
+        height: 32px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: 800;
+        font-size: 24px;
+        /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); */
+      }
 
       .img {
-        width: 30%;
+        width: 40%;
         overflow: hidden;
-        aspect-ratio: 16/9;
+        aspect-ratio: 16/8;
+        clip-path: polygon(0.32% 39.22%, 0.65% 37.51%, 1.29% 35.53%, 1.89% 34.21%, 2.58% 33.02%, 3.28% 32.47%, 4.24% 32.02%, 5.21% 31.75%, 6.19% 31.49%, 18.18% 31.49%, 18.18% 31.49%, 19.17% 31.42%, 20.28% 31.25%, 21.39% 31.08%, 22.33% 30.31%, 23% 29.02%, 23.66% 27.73%, 24.06% 25.93%, 24.18% 7.19%, 24.55% 5.06%, 25.01% 3.66%, 25.55% 2.66%, 26.1% 1.66%, 26.81% 1.13%, 27.6% 0.7%, 28.46% 0.39%, 29.38% 0.19%, 30.3% 0%, 93.94% 0%, 100% 0%, 100% 100%, 5.08% 99.93%, 4.15% 99.72%, 3.28% 99.39%, 2.48% 98.95%, 1.78% 98.41%, 1.17% 97.78%, 0.68% 97.06%, 0.31% 96.28%, 0.08% 95.45%, 0% 94.57%, 0.08% 41.8%);
+        position: relative;
+        overflow: hidden;
 
         img {
           width: 100%;
           height: 100%;
           object-fit: cover;
+          object-position: top;
         }
       }
 
       .content {
+        padding-left: 20px;
         padding: 12px;
-        width: 70%;
-        background-color: white;
+        width: 60%;
+        background-color: rgba(255, 255, 255, 0.155);
+        border-radius: 12px;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        border-left: none;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
@@ -266,14 +346,12 @@ slider styles
         h2 {
           font-size: 18px;
           font-weight: 700;
-          color: black;
         }
 
         .footer {
           font-size: 18px;
           display: flex;
           width: 100%;
-          color: black;
           gap: 12px;
 
           div {
@@ -306,6 +384,618 @@ slider styles
           }
         }
       }
+    }
+  }
+}
+
+#pricing-section {
+  margin: 0 auto;
+  background-color: var(--dark2);
+  color: white;
+
+  /* Tabs Styles */
+  .tabs-container {
+    margin-bottom: 20px;
+
+    .tabs {
+      display: flex;
+      background: var(--faded-background);
+      border-radius: 16px;
+      padding: 8px;
+      border: 1px solid rgba(39, 28, 46, 0.3);
+      box-shadow: 0 4px 12px rgba(0, 0, 20, 0.4);
+
+      .tab {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 12px 16px;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.7);
+
+        i {
+          margin-left: 8px;
+          font-size: 18px;
+        }
+
+        &.active {
+          background: rgba(124, 42, 158, 0.2);
+          color: #9b3ec7;
+          border: 1px solid rgba(124, 42, 158, 0.4);
+        }
+
+        &:hover:not(.active) {
+          background: rgba(255, 255, 255, 0.05);
+        }
+      }
+    }
+  }
+
+  /* Tab Content */
+  .tab-content {
+    display: none;
+
+    &.active {
+      display: flex;
+      gap: 16px;
+    }
+  }
+
+  /* Gold Tab Content */
+  #gold-tab {
+
+    /* Gold Chart Section */
+    .gold-chart-section {
+      width: 70%;
+      color: white;
+      border-radius: 20px;
+      padding: 20px;
+      border: 1px solid rgba(39, 28, 46, 0.3);
+      box-shadow: 0 4px 12px rgba(0, 0, 20, 0.4);
+      background-color: var(--faded-background);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 10px;
+
+      .title {
+        display: flex;
+        justify-content: space-between;
+
+        @media (max-width: 768px) {
+          flex-direction: column;
+          gap: 10px;
+        }
+
+        .section-header {
+          display: flex;
+          align-items: center;
+          margin-bottom: 20px;
+
+          .icon-container {
+            padding: 12px;
+            border-radius: 12px;
+            margin-left: 12px;
+
+            &.gold-icon {
+              background: rgba(245, 158, 11, 0.15);
+              color: #f59e0b;
+            }
+
+            i {
+              font-size: 28px;
+            }
+          }
+
+          .section-title {
+            h2 {
+              font-size: 1.5rem;
+              font-weight: bold;
+              margin-bottom: 4px;
+            }
+
+            p {
+              font-size: 0.875rem;
+              color: #10b981;
+            }
+          }
+        }
+
+        .chart-container {
+          height: 200px;
+          background: rgba(42, 35, 52, 0.5);
+          border-radius: 16px;
+          padding: 15px;
+          position: relative;
+
+          #goldChart {
+            width: 100% !important;
+            height: 100% !important;
+          }
+        }
+
+        .price-cards {
+          display: flex;
+          jusbtify-content: space-between;
+          gap: 12px;
+
+          .price-card {
+            background: #2a2334;
+            border: 1px solid rgba(245, 158, 11, 0.2);
+            border-radius: 12px;
+            padding: 12px;
+            text-align: center;
+
+            .price-card-label {
+              font-size: 0.875rem;
+              font-weight: 600;
+              margin-bottom: 4px;
+            }
+
+            .price-card-value {
+              font-size: 1.25rem;
+              color: #f59e0b;
+              font-weight: bold;
+            }
+          }
+        }
+      }
+    }
+
+    /* Gold Calculator Section */
+    .gold-calculator-section {
+      width: 30%;
+      border-radius: 20px;
+      padding: 20px;
+      border: 1px solid rgba(39, 28, 46, 0.3);
+      box-shadow: 0 4px 12px rgba(0, 0, 20, 0.4);
+      background-color: var(--faded-background);
+
+      .section-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+
+        .icon-container {
+          padding: 12px;
+          border-radius: 12px;
+          margin-left: 12px;
+
+          &.calculator-icon {
+            background: rgba(124, 42, 158, 0.15);
+            color: #7c2a9e;
+          }
+
+          i {
+            font-size: 28px;
+          }
+        }
+
+        .section-title {
+          h2 {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 4px;
+          }
+        }
+      }
+
+      .carat-selector {
+        margin: 20px 0;
+
+        label {
+          display: block;
+          font-size: 1rem;
+          margin-bottom: 12px;
+        }
+
+        .carat-chips {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 8px;
+
+          .carat-chip {
+            padding: 12px;
+            border-radius: 12px;
+            border: 2px solid rgba(39, 28, 46, 0.2);
+            background: #2a2334;
+            cursor: pointer;
+            text-align: center;
+            font-weight: bold;
+            transition: all 0.3s ease;
+
+            &.active {
+              background: #7c2a9e;
+              border-color: #7c2a9e;
+              color: white;
+            }
+
+            &:hover {
+              transform: translateY(-2px);
+            }
+          }
+        }
+      }
+
+      .weight-input {
+        margin: 20px 0;
+
+        label {
+          display: block;
+          font-size: 1rem;
+          margin-bottom: 12px;
+        }
+
+        .input-group {
+          position: relative;
+
+          input {
+            width: 100%;
+            padding: 12px 45px;
+            border-radius: 12px;
+            border: 1px solid rgba(39, 28, 46, 0.3);
+            background: #2a2334;
+            color: inherit;
+            font-size: 1rem;
+          }
+
+          i {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #7c2a9e;
+          }
+
+          .suffix {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.875rem;
+            color: #888;
+          }
+        }
+      }
+
+      .result-card {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: linear-gradient(135deg, rgba(124, 42, 158, 0.2), rgba(155, 62, 199, 0.1));
+        border: 1px solid rgba(124, 42, 158, 0.3);
+        border-radius: 16px;
+        padding: 16px;
+        text-align: center;
+
+        p {
+          margin-bottom: 8px;
+        }
+
+        h3 {
+          font-size: 2rem;
+          color: #9b3ec7;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+
+  /* Currencies Tab Content */
+  #currencies-tab {
+    .currencies-section {
+      width: 100%;
+      border-radius: 20px;
+      padding: 20px;
+      border: 1px solid rgba(39, 28, 46, 0.3);
+      box-shadow: 0 4px 12px rgba(0, 0, 20, 0.4);
+      background-color: var(--faded-background);
+
+      .section-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+
+        .icon-container {
+          padding: 12px;
+          border-radius: 12px;
+          margin-left: 12px;
+
+          &.currencies-icon {
+            background: rgba(16, 185, 129, 0.15);
+            color: #10b981;
+          }
+
+          i {
+            font-size: 28px;
+          }
+        }
+
+        .section-title {
+          h2 {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 4px;
+          }
+
+          p {
+            font-size: 0.875rem;
+            color: #10b981;
+          }
+        }
+      }
+
+      .currencies-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+        margin: 20px 0;
+
+        @media (max-width: 768px) {
+          grid-template-columns: repeat(1, 1fr);
+        }
+
+        .currency-card {
+          background: #2a2334;
+          border-radius: 16px;
+          padding: 20px;
+          display: flex;
+          align-items: center;
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          transition: all 0.3s ease;
+
+          &:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+          }
+
+          .currency-flag {
+            font-size: 2rem;
+            margin-left: 15px;
+          }
+
+          .currency-info {
+            flex: 1;
+
+            .currency-name {
+              font-weight: bold;
+              font-size: 1.1rem;
+              margin-bottom: 4px;
+            }
+
+            .currency-code {
+              color: #888;
+              font-size: 0.9rem;
+            }
+          }
+
+          .currency-rate {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #10b981;
+          }
+        }
+      }
+
+      .last-update {
+        text-align: center;
+        margin-top: 20px;
+        color: #888;
+        font-size: 0.9rem;
+      }
+    }
+  }
+
+  /* Crypto Tab Content */
+  #crypto-tab {
+    .crypto-section {
+      width: 100%;
+      border-radius: 20px;
+      padding: 20px;
+      border: 1px solid rgba(39, 28, 46, 0.3);
+      box-shadow: 0 4px 12px rgba(0, 0, 20, 0.4);
+      background-color: var(--faded-background);
+
+      .section-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+
+        .icon-container {
+          padding: 12px;
+          border-radius: 12px;
+          margin-left: 12px;
+
+          &.crypto-icon {
+            background: rgba(59, 130, 246, 0.15);
+            color: #3b82f6;
+          }
+
+          i {
+            font-size: 28px;
+          }
+        }
+
+        .section-title {
+          h2 {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 4px;
+          }
+
+          p {
+            font-size: 0.875rem;
+            color: #10b981;
+          }
+        }
+      }
+
+      .crypto-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+        margin: 20px 0;
+
+        @media (max-width: 768px) {
+          grid-template-columns: repeat(1, 1fr);
+        }
+
+        .crypto-card {
+          background: #2a2334;
+          border-radius: 16px;
+          padding: 20px;
+          display: flex;
+          align-items: center;
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          transition: all 0.3s ease;
+
+          &:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+          }
+
+          .crypto-icon {
+            font-size: 2rem;
+            margin-left: 15px;
+            color: #f59e0b;
+          }
+
+          .crypto-info {
+            flex: 1;
+
+            .crypto-name {
+              font-weight: bold;
+              font-size: 1.1rem;
+              margin-bottom: 4px;
+            }
+
+            .crypto-symbol {
+              color: #888;
+              font-size: 0.9rem;
+            }
+          }
+
+          .crypto-price {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+          }
+
+          .crypto-change {
+            font-size: 0.9rem;
+            font-weight: bold;
+            padding: 4px 8px;
+            border-radius: 8px;
+            text-align: center;
+
+            &.positive {
+              background: rgba(16, 185, 129, 0.2);
+              color: #10b981;
+            }
+
+            &.negative {
+              background: rgba(239, 68, 68, 0.2);
+              color: #ef4444;
+            }
+          }
+        }
+      }
+
+      .last-update {
+        text-align: center;
+        margin-top: 20px;
+        color: #888;
+        font-size: 0.9rem;
+      }
+    }
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  #pricing-section {
+    padding: 30px 18px;
+
+    .tab-content.active {
+      flex-direction: column;
+    }
+
+    #gold-tab {
+
+      .gold-chart-section,
+      .gold-calculator-section {
+        width: 100%;
+      }
+    }
+
+    .price-cards,
+    .carat-chips,
+    .currencies-grid,
+    .crypto-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .tabs {
+      flex-direction: column;
+
+      .tab {
+        margin-bottom: 8px;
+      }
+    }
+  }
+}
+
+/* Light Mode Overrides */
+body.light-mode {
+  .gold-chart-section {
+    background: white;
+    border: 1px solid rgba(39, 28, 46, 0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 20, 0.08);
+
+    .chart-container {
+      background: #f5f5f5;
+    }
+
+    .price-card {
+      background: rgba(39, 28, 46, 0.05);
+    }
+  }
+
+  .gold-calculator-section {
+    background: white;
+    border: 1px solid rgba(39, 28, 46, 0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 20, 0.08);
+
+    .carat-chip {
+      background: rgba(39, 28, 46, 0.05);
+    }
+
+    .input-group input {
+      background: rgba(39, 28, 46, 0.05);
+    }
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .gold-chart-section {
+    .price-cards {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    .section-title h2 {
+      font-size: 1.25rem;
+    }
+  }
+
+  .gold-calculator-section {
+    .section-title h2 {
+      font-size: 1.25rem;
     }
   }
 }
@@ -406,7 +1096,7 @@ slider styles
   padding: 40px 28px;
 
   h2 {
-    color: black;
+    color: white;
     text-align: center;
     font-size: 50px;
   }
