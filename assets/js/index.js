@@ -61,7 +61,7 @@ function initializeGoldChart() {
 // Gold Calculator
 function initializeGoldCalculator() {
     console.log('Initializing gold calculator...');
-    
+
     let selectedPrice = 3500;
 
     const caratChips = document.querySelectorAll('.carat-chip');
@@ -95,7 +95,7 @@ function initializeGoldCalculator() {
         const weight = parseFloat(weightInput.value) || 0;
         const total = (weight * price).toFixed(2);
         const totalPriceElement = document.getElementById('totalPrice');
-        
+
         if (totalPriceElement) {
             totalPriceElement.textContent = `${total} ج.م`;
         }
@@ -109,7 +109,7 @@ function initializeGoldCalculator() {
 // Tab Switching
 function initializeTabs() {
     console.log('Initializing tabs...');
-    
+
     const tabs = document.querySelectorAll('.tab');
     const tabContents = document.querySelectorAll('.tab-content');
 
@@ -133,7 +133,7 @@ function initializeTabs() {
             tab.classList.add('active');
             const tabId = tab.getAttribute('data-tab');
             const tabContent = document.getElementById(`${tabId}-tab`);
-            
+
             if (tabContent) {
                 tabContent.classList.add('active');
                 console.log(`✅ Switched to ${tabId} tab`);
@@ -149,7 +149,7 @@ function initializeTabs() {
 // Fetch Gold Prices (with multiple API fallbacks)
 async function fetchGoldPrices() {
     console.log('Fetching gold prices...');
-    
+
     let goldPrice = null;
 
     // Try first API
@@ -199,7 +199,7 @@ async function fetchGoldPrices() {
 
 function updateGoldPrices(goldPrice) {
     console.log('Updating gold prices display...');
-    
+
     if (goldPrice) {
         // Calculate prices for different carats
         const price24 = goldPrice;
@@ -261,15 +261,15 @@ function updateGoldPrices(goldPrice) {
 // Fetch Currency Rates (using a free API)
 async function fetchCurrencyRates() {
     console.log('Fetching currency rates...');
-    
+
     try {
         // Using a free currency API
         const response = await fetch('https://api.exchangerate.host/latest?base=EGP');
-        
+
         if (!response.ok) {
             throw new Error('API response not ok');
         }
-        
+
         const data = await response.json();
 
         // Update currency rates
@@ -299,7 +299,7 @@ async function fetchCurrencyRates() {
 
         const now = new Date();
         updateElementText('currencies-update-time', now.toLocaleTimeString('ar-EG') + ' (تقديري)');
-        
+
         console.log('✅ Currency rates updated with fallback data');
     }
 }
@@ -307,15 +307,15 @@ async function fetchCurrencyRates() {
 // Fetch Crypto Prices (using a free API)
 async function fetchCryptoPrices() {
     console.log('Fetching crypto prices...');
-    
+
     try {
         // Using CoinGecko API (free tier)
         const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,ripple,litecoin&vs_currencies=usd&include_24hr_change=true');
-        
+
         if (!response.ok) {
             throw new Error('API response not ok');
         }
-        
+
         const data = await response.json();
 
         // Update crypto prices
@@ -379,7 +379,7 @@ async function fetchCryptoPrices() {
 
         const now = new Date();
         updateElementText('crypto-update-time', now.toLocaleTimeString('ar-EG') + ' (تقديري)');
-        
+
         console.log('✅ Crypto prices updated with fallback data');
     }
 }
@@ -419,7 +419,7 @@ document.addEventListener('DOMContentLoaded', function () {
     console.log('=== DOM Content Loaded ===');
     console.log('Chart.js available:', typeof Chart !== 'undefined');
     console.log('Gold chart canvas:', document.getElementById('goldChart'));
-    
+
     // Initialize components
     initializeGoldChart();
     initializeGoldCalculator();
@@ -432,11 +432,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Start auto-refresh
     startAutoRefresh();
-    
+
     console.log('=== Application Initialized ===');
 });
 
 // Error handling for page load
 window.addEventListener('error', function (e) {
     console.error('Global error:', e.error);
+});
+
+document.getElementById('theme-toggle').addEventListener('click', function () {
+    document.body.classList.toggle('light');
 });
