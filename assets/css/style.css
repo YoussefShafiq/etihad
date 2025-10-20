@@ -172,9 +172,10 @@ body {
         gap: 3px;
       }
 
-      h1 {
+      span {
         text-align: end;
         font-size: 14px;
+        display: block;
       }
     }
   }
@@ -193,8 +194,12 @@ body {
         width: 100%;
         margin-bottom: 20px;
 
-        h1 {
+        span {
           text-align: center;
+          display: block;
+          font-size: 10px;
+          font-size: 14px;
+
         }
       }
 
@@ -1575,14 +1580,14 @@ body.light-mode {
       }
 
       .channel {
-        font-size: 14px;
+        font-size: 24px;
         font-weight: 600;
         margin-bottom: 8px;
         color: #fff;
       }
 
       .title {
-        font-size: 16px;
+        font-size: 26px;
         font-weight: 700;
         margin-bottom: 12px;
         line-height: 1.2;
@@ -2053,9 +2058,42 @@ body.light-mode {
   font-size: 36px;
   font-weight: bold;
   color: white;
-  margin-bottom: 20px;
+  margin-bottom: 36px;
+  text-align: center;
+  position: relative;
+  width: fit-content;
+  margin-inline: auto;
+  max-width: 60%;
+  /* display: inline-block; So lines align nicely with text width */
+}
+
+.section-heading::before,
+.section-heading::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 60px;
+  height: 2px;
+  background-color: white;
+}
+
+.section-heading::before {
+  left: -80px;
+  /* adjust spacing */
+  transform: translateY(-50%);
+}
+
+.section-heading::after {
+  right: -80px;
+  /* adjust spacing */
+  transform: translateY(-50%);
+}
+
+/* optional: center the whole heading */
+.section-heading-wrapper {
   text-align: center;
 }
+
 
 /* slider styles start */
 
