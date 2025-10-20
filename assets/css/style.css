@@ -211,6 +211,7 @@ body.light {
 
     #image {
       width: 15rem;
+      padding-top: 20px;
 
       img {
         width: 100%;
@@ -1025,7 +1026,6 @@ body.light {
     }
 
     .tabs {
-      flex-direction: column;
 
       .tab {
         margin-bottom: 8px;
@@ -1060,19 +1060,8 @@ body.light {
   padding: 40px 28px;
   background-color: var(--dark2);
 
-  h2 {
-    color: var(--text);
-    text-align: center;
-    font-size: 50px;
-  }
-
   @media (max-width: 768px) {
     padding: 30px 28px;
-
-    h2 {
-      font-size: 40px;
-      margin-bottom: 16px;
-    }
   }
 
   /* top 10 movies section start */
@@ -1151,19 +1140,8 @@ body.light {
 #pupular-tv-shows-section {
   padding: 40px 28px;
 
-  h2 {
-    color: var(--text);
-    text-align: center;
-    font-size: 50px;
-  }
-
   @media (max-width: 768px) {
     padding: 30px 28px;
-
-    h2 {
-      font-size: 40px;
-      margin-bottom: 16px;
-    }
   }
 
   .parent {
@@ -1445,25 +1423,15 @@ body.light {
   padding: 40px 28px;
   background-color: var(--dark2);
 
-  >h2 {
-    color: var(--text);
-    text-align: center;
-    font-size: 50px;
-  }
-
   @media (max-width: 768px) {
     padding: 30px 28px;
-
-    h2 {
-      font-size: 40px;
-      margin-bottom: 16px;
-    }
   }
 
 
 
   .last-new-section {
     display: flex;
+    flex-direction: row-reverse;
     gap: 10px;
     color: var(--text);
 
@@ -1645,11 +1613,6 @@ body.light {
   padding: 40px 28px;
   background-color: var(--dark2);
 
-  h2 {
-    color: var(--text);
-    text-align: center;
-    font-size: 50px;
-  }
 
   @media (max-width: 768px) {
     padding: 30px 28px;
@@ -1664,13 +1627,6 @@ body.light {
 
 #upcoming-movies-section {
   padding: 40px 28px;
-  /* background-color: var(--dark2); */
-
-  >h2 {
-    color: var(--text);
-    text-align: center;
-    font-size: 50px;
-  }
 
   .content {
     h2 {
@@ -1680,11 +1636,6 @@ body.light {
 
   @media (max-width: 768px) {
     padding: 30px 28px;
-
-    h2 {
-      font-size: 40px;
-      margin-bottom: 16px;
-    }
   }
 }
 
@@ -1693,20 +1644,10 @@ body.light {
   padding: 40px 28px;
   padding-bottom: 90px;
 
-  h2 {
-    color: var(--text);
-    text-align: center;
-    font-size: 50px;
-    margin-bottom: 20px;
-  }
 
   @media (max-width: 768px) {
     padding: 30px 28px;
 
-    h2 {
-      font-size: 40px;
-      margin-bottom: 16px;
-    }
   }
 
   .articles-cards {
@@ -1765,14 +1706,6 @@ body.light {
 #grid-test {
   padding: 40px 28px;
   background-color: var(--dark2);
-
-  h2 {
-    color: var(--text);
-    text-align: center;
-    font-size: 50px;
-  }
-
-
 
   img {
     height: 100%;
@@ -1891,11 +1824,6 @@ body.light {
   /* ✅ Tablet and Mobile (below 768px) */
   @media (max-width: 768px) {
     padding: 30px 20px;
-
-    h2 {
-      font-size: 40px;
-      margin-bottom: 16px;
-    }
 
     .parent {
       height: auto;
@@ -2081,7 +2009,12 @@ body.light {
 
 
 .section-heading {
-  font-size: 36px;
+  font-size: 3rem;
+
+  @media (max-width: 768px) {
+    font-size: 1.5rem;
+  }
+
   font-weight: bold;
   color: var(--text);
   margin-bottom: 36px;

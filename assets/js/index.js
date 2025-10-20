@@ -264,8 +264,7 @@ async function fetchCurrencyRates() {
 
     try {
         // Using a free currency API
-        const response = await fetch('https://api.exchangerate.host/latest?base=EGP');
-
+        const response = await fetch('https://api.exchangerate-api.com/v4/latest/EGP');
         if (!response.ok) {
             throw new Error('API response not ok');
         }
@@ -444,3 +443,4 @@ window.addEventListener('error', function (e) {
 document.getElementById('theme-toggle').addEventListener('click', function () {
     document.body.classList.toggle('light');
 });
+
