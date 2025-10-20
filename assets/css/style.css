@@ -52,7 +52,7 @@ body.light {
   --base: #0d0316;
   --cardbase: #1a0c24;
   --faded-background: rgba(13, 3, 22, 0.05);
-  --gradient: linear-gradient(to top left, #f0e6f5 0%, #3c225152 50%, #f1e9f7 100%);
+  --gradient: linear-gradient(to top left, #f0e6f5 0%, #4e4e4e52 50%, #a9a9a9de 100%);
   --text: #000000;
 
 
