@@ -238,6 +238,9 @@
     </div>
 
     <div id="horizontal-cards-section">
+        <h2 class="section-heading">
+            الاكثر قراءه
+        </h2>
         <div id="cards-grid">
             <div class="horizontal-card">
                 <div class="floating-number">01</div>
@@ -246,6 +249,7 @@
                 </div>
                 <div class="content">
                     <h2>موسكو تمول الحرب بالضرائب.. وأوروبا تبتكر أدوات الرد</h2>
+                    <span>سياسه</span>
                     <div class="footer">
                         <div class="">
                             <i class="fa-solid fa-eye"></i>
@@ -269,6 +273,7 @@
                 </div>
                 <div class="content">
                     <h2>موسكو تمول الحرب بالضرائب.. وأوروبا تبتكر أدوات الرد</h2>
+                    <span>سياسه</span>
                     <div class="footer">
                         <div class="">
                             <i class="fa-solid fa-eye"></i>
@@ -292,6 +297,7 @@
                 </div>
                 <div class="content">
                     <h2>موسكو تمول الحرب بالضرائب.. وأوروبا تبتكر أدوات الرد</h2>
+                    <span>سياسه</span>
                     <div class="footer">
                         <div class="">
                             <i class="fa-solid fa-eye"></i>
@@ -315,6 +321,7 @@
                 </div>
                 <div class="content">
                     <h2>موسكو تمول الحرب بالضرائب.. وأوروبا تبتكر أدوات الرد</h2>
+                    <span>سياسه</span>
                     <div class="footer">
                         <div class="">
                             <i class="fa-solid fa-eye"></i>
@@ -338,6 +345,7 @@
                 </div>
                 <div class="content">
                     <h2>موسكو تمول الحرب بالضرائب.. وأوروبا تبتكر أدوات الرد</h2>
+                    <span>سياسه</span>
                     <div class="footer">
                         <div class="">
                             <i class="fa-solid fa-eye"></i>
@@ -361,6 +369,7 @@
                 </div>
                 <div class="content">
                     <h2>موسكو تمول الحرب بالضرائب.. وأوروبا تبتكر أدوات الرد</h2>
+                    <span>سياسه</span>
                     <div class="footer">
                         <div class="">
                             <i class="fa-solid fa-eye"></i>
@@ -428,6 +437,10 @@
                             <div class="price-card-label">عيار 18</div>
                             <div class="price-card-value" id="gold-18">2625 ج.م</div>
                         </div>
+                        <div class="price-card">
+                            <div class="price-card-label">عيار 14</div>
+                            <div class="price-card-value" id="gold-18">2000 ج.م</div>
+                        </div>
                     </div>
                 </div>
 
@@ -453,6 +466,7 @@
                         <div class="carat-chip active" data-carat="24" data-price="3500">عيار 24</div>
                         <div class="carat-chip" data-carat="21" data-price="3062">عيار 21</div>
                         <div class="carat-chip" data-carat="18" data-price="2625">عيار 18</div>
+                        <div class="carat-chip" data-carat="14" data-price="2000">عيار 14</div>
                     </div>
                 </div>
 
@@ -805,6 +819,7 @@
                     </div>
                     <div class="content">
                         <h2>موسكو تمول الحرب بالضرائب.. وأوروبا تبتكر أدوات الرد</h2>
+                        <span>سياسه</span>
                         <div class="footer">
                             <div class="">
                                 <i class="fa-solid fa-eye"></i>
@@ -828,6 +843,7 @@
                     </div>
                     <div class="content">
                         <h2>موسكو تمول الحرب بالضرائب.. وأوروبا تبتكر أدوات الرد</h2>
+                        <span>سياسه</span>
                         <div class="footer">
                             <div class="">
                                 <i class="fa-solid fa-eye"></i>
@@ -851,6 +867,7 @@
                     </div>
                     <div class="content">
                         <h2>موسكو تمول الحرب بالضرائب.. وأوروبا تبتكر أدوات الرد</h2>
+                        <span>سياسه</span>
                         <div class="footer">
                             <div class="">
                                 <i class="fa-solid fa-eye"></i>
@@ -874,6 +891,7 @@
                     </div>
                     <div class="content">
                         <h2>موسكو تمول الحرب بالضرائب.. وأوروبا تبتكر أدوات الرد</h2>
+                        <span>سياسه</span>
                         <div class="footer">
                             <div class="">
                                 <i class="fa-solid fa-eye"></i>
@@ -1324,11 +1342,13 @@
                 const price24 = goldPrice;
                 const price21 = goldPrice * 0.875; // 24k * 21/24
                 const price18 = goldPrice * 0.75;  // 24k * 18/24
+                const price14 = goldPrice * 0.58;  // 24k * 14/24
 
                 // Update display
                 document.getElementById('gold-24').textContent = `${price24.toFixed(2)} ج.م`;
                 document.getElementById('gold-21').textContent = `${price21.toFixed(2)} ج.م`;
                 document.getElementById('gold-18').textContent = `${price18.toFixed(2)} ج.م`;
+                document.getElementById('gold-14').textContent = `${price14.toFixed(2)} ج.م`;
 
                 // Update calculator chips
                 document.querySelectorAll('.carat-chip').forEach(chip => {
@@ -1338,6 +1358,8 @@
                         chip.dataset.price = price21.toFixed(2);
                     } else if (chip.dataset.carat === '18') {
                         chip.dataset.price = price18.toFixed(2);
+                    } else if (chip.dataset.carat === '14') {
+                        chip.dataset.price = price14.toFixed(2);
                     }
                 });
 
@@ -1352,6 +1374,7 @@
                 document.getElementById('gold-24').textContent = '3500 ج.م';
                 document.getElementById('gold-21').textContent = '3062 ج.م';
                 document.getElementById('gold-18').textContent = '2625 ج.م';
+                document.getElementById('gold-14').textContent = '2000 ج.م';
 
                 // Update calculator chips with fallback prices
                 document.querySelectorAll('.carat-chip').forEach(chip => {
@@ -1361,6 +1384,8 @@
                         chip.dataset.price = '3062';
                     } else if (chip.dataset.carat === '18') {
                         chip.dataset.price = '2625';
+                    } else if (chip.dataset.carat === '14') {
+                        chip.dataset.price = '2000';
                     }
                 });
             }
