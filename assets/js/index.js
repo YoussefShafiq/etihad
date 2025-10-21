@@ -444,3 +444,41 @@ document.getElementById('theme-toggle').addEventListener('click', function () {
     document.body.classList.toggle('light');
 });
 
+// Add interactivity to vote options
+document.querySelectorAll('.vote-option').forEach(option => {
+    option.addEventListener('click', function () {
+        // Remove selected class from all options
+        document.querySelectorAll('.vote-option').forEach(opt => {
+            opt.classList.remove('selected');
+        });
+
+        // Add selected class to clicked option
+        this.classList.add('selected');
+
+        // Check the radio button
+        const radio = this.querySelector('input[type="radio"]');
+        radio.checked = true;
+    });
+});
+
+// Handle vote submission
+document.getElementById('submitVote').addEventListener('click', function () {
+    const selectedOption = document.querySelector('input[name="voteOption"]:checked');
+
+    if (!selectedOption) {
+        alert('يرجى اختيار خيار قبل التصويت');
+        return;
+    }
+
+    alert(`شكرًا لك! لقد قمت بالتصويت لـ "${selectedOption.value}"`);
+
+    // Reset selection
+    document.querySelectorAll('.vote-option').forEach(opt => {
+        opt.classList.remove('selected');
+    });
+});
+
+// Handle view results button
+document.getElementById('viewResults').addEventListener('click', function () {
+    alert('سيتم عرض نتائج التصويت الحالي هنا');
+});

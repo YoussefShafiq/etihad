@@ -263,3 +263,136 @@ style.textContent = `
     }
 `;
 document.head.appendChild(style);
+function generateTableOfContents() {
+    const articleContent = document.querySelector('.article-content');
+    const tocSections = document.querySelectorAll('.table-of-contents');
+    const tocLists = document.querySelectorAll('.toc-list');
+
+    if (!articleContent || tocSections.length === 0) return false;
+
+    const headings = articleContent.querySelectorAll('h1, h2, h3, h4, h5, h6');
+
+    if (headings.length === 0) {
+        // Hide all TOC sections if no headings
+        tocSections.forEach(section => {
+            section.style.display = 'none';
+        });
+        return false;
+    }
+
+    // Show all TOC sections
+    tocSections.forEach(section => {
+        section.style.display = 'block';
+    });
+
+    const tocLinksMap = new Map();
+
+    // Generate TOC for each list
+    tocLists.forEach(tocList => {
+        // Clear existing content
+        tocList.innerHTML = '';
+        const fragment = document.createDocumentFragment();
+
+        headings.forEach((heading, index) => {
+            let headingId = heading.id || `section-${index + 1}`;
+            if (!heading.id) heading.id = headingId;
+
+            const headingLevel = parseInt(heading.tagName.substring(1));
+
+            const tocItem = document.createElement('li');
+            tocItem.className = 'toc-item';
+
+            const tocLink = document.createElement('a');
+            tocLink.href = `#${headingId}`;
+            tocLink.className = 'toc-link';
+            tocLink.innerHTML = `<span class="toc-title" style="padding-right: ${(headingLevel - 1) * 20}px">${heading.textContent}</span>`;
+
+            tocItem.appendChild(tocLink);
+            fragment.appendChild(tocItem);
+
+            // Store mapping for this specific TOC list
+            const listId = tocList.closest('.table-of-contents').className;
+            tocLinksMap.set(`${headingId}-${listId}`, tocLink);
+
+            tocLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                document.getElementById(headingId)?.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+                history.pushState(null, null, `#${headingId}`);
+            });
+        });
+
+        tocList.appendChild(fragment);
+    });
+
+    setupSimpleScrollSpy(headings, tocLinksMap);
+    return true;
+}
+
+function setupSimpleScrollSpy(headings, tocLinksMap) {
+    let currentActive = null;
+
+    function updateActiveHeading() {
+        const scrollY = window.scrollY + window.innerHeight * 0.1; // 10% from top
+
+        let current = null;
+
+        // Find the heading that's closest to the top
+        for (let i = headings.length - 1; i >= 0; i--) {
+            const heading = headings[i];
+            if (heading.offsetTop <= scrollY) {
+                current = heading;
+                break;
+            }
+        }
+
+        // If no heading found and we're at top, use first heading
+        if (!current && scrollY < 100 && headings.length > 0) {
+            current = headings[0];
+        }
+
+        if (current && current.id !== currentActive) {
+            // Remove active from all TOC links
+            tocLinksMap.forEach(link => link.classList.remove('active'));
+
+            // Add active to current in all TOCs
+            tocLinksMap.forEach((link, key) => {
+                if (key.startsWith(current.id)) {
+                    link.classList.add('active');
+                }
+            });
+
+            currentActive = current.id;
+        }
+    }
+
+    function throttle(func, limit) {
+        let inThrottle;
+        return function () {
+            if (!inThrottle) {
+                func();
+                inThrottle = true;
+                setTimeout(() => inThrottle = false, limit);
+            }
+        }
+    }
+
+    const throttledUpdate = throttle(updateActiveHeading, 100);
+
+    // Initial call
+    updateActiveHeading();
+
+    // Event listeners
+    window.addEventListener('scroll', throttledUpdate);
+    window.addEventListener('resize', throttledUpdate);
+
+    // Update on load complete
+    window.addEventListener('load', updateActiveHeading);
+}
+
+// Initialize with error handling
+document.addEventListener('DOMContentLoaded', function () {
+    setTimeout(generateTableOfContents, 100); // Small delay to ensure DOM is ready
+});

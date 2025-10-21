@@ -315,59 +315,83 @@ class CustomSlider {
     }
 }
 
-// Initialize slider
-const slider = new CustomSlider(document.getElementById('slider'), {
-    loop: true,
-    autoplay: true,
-    autoplayDelay: 3000,
-    keyboard: true,
-    mousewheel: true,
-    slidesPerView: {
-        mobile: 1,    // 1 slide on mobile
-        tablet: 2,    // 2 slides on tablet
-        desktop: 5    // 3 slides on desktop
-    },
-    breakpoints: {
-        mobile: 640,   // Mobile breakpoint (px)
-        tablet: 1024   // Tablet breakpoint (px)
-    },
-    spaceBetween: 20   // Gap between slides (px)
-});
+// Initialize sliders only if they exist on the page
+if (document.getElementById('slider')) {
+    const slider = new CustomSlider(document.getElementById('slider'), {
+        loop: true,
+        autoplay: true,
+        autoplayDelay: 3000,
+        keyboard: true,
+        mousewheel: true,
+        slidesPerView: {
+            mobile: 1,
+            tablet: 2,
+            desktop: 5
+        },
+        breakpoints: {
+            mobile: 640,
+            tablet: 1024
+        },
+        spaceBetween: 20
+    });
+}
 
+if (document.getElementById('top-movies-slider')) {
+    const moviesSlider = new CustomSlider(document.getElementById('top-movies-slider'), {
+        loop: true,
+        autoplay: true,
+        autoplayDelay: 3000,
+        keyboard: true,
+        mousewheel: true,
+        slidesPerView: {
+            mobile: 1,
+            tablet: 2,
+            desktop: 5
+        },
+        breakpoints: {
+            mobile: 640,
+            tablet: 1024
+        },
+        spaceBetween: 20
+    });
+}
 
-const moviesSlider = new CustomSlider(document.getElementById('top-movies-slider'), {
-    loop: true,
-    autoplay: true,
-    autoplayDelay: 3000,
-    keyboard: true,
-    mousewheel: true,
-    slidesPerView: {
-        mobile: 1,    // 1 slide on mobile
-        tablet: 2,    // 2 slides on tablet
-        desktop: 5    // 3 slides on desktop
-    },
-    breakpoints: {
-        mobile: 640,   // Mobile breakpoint (px)
-        tablet: 1024   // Tablet breakpoint (px)
-    },
-    spaceBetween: 20   // Gap between slides (px)
-});
+if (document.getElementById('upcoming-movies-slider')) {
+    const upcomingmoviesslider = new CustomSlider(document.getElementById('upcoming-movies-slider'), {
+        loop: true,
+        autoplay: true,
+        autoplayDelay: 3000,
+        keyboard: true,
+        mousewheel: true,
+        slidesPerView: {
+            mobile: 1,
+            tablet: 2,
+            desktop: 5
+        },
+        breakpoints: {
+            mobile: 640,
+            tablet: 1024
+        },
+        spaceBetween: 20
+    });
+}
 
-const upcomingmoviesslider = new CustomSlider(document.getElementById('upcoming-movies-slider'), {
-    loop: true,
-    autoplay: true,
-    autoplayDelay: 3000,
-    keyboard: true,
-    mousewheel: true,
-    slidesPerView: {
-        mobile: 1,    // 1 slide on mobile
-        tablet: 2,    // 2 slides on tablet
-        desktop: 5    // 3 slides on desktop
-    },
-    breakpoints: {
-        mobile: 640,   // Mobile breakpoint (px)
-        tablet: 1024   // Tablet breakpoint (px)
-    },
-    spaceBetween: 20   // Gap between slides (px)
-});
-
+if (document.getElementById('article-gallery-slider')) {
+    const articlegalleryslider = new CustomSlider(document.getElementById('article-gallery-slider'), {
+        loop: true,
+        autoplay: true,
+        autoplayDelay: 3000,
+        keyboard: true,
+        mousewheel: true,
+        slidesPerView: {
+            mobile: 1,
+            tablet: 2,
+            desktop: 3
+        },
+        breakpoints: {
+            mobile: 640,
+            tablet: 1024
+        },
+        spaceBetween: 20
+    });
+}

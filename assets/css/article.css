@@ -97,14 +97,6 @@
   &.ad-sidebar .ad-content {
     width: 100%;
     max-width: 300px;
-    height: 600px;
-    line-height: 1.2;
-    font-size: 16px;
-  }
-
-  &.ad-sidebar-bottom .ad-content {
-    width: 100%;
-    max-width: 300px;
     height: 250px;
     line-height: 1.2;
     font-size: 16px;
@@ -207,7 +199,7 @@
     border-radius: 8px;
     font-style: italic;
 
-    cite {
+    strong {
       display: block;
       margin-top: 10px;
       font-weight: bold;
@@ -355,6 +347,143 @@
   }
 }
 
+.side-container {
+  position: sticky;
+  top: 20px;
+}
+
+.mobile-table-of-contents-container {
+  padding: 18px;
+  display: none;
+
+  @media (max-width: 768px) {
+    display: block;
+  }
+}
+
+.table-of-contents.desktop-only {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .table-of-contents.desktop-only {
+    display: block;
+  }
+}
+
+.table-of-contents {
+  direction: rtl;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--cardbase);
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  margin: 20px 0;
+
+  & h3 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    color: var(--text);
+    border-right: 3px solid var(--highlight);
+    padding-right: 10px;
+  }
+
+  & .toc-container {
+    border-radius: 6px;
+    padding: 15px;
+
+    & .toc-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+      & .toc-item {
+        margin-bottom: 10px;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 10px;
+
+        &:last-child {
+          margin-bottom: 0;
+          border-bottom: none;
+        }
+
+        & .toc-link {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          text-decoration: none;
+          color: var(--text);
+          padding: 8px 12px;
+          border-radius: 4px;
+          transition: all 0.3s ease;
+          position: relative;
+
+          &:hover {
+            color: red;
+            background-color: rgba(0, 0, 0, 0.02);
+          }
+
+          /* Active state when heading is in view */
+          &.active {
+            color: red;
+            background-color: rgba(255, 0, 0, 0.05);
+
+            /* Optional: Add a red indicator */
+            &::before {
+              content: '';
+              position: absolute;
+              right: 0;
+              top: 50%;
+              transform: translateY(-50%);
+              width: 3px;
+              height: 70%;
+              background-color: red;
+              border-radius: 2px;
+            }
+          }
+
+          & .toc-title {
+            font-weight: 600;
+            flex: 1;
+            text-align: right;
+            transition: padding-right 0.3s ease;
+          }
+
+          & .toc-page {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            margin-right: 15px;
+          }
+        }
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    padding: 15px;
+
+    & .toc-container .toc-list .toc-item .toc-link {
+      flex-direction: column;
+      align-items: flex-start;
+
+      & .toc-page {
+        margin-right: 0;
+        margin-top: 5px;
+      }
+
+      & .toc-title {
+        padding-right: 0 !important;
+        /* Remove indentation on mobile */
+      }
+
+      /* Adjust active indicator for mobile */
+      &.active::before {
+        right: -8px !important;
+      }
+    }
+  }
+}
+
 /* القائمة الجانبية */
 .article-sidebar {
   .related-news {
@@ -363,6 +492,7 @@
     padding: 20px;
     margin-bottom: 20px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
 
     h3 {
       font-size: 1.5rem;
@@ -508,6 +638,78 @@
   font-size: 0.9rem;
 }
 
+.news-slide {
+  height: 250px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 48px;
+  color: white;
+  font-weight: bold;
+  user-select: none;
+  position: relative;
+  flex-shrink: 0;
+  border-radius: 20px;
+  overflow: hidden;
+
+  img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+
+  .gradient-overlay-card {
+    position: absolute;
+    padding: 1rem;
+    inset: 0;
+    background: linear-gradient(to top, #000000dc 5%, transparent 30%);
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    align-items: end;
+    row-gap: 6px;
+
+    .head {
+      display: flex;
+      flex-direction: row-reverse;
+      gap: 0.5rem;
+      align-items: center;
+      font-size: 14px;
+
+      img {
+        height: 16px;
+      }
+    }
+
+    .content {
+      font-size: 20px;
+      font-weight: 600;
+      text-align: end;
+    }
+
+    .footer {
+      font-size: 14px;
+      display: flex;
+      justify-content: right;
+      width: 100%;
+      color: #fff;
+
+
+
+      div {
+        display: flex;
+        flex-direction: row-reverse;
+        gap: 2px;
+        align-items: center;
+
+        i {
+          color: var(--darktext);
+        }
+      }
+    }
+  }
+}
+
 /* تنسيقات السلايدر */
 .slider-wrapper {
   position: relative;
@@ -547,7 +749,7 @@
     justify-content: center;
     z-index: 10;
     transition: all 0.3s ease;
-    opacity: 1 !important;
+    opacity: 0;
 
     &:hover {
       background: white;
@@ -587,7 +789,7 @@
     display: flex;
     gap: 8px;
     z-index: 10;
-    opacity: 1 !important;
+    opacity: 0;
 
     .pagination-bullet {
       width: 10px;
@@ -620,7 +822,7 @@
     height: 4px;
     background: rgba(0, 0, 0, 0.1);
     z-index: 10;
-    opacity: 1 !important;
+    opacity: 0;
 
     .scrollbar-drag {
       height: 100%;
@@ -662,7 +864,7 @@
   }
 
   .ad-sidebar .ad-content,
-  .ad-sidebar-bottom .ad-content {
+  .ad-content {
     width: 100%;
     max-width: 300px;
     margin: 10px auto;

@@ -186,17 +186,25 @@ body.light {
 }
 
 #hero-section {
-  padding-inline: 2rem;
+  padding: 40px 28px;
+  padding-top: 0px;
 
   @media (max-width: 768px) {
-    padding-inline: 1rem;
+    padding: 30px 18px;
+    padding-top: 0px;
   }
 
-  #leftside {
+  .nav-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
     color: var(--text);
+
+    .wrapper {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
 
     #icons {
       display: flex;
@@ -210,7 +218,7 @@ body.light {
     }
 
     #image {
-      width: 15rem;
+      width: 17.5rem;
       padding-top: 20px;
 
       img {
@@ -221,13 +229,8 @@ body.light {
 
     #presedent {
       text-align: center;
-      width: 18rem;
+      width: max-content;
 
-      @media (max-width: 768px) {
-        display: flex;
-        justify-content: center;
-        gap: 3px;
-      }
 
       span {
         text-align: end;
@@ -237,7 +240,12 @@ body.light {
     }
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 1024px) {
+    .nav-container {
+      flex-direction: column;
+      gap: 20px;
+    }
+
     #leftside {
       flex-direction: column;
 
@@ -271,7 +279,8 @@ body.light {
   nav {
     overflow-x: auto;
     display: flex;
-    width: 100%;
+    flex-wrap: wrap;
+    max-width: 500px;
     gap: 8px;
     padding-block: 5px;
 
@@ -336,18 +345,20 @@ body.light {
 
 #horizontal-cards-section {
   padding: 40px 28px;
+  background-color: var(--dark2);
 
   @media (max-width: 768px) {
     padding: 30px 18px;
   }
 
-  max-width: 1200px;
-  margin: auto;
+
 
   #cards-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
 
   }
 
@@ -469,7 +480,6 @@ body.light {
   }
 
   margin: 0 auto;
-  background-color: var(--dark2);
   color: var(--text);
 
   /* Tabs Styles */
@@ -483,6 +493,7 @@ body.light {
       padding: 8px;
       border: 1px solid rgba(39, 28, 46, 0.3);
       box-shadow: 0 4px 12px rgba(0, 0, 20, 0.4);
+      gap: 5px;
 
 
 
@@ -623,7 +634,7 @@ body.light {
             }
 
             .price-card-value {
-              font-size: 1.25rem;
+              font-size: 2rem;
               color: #f59e0b;
               font-weight: bold;
             }
@@ -1001,6 +1012,316 @@ body.light {
   }
 }
 
+#voting-section {
+  padding: 40px 28px;
+
+  @media (max-width: 768px) {
+    padding: 30px 18px;
+  }
+
+  .voting-section {
+    display: flex;
+    gap: 20px;
+
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+    }
+
+    /* Current Vote Section */
+    .current-vote-section {
+      width: 70%;
+      color: var(--text);
+      border-radius: 20px;
+      padding: 20px;
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 12px rgba(0, 0, 20, 0.4);
+      background-color: var(--faded-background);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 20px;
+
+      @media (max-width: 768px) {
+        width: 100%;
+      }
+
+      /* Vote Question Section */
+      .vote-question-section {
+        background: var(--card-bg);
+        border-radius: 16px;
+        padding: 20px;
+        border: 1px solid var(--border);
+
+        .section-header {
+          display: flex;
+          align-items: center;
+          margin-bottom: 20px;
+
+          .icon-container {
+            padding: 12px;
+            border-radius: 12px;
+            margin-left: 12px;
+
+            &.vote-icon {
+              background: var(--primary-light);
+              color: var(--primary);
+            }
+
+            i {
+              font-size: 28px;
+            }
+          }
+
+          .section-title {
+            h2 {
+              font-size: 1.5rem;
+              font-weight: bold;
+              margin-bottom: 4px;
+            }
+
+            p {
+              font-size: 0.875rem;
+              color: #10b981;
+            }
+          }
+        }
+
+        .question-content {
+          margin: 20px 0;
+
+          h3 {
+            font-size: 1.25rem;
+            margin-bottom: 10px;
+            color: var(--secondary);
+          }
+
+          p {
+            line-height: 1.6;
+            color: #cbd5e1;
+          }
+        }
+      }
+
+      /* Vote Inputs Section */
+      .vote-inputs-section {
+        background: var(--card-bg);
+        border-radius: 16px;
+        padding: 20px;
+        border: 1px solid var(--border);
+
+        .section-header {
+          display: flex;
+          align-items: center;
+          margin-bottom: 20px;
+
+          .icon-container {
+            padding: 12px;
+            border-radius: 12px;
+            margin-left: 12px;
+
+            &.input-icon {
+              background: var(--secondary-light);
+              color: var(--secondary);
+            }
+
+            i {
+              font-size: 28px;
+            }
+          }
+
+          .section-title {
+            h2 {
+              font-size: 1.5rem;
+              font-weight: bold;
+              margin-bottom: 4px;
+            }
+          }
+        }
+
+        .vote-options {
+          margin: 20px 0;
+
+          .vote-option {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            margin-bottom: 12px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            background: var(--faded-background);
+            cursor: pointer;
+            transition: all 0.3s ease;
+
+            &:hover {
+              transform: translateY(-2px);
+              border-color: var(--primary);
+            }
+
+            &.selected {
+              background: var(--primary-light);
+              border-color: var(--primary);
+            }
+
+            input[type="radio"] {
+              margin-left: 10px;
+              accent-color: var(--primary);
+            }
+
+            label {
+              cursor: pointer;
+              flex-grow: 1;
+            }
+          }
+        }
+
+        .vote-actions {
+          display: flex;
+          gap: 12px;
+
+          button {
+            flex: 1;
+            padding: 12px;
+            border-radius: 12px;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+
+            &.vote-btn {
+              background: var(--primary);
+              color: white;
+
+              &:hover {
+                background: #6a1f8a;
+                transform: translateY(-2px);
+              }
+            }
+
+            &.results-btn {
+              background: transparent;
+              border: 1px solid var(--primary);
+              color: var(--primary);
+
+              &:hover {
+                background: var(--primary-light);
+                transform: translateY(-2px);
+              }
+            }
+          }
+        }
+      }
+    }
+
+    /* Previous Votes Section */
+    .previous-votes-section {
+      width: 30%;
+      border-radius: 20px;
+      padding: 20px;
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 12px rgba(0, 0, 20, 0.4);
+      background-color: var(--faded-background);
+      color: var(--text);
+
+      @media (max-width: 768px) {
+        width: 100%;
+      }
+
+      .section-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+
+        .icon-container {
+          padding: 12px;
+          border-radius: 12px;
+          margin-left: 12px;
+
+          &.history-icon {
+            background: var(--secondary-light);
+            color: var(--secondary);
+          }
+
+          i {
+            font-size: 28px;
+          }
+        }
+
+        .section-title {
+          h2 {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 4px;
+          }
+        }
+      }
+
+      .previous-votes-list {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+
+        .previous-vote-item {
+          background: var(--card-bg);
+          border-radius: 12px;
+          padding: 16px;
+          border: 1px solid var(--border);
+          cursor: pointer;
+          transition: all 0.3s ease;
+
+          &:hover {
+            transform: translateY(-2px);
+            border-color: var(--primary);
+          }
+
+          .vote-title {
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: var(--secondary);
+          }
+
+          .vote-date {
+            font-size: 0.875rem;
+            color: #94a3b8;
+            margin-bottom: 8px;
+          }
+
+          .vote-result {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 8px;
+
+            .result-bar {
+              flex-grow: 1;
+              height: 6px;
+              background: rgba(255, 255, 255, 0.1);
+              border-radius: 3px;
+              overflow: hidden;
+              margin: 0 10px;
+
+              .result-fill {
+                height: 100%;
+                background: var(--primary);
+                border-radius: 3px;
+              }
+            }
+
+            .result-percentage {
+              font-size: 0.875rem;
+              font-weight: bold;
+              color: var(--primary);
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+/* Voting Section - Nested CSS Structure */
+
+
 /* Responsive Design */
 @media (max-width: 768px) {
   #pricing-section {
@@ -1026,9 +1347,18 @@ body.light {
     }
 
     .tabs {
+      display: flex;
+      overflow-x: auto;
+      scrollbar-width: none;
 
       .tab {
         margin-bottom: 8px;
+        width: 40%;
+        width: max-content;
+
+        span {
+          width: max-content;
+        }
       }
     }
   }
@@ -1138,6 +1468,7 @@ body.light {
 }
 
 #pupular-tv-shows-section {
+  background-color: var(--dark2);
   padding: 40px 28px;
 
   @media (max-width: 768px) {
@@ -1421,7 +1752,6 @@ body.light {
 
 #last-new-section {
   padding: 40px 28px;
-  background-color: var(--dark2);
 
   @media (max-width: 768px) {
     padding: 30px 28px;
@@ -1627,6 +1957,7 @@ body.light {
 
 #upcoming-movies-section {
   padding: 40px 28px;
+  background-color: var(--dark2);
 
   .content {
     h2 {
@@ -1705,7 +2036,6 @@ body.light {
 
 #grid-test {
   padding: 40px 28px;
-  background-color: var(--dark2);
 
   img {
     height: 100%;
