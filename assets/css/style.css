@@ -204,6 +204,10 @@ body.light {
       display: flex;
       align-items: center;
       gap: 1rem;
+
+      @media (max-width: 768px) {
+        flex-direction: column;
+      }
     }
 
     #icons {
@@ -231,6 +235,10 @@ body.light {
       text-align: center;
       width: max-content;
 
+      @media (max-width: 768px) {
+        display: flex;
+        gap: 2px;
+      }
 
       span {
         text-align: end;
@@ -287,9 +295,7 @@ body.light {
 
     scrollbar-width: none;
 
-    @media (min-width: 768px) {
-      justify-content: center;
-    }
+    justify-content: center;
 
     a {
       display: inline-block;

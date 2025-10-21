@@ -13,6 +13,159 @@
   --text: #ffffff;
 }
 
+#hero-section {
+  padding-inline: 2rem;
+
+  @media (max-width: 768px) {
+    padding-inline: 1rem;
+  }
+
+  #leftside {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--text);
+
+    #icons {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 3rem;
+      font-size: 1.875rem;
+      line-height: 2.25rem;
+      opacity: 50%;
+      width: 18rem;
+    }
+
+    #image {
+      width: 15rem;
+      padding-top: 20px;
+
+      img {
+        width: 100%;
+      }
+    }
+
+
+    #presedent {
+      text-align: center;
+      width: 18rem;
+
+      @media (max-width: 768px) {
+        display: flex;
+        justify-content: center;
+        gap: 3px;
+      }
+
+      span {
+        text-align: end;
+        font-size: 14px;
+        display: block;
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    #leftside {
+      flex-direction: column;
+
+
+      #image {
+        order: 0;
+      }
+
+      #presedent {
+        order: 1;
+        width: 100%;
+        margin-bottom: 20px;
+
+        span {
+          text-align: center;
+          display: block;
+          font-size: 10px;
+          font-size: 14px;
+
+        }
+      }
+
+      #icons {
+        order: 2;
+        margin-bottom: 20px;
+      }
+    }
+  }
+
+  .navcontainer{
+    display: flex;
+    justify-content: center;
+  }
+
+  nav {
+    overflow-x: auto;
+    display: flex;
+    width: 100%;
+    gap: 8px;
+    padding-block: 5px;
+
+
+    scrollbar-width: none;
+
+    @media (min-width: 768px) {
+      justify-content: center;
+    }
+
+    a {
+      display: inline-block;
+      text-decoration: none;
+      color: var(--base);
+      font-size: 18px;
+      transition-duration: 300ms;
+      position: relative;
+      padding: 4px 10px;
+      border-radius: 50px;
+      border: var(--highlight) solid 1px;
+
+    }
+
+    .سياسه {
+      border: #e42e58 solid 2px;
+    }
+
+    .فن {
+      border: #8a2be2 solid 2px;
+    }
+
+    .رياضه {
+      border: #32cda1 solid 2px;
+    }
+
+    .اقتصاد {
+      border: #14aadd solid 2px;
+    }
+
+    .تكنولوجيا {
+      border: #ff7300 solid 2px;
+    }
+
+    .انساني {
+      border: #e5dcd6 solid 2px;
+    }
+
+
+
+    a.active {
+      background-color: var(--highlight);
+    }
+
+    a:hover {
+      transform: translateY(-2px);
+    }
+
+
+
+  }
+}
+
 /* الهيكل الرئيسي */
 .article-main {
   display: flex;
@@ -124,6 +277,10 @@
     margin-bottom: 15px;
     font-size: 14px;
     color: var(--darktext);
+
+    span {
+      width: fit-content;
+    }
 
     .category {
       background: var(--highlight);
