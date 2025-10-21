@@ -617,6 +617,7 @@ body.light {
 
         .price-cards {
           display: flex;
+          flex-wrap: wrap;
           justify-content: space-between;
           gap: 12px;
 
@@ -626,6 +627,7 @@ body.light {
             border-radius: 12px;
             padding: 12px;
             text-align: center;
+            flex-grow: 1;
 
             .price-card-label {
               font-size: 0.875rem;
@@ -1318,8 +1320,6 @@ body.light {
     }
   }
 }
-
-/* Voting Section - Nested CSS Structure */
 
 
 /* Responsive Design */
