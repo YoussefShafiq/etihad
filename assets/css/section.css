@@ -1626,6 +1626,7 @@ body.light {
 }
 
 #upcoming-movies-section {
+  background: var(--gradient);
   padding: 40px 28px;
 
   .content {
@@ -1640,7 +1641,7 @@ body.light {
 }
 
 #articles-section {
-  /* overflow-x: hidden; */
+  background: var(--gradient);
   padding: 40px 28px;
   padding-bottom: 90px;
 

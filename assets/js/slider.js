@@ -19,6 +19,7 @@ class CustomSlider {
             speed: opts.speed || 500,
             keyboard: opts.keyboard !== undefined ? opts.keyboard : true,
             mousewheel: opts.mousewheel !== undefined ? opts.mousewheel : false,
+            rtl: opts.rtl !== undefined ? opts.rtl : true,
             slidesPerView: {
                 mobile: opts.slidesPerView?.mobile || 1,
                 tablet: opts.slidesPerView?.tablet || 2,
@@ -84,19 +85,15 @@ class CustomSlider {
         this.track.style.gap = `${this.opts.spaceBetween}px`;
     }
 
-    getTotalPages() {
-        return Math.ceil(this.slideCount / this.currentSlidesPerView);
-    }
-
     createPagination() {
         this.pagination.innerHTML = '';
-        const totalPages = this.getTotalPages();
 
-        for (let i = 0; i < totalPages; i++) {
+        // Create a bullet for each slide
+        for (let i = 0; i < this.slideCount-4; i++) {
             const bullet = document.createElement('button');
             bullet.classList.add('pagination-bullet');
             if (i === 0) bullet.classList.add('active');
-            bullet.addEventListener('click', () => this.goToPage(i));
+            bullet.addEventListener('click', () => this.goToSlide(i));
             this.pagination.appendChild(bullet);
         }
         this.bullets = this.pagination.querySelectorAll('.pagination-bullet');
@@ -124,19 +121,15 @@ class CustomSlider {
         // Keyboard
         if (this.opts.keyboard) {
             document.addEventListener('keydown', (e) => {
-                if (e.key === 'ArrowLeft') this.prev();
-                if (e.key === 'ArrowRight') this.next();
+                if (this.opts.rtl) {
+                    if (e.key === 'ArrowLeft') this.next();
+                    if (e.key === 'ArrowRight') this.prev();
+                } else {
+                    if (e.key === 'ArrowLeft') this.prev();
+                    if (e.key === 'ArrowRight') this.next();
+                }
             });
         }
-
-        // // Mousewheel
-        // if (this.opts.mousewheel) {
-        //     this.el.addEventListener('wheel', (e) => {
-        //         e.preventDefault();
-        //         if (e.deltaY > 0) this.next();
-        //         else this.prev();
-        //     }, { passive: false });
-        // }
 
         // Resize
         window.addEventListener('resize', () => {
@@ -152,7 +145,6 @@ class CustomSlider {
                 if (this.currentIndex > maxIndex) {
                     this.currentIndex = maxIndex;
                 }
-                this.createPagination();
                 this.updateSlider();
             }
         });
@@ -169,7 +161,8 @@ class CustomSlider {
     touchMove(e) {
         if (this.isDragging) {
             const currentPosition = this.getPositionX(e);
-            this.currentTranslate = this.prevTranslate + currentPosition - this.startPos;
+            const diff = currentPosition - this.startPos;
+            this.currentTranslate = this.prevTranslate + diff;
         }
     }
 
@@ -182,14 +175,14 @@ class CustomSlider {
         const slideWidth = this.slides[0].offsetWidth + this.opts.spaceBetween;
         const threshold = slideWidth / 3;
 
-        if (movedBy < -threshold && this.currentIndex < this.getMaxIndex()) {
+        if (movedBy > threshold && this.currentIndex < this.getMaxIndex()) {
             this.currentIndex += 1;
-        } else if (movedBy > threshold && this.currentIndex > 0) {
+        } else if (movedBy < -threshold && this.currentIndex > 0) {
             this.currentIndex -= 1;
         } else if (this.opts.loop) {
-            if (movedBy < -threshold && this.currentIndex === this.getMaxIndex()) {
+            if (movedBy > threshold && this.currentIndex === this.getMaxIndex()) {
                 this.currentIndex = 0;
-            } else if (movedBy > threshold && this.currentIndex === 0) {
+            } else if (movedBy < -threshold && this.currentIndex === 0) {
                 this.currentIndex = this.getMaxIndex();
             }
         }
@@ -222,7 +215,8 @@ class CustomSlider {
 
     updateSlider() {
         const slideWidth = this.slides[0].offsetWidth + this.opts.spaceBetween;
-        this.currentTranslate = this.currentIndex * -slideWidth;
+        const translateValue = this.currentIndex * -slideWidth;
+        this.currentTranslate = this.opts.rtl ? -translateValue : translateValue;
         this.prevTranslate = this.currentTranslate;
         this.track.style.transform = `translateX(${this.currentTranslate}px)`;
 
@@ -232,9 +226,8 @@ class CustomSlider {
     }
 
     updatePagination() {
-        const currentPage = Math.floor(this.currentIndex / this.currentSlidesPerView);
         this.bullets.forEach((bullet, idx) => {
-            bullet.classList.toggle('active', idx === currentPage);
+            bullet.classList.toggle('active', idx === this.currentIndex);
         });
     }
 
@@ -248,26 +241,19 @@ class CustomSlider {
     updateScrollbar() {
         const maxIndex = this.getMaxIndex();
         const progress = maxIndex > 0 ? (this.currentIndex / maxIndex) * 100 : 0;
-        const totalPages = this.getTotalPages();
-        const width = (1 / totalPages) * 100;
+        const width = (this.currentSlidesPerView / this.slideCount) * 100;
         this.scrollbarDrag.style.width = width + '%';
-        this.scrollbarDrag.style.transform = `translateX(${progress}%)`;
-    }
 
-    goToPage(pageIndex) {
-        this.stopAutoplay();
-        this.currentIndex = pageIndex * this.currentSlidesPerView;
-        // Ensure we don't go past the last slide
-        this.currentIndex = Math.min(this.currentIndex, this.getMaxIndex());
-        this.updateSlider();
-        if (this.opts.autoplay) {
-            this.startAutoplay();
+        if (this.opts.rtl) {
+            this.scrollbarDrag.style.transform = `translateX(-${progress}%)`;
+        } else {
+            this.scrollbarDrag.style.transform = `translateX(${progress}%)`;
         }
     }
 
     goToSlide(idx) {
         this.stopAutoplay();
-        this.currentIndex = idx;
+        this.currentIndex = Math.min(idx, this.getMaxIndex());
         this.updateSlider();
         if (this.opts.autoplay) {
             this.startAutoplay();
@@ -323,6 +309,7 @@ if (document.getElementById('slider')) {
         autoplayDelay: 3000,
         keyboard: true,
         mousewheel: true,
+        rtl: true,
         slidesPerView: {
             mobile: 1,
             tablet: 2,
@@ -343,6 +330,7 @@ if (document.getElementById('top-movies-slider')) {
         autoplayDelay: 3000,
         keyboard: true,
         mousewheel: true,
+        rtl: true,
         slidesPerView: {
             mobile: 1,
             tablet: 2,
@@ -363,6 +351,7 @@ if (document.getElementById('upcoming-movies-slider')) {
         autoplayDelay: 3000,
         keyboard: true,
         mousewheel: true,
+        rtl: true,
         slidesPerView: {
             mobile: 1,
             tablet: 2,
@@ -383,6 +372,7 @@ if (document.getElementById('article-gallery-slider')) {
         autoplayDelay: 3000,
         keyboard: true,
         mousewheel: true,
+        rtl: true,
         slidesPerView: {
             mobile: 1,
             tablet: 2,
