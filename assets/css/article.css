@@ -398,7 +398,7 @@ body {
 }
 
 .table-of-contents.desktop-only {
-  display: none !important;
+  display: none;
 
 }
 
