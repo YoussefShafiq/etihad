@@ -445,7 +445,7 @@ style.textContent = `
 `;
 document.head.appendChild(style);
 function generateTableOfContents() {
-    const articleContent = document.querySelector('.article-content');
+    const articleContent = document.querySelector('.article-content .content');
     const tocSections = document.querySelectorAll('.table-of-contents');
     const tocLists = document.querySelectorAll('.toc-list');
 
@@ -650,7 +650,6 @@ function initFaqAccordion() {
 function initFaqSystem() {
     loadFAQ();
     initFaqAccordion();
-    addFaqCTA();
 }
 
 // تشغيل النظام عند تحميل الصفحة
