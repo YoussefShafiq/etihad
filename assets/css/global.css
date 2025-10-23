@@ -260,6 +260,7 @@
 .section-heading {
     display: flex;
     justify-content: space-between;
+    padding-bottom: 10px;
     border-bottom: 2px solid #412665;
 
     h2 {

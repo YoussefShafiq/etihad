@@ -147,35 +147,216 @@ function addComment(commentText) {
     console.log('💬 تم إضافة تعليق جديد');
 }
 
-// تحميل التعليقات (محاكاة)
-function loadComments() {
-    const comments = [
-        { user: "أحمد محمد", time: "منذ ساعة", text: "مقال رائع ومعلومات قيمة، شكرًا للكاتب على هذا التحليل الدقيق." },
-        { user: "فاطمة علي", time: "منذ ساعتين", text: "أتمنى أن تصل هذه المعلومات للقائمين على صنع القرار." },
-        { user: "خالد السعدي", time: "منذ 3 ساعات", text: "تحليل عميق للأزمة، ننتظر المزيد من التغطيات المشابهة." }
-    ];
+// بيانات التعليقات
+const allComments = [
+    { user: "أحمد محمد", time: "منذ ساعة", text: "مقال رائع ومعلومات قيمة، شكرًا للكاتب على هذا التحليل الدقيق." },
+    { user: "فاطمة علي", time: "منذ ساعتين", text: "أتمنى أن تصل هذه المعلومات للقائمين على صنع القرار." },
+    { user: "خالد السعدي", time: "منذ 3 ساعات", text: "تحليل عميق للأزمة، ننتظر المزيد من التغطيات المشابهة." },
+    { user: "سارة أحمد", time: "منذ 4 ساعات", text: "موضوع مهم جدًا، شكرًا على الطرح الموضوعي." },
+    { user: "محمد حسن", time: "منذ 5 ساعات", text: "مقال شامل ومفيد، استفدت كثيرًا من المعلومات المقدمة." },
+    { user: "نور الدين", time: "منذ 6 ساعات", text: "أتمنى رؤية المزيد من هذه التحليلات المعمقة." }
+];
 
-    const commentsList = document.querySelector('.comments-list');
-    if (!commentsList) return;
-
-    comments.forEach(comment => {
-        const commentElement = document.createElement('div');
-        commentElement.className = 'comment';
-        commentElement.innerHTML = `
-            <div class="comment-header">
-                <strong>${comment.user}</strong>
-                <span>${comment.time}</span>
-            </div>
-            <div class="comment-content">
-                ${comment.text}
-            </div>
-        `;
-        commentsList.appendChild(commentElement);
-    });
-
-    console.log('📥 تم تحميل التعليقات');
+// إنشاء عنصر تعليق
+function createCommentElement(comment) {
+    const commentElement = document.createElement('div');
+    commentElement.className = 'comment';
+    commentElement.innerHTML = `
+        <div class="comment-header">
+            <strong>${comment.user}</strong>
+            <span>${comment.time}</span>
+        </div>
+        <div class="comment-content">
+            ${comment.text}
+        </div>
+    `;
+    return commentElement;
 }
 
+// تحميل التعليقات المعاينة (أول تعليقين فقط)
+function loadPreviewComments() {
+    const commentsList = document.querySelector('.comments-section .comments-list');
+    if (!commentsList) return;
+
+    commentsList.innerHTML = '';
+    const previewComments = allComments.slice(0, 2);
+
+    previewComments.forEach(comment => {
+        commentsList.appendChild(createCommentElement(comment));
+    });
+
+    console.log('📥 تم تحميل معاينة التعليقات');
+}
+
+// تحميل جميع التعليقات في الـ popup
+function loadAllComments() {
+    const allCommentsList = document.querySelector('.all-comments-list');
+    if (!allCommentsList) return;
+
+    allCommentsList.innerHTML = '';
+
+    allComments.forEach(comment => {
+        allCommentsList.appendChild(createCommentElement(comment));
+    });
+
+    console.log('📥 تم تحميل جميع التعليقات');
+}
+
+// فتح popup مع animation
+function openPopup(popupId) {
+    const popup = document.getElementById(popupId);
+    if (popup) {
+        popup.classList.remove('closing');
+        popup.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+}
+
+// إغلاق popup مع animation
+function closePopup(popup) {
+    popup.classList.add('closing');
+
+    setTimeout(() => {
+        popup.classList.remove('active', 'closing');
+        document.body.style.overflow = '';
+    }, 300); // مدة الـ animation
+}
+
+// عرض رسالة نجاح مخصصة
+function showSuccessMessage(message) {
+    // إنشاء عنصر الرسالة
+    const toast = document.createElement('div');
+    toast.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: var(--highlight);
+        color: white;
+        padding: 15px 25px;
+        border-radius: 8px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        z-index: 99999;
+        opacity: 0;
+        transform: translateX(400px);
+        transition: all 0.4s ease;
+        font-weight: bold;
+    `;
+    toast.textContent = message;
+    document.body.appendChild(toast);
+
+    // عرض الرسالة
+    setTimeout(() => {
+        toast.style.opacity = '1';
+        toast.style.transform = 'translateX(0)';
+    }, 10);
+
+    // إخفاء الرسالة
+    setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateX(400px)';
+        setTimeout(() => toast.remove(), 400);
+    }, 3000);
+}
+
+// التعامل مع الأزرار والـ popups
+function initCommentsSystem() {
+    // زر عرض جميع التعليقات
+    const btnViewAll = document.querySelector('.btn-view-all');
+    if (btnViewAll) {
+        btnViewAll.addEventListener('click', () => {
+            loadAllComments();
+            openPopup('allCommentsPopup');
+        });
+    }
+
+    // زر إضافة تعليق
+    const btnAddComment = document.querySelector('.btn-add-comment');
+    if (btnAddComment) {
+        btnAddComment.addEventListener('click', () => {
+            openPopup('addCommentPopup');
+        });
+    }
+
+    // أزرار إغلاق الـ popups
+    const closeButtons = document.querySelectorAll('.close-popup');
+    closeButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const popup = btn.closest('.comments-popup');
+            closePopup(popup);
+        });
+    });
+
+    // إغلاق عند الضغط على الـ overlay
+    const overlays = document.querySelectorAll('.popup-overlay');
+    overlays.forEach(overlay => {
+        overlay.addEventListener('click', () => {
+            const popup = overlay.closest('.comments-popup');
+            closePopup(popup);
+        });
+    });
+
+    // إغلاق عند الضغط على ESC
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            const activePopup = document.querySelector('.comments-popup.active');
+            if (activePopup) {
+                closePopup(activePopup);
+            }
+        }
+    });
+
+    // التعامل مع نموذج إضافة تعليق
+    const commentForm = document.querySelector('#addCommentPopup .comment-form');
+    if (commentForm) {
+        commentForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const nameInput = commentForm.querySelector('.comment-name');
+            const textArea = commentForm.querySelector('.comment-text');
+
+            const newComment = {
+                user: nameInput.value,
+                time: "الآن",
+                text: textArea.value
+            };
+
+            // إضافة التعليق للقائمة
+            allComments.unshift(newComment);
+
+            // تحديث العدد
+            const commentCount = document.querySelector('.comments-section h3');
+            const allCommentsCount = document.querySelector('#allCommentsPopup h3');
+            if (commentCount) {
+                commentCount.textContent = `التعليقات (${allComments.length})`;
+            }
+            if (allCommentsCount) {
+                allCommentsCount.textContent = `جميع التعليقات (${allComments.length})`;
+            }
+
+            // إعادة تحميل المعاينة
+            loadPreviewComments();
+
+            // إعادة تعيين النموذج
+            nameInput.value = '';
+            textArea.value = '';
+
+            // إغلاق الـ popup
+            const popup = commentForm.closest('.comments-popup');
+            closePopup(popup);
+
+            // إظهار رسالة نجاح
+            showSuccessMessage('✅ تم إضافة تعليقك بنجاح!');
+
+            console.log('✅ تم إضافة تعليق جديد');
+        });
+    }
+
+    // تحميل المعاينة عند البداية
+    loadPreviewComments();
+}
+
+// تشغيل النظام عند تحميل الصفحة
+document.addEventListener('DOMContentLoaded', initCommentsSystem);
 // تتبع وقت القراءة
 function setupReadingTimeTracker() {
     const articleContent = document.querySelector('.article-content');

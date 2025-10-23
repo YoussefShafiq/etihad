@@ -605,6 +605,23 @@ body {
     color: var(--text);
   }
 
+  .comments-preview {
+    position: relative;
+    max-height: 300px;
+    overflow: hidden;
+    margin-bottom: 20px;
+
+    .comments-fade {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 50px;
+      background: linear-gradient(to top, var(--dark2), transparent);
+      pointer-events: none;
+    }
+  }
+
   .comments-list {
     .comment {
       background: var(--cardbase);
@@ -612,6 +629,16 @@ body {
       margin-bottom: 15px;
       border-radius: 8px;
       border-right: 3px solid var(--highlight);
+      opacity: 0;
+      animation: fadeInUp 0.5s ease forwards;
+
+      &:nth-child(1) {
+        animation-delay: 0.1s;
+      }
+
+      &:nth-child(2) {
+        animation-delay: 0.2s;
+      }
 
       .comment-header {
         display: flex;
@@ -635,35 +662,326 @@ body {
     }
   }
 
-  .comment-form {
-    margin-top: 30px;
-
-    textarea {
-      width: 100%;
-      height: 120px;
-      padding: 15px;
-      border: 1px solid var(--faded-background);
-      border-radius: 8px;
-      background: var(--cardbase);
-      color: var(--text);
-      resize: vertical;
-      margin-bottom: 15px;
-    }
+  .comments-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
 
     button {
-      background: var(--highlight);
-      color: white;
-      border: none;
       padding: 12px 30px;
+      border: none;
       border-radius: 25px;
       cursor: pointer;
       font-weight: bold;
-      transition: background 0.3s ease;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      transform: scale(1);
+
+      &:active {
+        transform: scale(0.95);
+      }
+    }
+
+    .btn-view-all {
+      background: var(--faded-background);
+      color: var(--text);
+
+      &:hover {
+        background: var(--highlight);
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(204, 0, 0, 0.3);
+      }
+    }
+
+    .btn-add-comment {
+      background: var(--highlight);
+      color: white;
 
       &:hover {
         background: #b30000;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(179, 0, 0, 0.4);
       }
     }
+  }
+}
+
+/* Popups */
+.comments-popup {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9999;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  backdrop-filter: blur(10px);
+
+  &.active {
+    display: flex;
+    animation: fadeIn 0.3s ease forwards;
+  }
+
+  &.closing {
+    animation: fadeOut 0.3s ease forwards;
+  }
+
+  .popup-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.532);
+    cursor: pointer;
+  }
+
+  .popup-content {
+    position: relative;
+    background: var(--cardbase);
+    border-radius: 12px;
+    width: 90%;
+    max-width: 700px;
+    max-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    z-index: 10000;
+    transform: scale(0.9) translateY(20px);
+    opacity: 0;
+    animation: popupSlideIn 0.4s ease forwards;
+
+    .popup-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 25px;
+      border-bottom: 1px solid var(--faded-background);
+
+      h3 {
+        margin: 0;
+        font-size: 1.5rem;
+        color: var(--text);
+      }
+
+      .close-popup {
+        background: none;
+        border: none;
+        font-size: 2rem;
+        color: var(--darktext);
+        cursor: pointer;
+        padding: 0;
+        width: 35px;
+        height: 35px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+        border-radius: 50%;
+
+        &:hover {
+          color: var(--highlight);
+          background: var(--faded-background);
+          transform: rotate(90deg);
+        }
+      }
+    }
+
+    .popup-body {
+      padding: 25px;
+      overflow-y: auto;
+      flex: 1;
+
+      .all-comments-list {
+        .comment {
+          background: var(--faded-background);
+          padding: 15px;
+          margin-bottom: 15px;
+          border-radius: 8px;
+          border-right: 3px solid var(--highlight);
+          opacity: 0;
+          animation: fadeInUp 0.4s ease forwards;
+
+          &:last-child {
+            margin-bottom: 0;
+          }
+
+          @for $i from 1 through 20 {
+            &:nth-child(#{$i}) {
+              animation-delay: #{$i * 0.05}s;
+            }
+          }
+
+          .comment-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+
+            strong {
+              color: var(--text);
+            }
+
+            span {
+              color: var(--darktext);
+            }
+          }
+
+          .comment-content {
+            color: var(--text);
+            line-height: 1.5;
+          }
+        }
+      }
+
+      .comment-form {
+
+        .comment-name,
+        textarea {
+          width: 100%;
+          padding: 12px 15px;
+          border: 1px solid var(--faded-background);
+          border-radius: 8px;
+          background: var(--faded-background);
+          color: var(--text);
+          margin-bottom: 15px;
+          font-size: 1rem;
+          transition: all 0.3s ease;
+          opacity: 0;
+          animation: fadeInUp 0.5s ease forwards;
+
+          &:focus {
+            outline: none;
+            border-color: var(--highlight);
+            box-shadow: 0 0 0 3px rgba(204, 0, 0, 0.1);
+            transform: translateY(-2px);
+          }
+        }
+
+        .comment-name {
+          animation-delay: 0.1s;
+        }
+
+        textarea {
+          height: 150px;
+          resize: vertical;
+          font-family: inherit;
+          animation-delay: 0.2s;
+        }
+
+        button {
+          background: var(--highlight);
+          color: white;
+          border: none;
+          padding: 12px 30px;
+          border-radius: 25px;
+          cursor: pointer;
+          font-weight: bold;
+          font-size: 1rem;
+          transition: all 0.3s ease;
+          width: 100%;
+          opacity: 0;
+          animation: fadeInUp 0.5s ease forwards;
+          animation-delay: 0.3s;
+
+          &:hover {
+            background: #b30000;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(179, 0, 0, 0.4);
+          }
+
+          &:active {
+            transform: translateY(0);
+          }
+        }
+      }
+    }
+  }
+
+  &.closing .popup-content {
+    animation: popupSlideOut 0.3s ease forwards;
+  }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes popupSlideIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes popupSlideOut {
+  from {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+
+  to {
+    opacity: 0;
+    transform: scale(0.9) translateY(20px);
+  }
+}
+
+/* Scrollbar للـ popup */
+.popup-body::-webkit-scrollbar {
+  width: 8px;
+}
+
+.popup-body::-webkit-scrollbar-track {
+  background: var(--faded-background);
+  border-radius: 10px;
+}
+
+.popup-body::-webkit-scrollbar-thumb {
+  background: var(--highlight);
+  border-radius: 10px;
+
+  &:hover {
+    background: #b30000;
   }
 }
 
@@ -704,8 +1022,8 @@ body {
       font-size: 1.8rem;
       margin-bottom: 20px;
       color: var(--text);
-      border-right: 4px solid var(--highlight);
-      padding-right: 15px;
+      /* border-right: 4px solid var(--highlight); */
+      /* padding-right: 15px; */
     }
 
     img {
@@ -748,7 +1066,7 @@ body {
         display: flex;
         justify-content: space-between;
         width: 100%;
-        color: #fff;
+        color: #a8a4a4;
 
 
 
