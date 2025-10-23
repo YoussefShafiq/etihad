@@ -573,7 +573,92 @@ function setupSimpleScrollSpy(headings, tocLinksMap) {
     window.addEventListener('load', updateActiveHeading);
 }
 
-// Initialize with error handling
-document.addEventListener('DOMContentLoaded', function () {
+// بيانات الأسئلة الشائعة
+const faqData = [
+    {
+        question: "ما هي أهداف الموقع الرئيسية؟",
+        answer: "نهدف إلى تقديم محتوى إخباري دقيق وموثوق يغطي مختلف المجالات السياسية والاقتصادية والاجتماعية. نسعى لتوفير منصة شاملة تجمع بين التحليل العميق والتغطية السريعة للأحداث الجارية."
+    },
+    {
+        question: "كيف يمكنني التواصل مع فريق التحرير؟",
+        answer: "يمكنك التواصل معنا عبر عدة طرق:<ul><li>البريد الإلكتروني: editor@example.com</li><li>نموذج الاتصال في الموقع</li><li>حساباتنا على وسائل التواصل الاجتماعي</li><li>رقم الهاتف: +20 123 456 7890</li></ul>"
+    },
+    {
+        question: "هل المحتوى المنشور محمي بحقوق النشر؟",
+        answer: "نعم، جميع المواد المنشورة على الموقع محمية بحقوق النشر. يمكن الاقتباس منها مع ذكر المصدر، لكن النسخ الكامل أو إعادة النشر دون إذن يعد انتهاكاً لحقوق الملكية الفكرية."
+    }
+];
+
+// إنشاء عنصر سؤال
+function createFaqElement(faq, index) {
+    const faqItem = document.createElement('div');
+    faqItem.className = 'faq-item';
+    faqItem.innerHTML = `
+        <div class="faq-question">
+            <h3>${faq.question}</h3>
+            <span class="faq-icon">▼</span>
+        </div>
+        <div class="faq-answer">
+            <p>${faq.answer}</p>
+        </div>
+    `;
+    return faqItem;
+}
+
+// تحميل الأسئلة الشائعة
+function loadFAQ() {
+    const faqList = document.querySelector('.faq-list');
+    if (!faqList) return;
+
+    faqList.innerHTML = '';
+
+    faqData.forEach((faq, index) => {
+        faqList.appendChild(createFaqElement(faq, index));
+    });
+
+    console.log('❓ تم تحميل الأسئلة الشائعة');
+}
+
+// التعامل مع نقرات الأسئلة (Accordion)
+function initFaqAccordion() {
+    const faqList = document.querySelector('.faq-list');
+    if (!faqList) return;
+
+    faqList.addEventListener('click', (e) => {
+        const questionElement = e.target.closest('.faq-question');
+        if (!questionElement) return;
+
+        const faqItem = questionElement.closest('.faq-item');
+        const isActive = faqItem.classList.contains('active');
+
+        // إغلاق جميع الأسئلة المفتوحة
+        document.querySelectorAll('.faq-item.active').forEach(item => {
+            if (item !== faqItem) {
+                item.classList.remove('active');
+            }
+        });
+
+        // تبديل حالة السؤال الحالي
+        faqItem.classList.toggle('active');
+
+        console.log(`${isActive ? '📕' : '📖'} ${isActive ? 'إغلاق' : 'فتح'} سؤال`);
+    });
+}
+
+
+// تهيئة نظام الأسئلة الشائعة
+function initFaqSystem() {
+    loadFAQ();
+    initFaqAccordion();
+    addFaqCTA();
+}
+
+// تشغيل النظام عند تحميل الصفحة
+document.addEventListener('DOMContentLoaded', () => {
+    initFaqSystem();
     setTimeout(generateTableOfContents, 100); // Small delay to ensure DOM is ready
+
 });
+
+
+
