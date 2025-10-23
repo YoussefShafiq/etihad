@@ -88,8 +88,10 @@ class CustomSlider {
     createPagination() {
         this.pagination.innerHTML = '';
 
-        // Create a bullet for each slide
-        for (let i = 0; i < this.slideCount-4; i++) {
+        // UPDATED: Use dynamic calculation instead of hardcoded -4
+        const paginationCount = Math.max(1, this.slideCount - (this.currentSlidesPerView - 1));
+
+        for (let i = 0; i < paginationCount; i++) {
             const bullet = document.createElement('button');
             bullet.classList.add('pagination-bullet');
             if (i === 0) bullet.classList.add('active');
@@ -115,8 +117,12 @@ class CustomSlider {
         this.track.addEventListener('mouseup', this.touchEnd.bind(this));
         this.track.addEventListener('mouseleave', this.touchEnd.bind(this));
 
-        // Prevent context menu
-        this.track.addEventListener('contextmenu', e => e.preventDefault());
+        // Prevent default image drag behavior
+        this.track.addEventListener('dragstart', (e) => {
+            if (e.target.tagName === 'IMG') {
+                e.preventDefault();
+            }
+        });
 
         // Keyboard
         if (this.opts.keyboard) {
@@ -145,6 +151,7 @@ class CustomSlider {
                 if (this.currentIndex > maxIndex) {
                     this.currentIndex = maxIndex;
                 }
+                this.createPagination();
                 this.updateSlider();
             }
         });
@@ -377,6 +384,27 @@ if (document.getElementById('article-gallery-slider')) {
             mobile: 1,
             tablet: 2,
             desktop: 3
+        },
+        breakpoints: {
+            mobile: 640,
+            tablet: 1024
+        },
+        spaceBetween: 20
+    });
+}
+
+if (document.getElementById('single-slide-slider')) {
+    const singlesliderslide = new CustomSlider(document.getElementById('single-slide-slider'), {
+        loop: true,
+        autoplay: true,
+        autoplayDelay: 3000,
+        keyboard: true,
+        mousewheel: true,
+        rtl: true,
+        slidesPerView: {
+            mobile: 1,
+            tablet: 1,
+            desktop: 1
         },
         breakpoints: {
             mobile: 640,
