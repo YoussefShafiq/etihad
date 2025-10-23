@@ -1001,6 +1001,7 @@ body {
       margin-bottom: 10px;
       position: relative;
       display: inline-block;
+      border-right: none;
 
       &::after {
         content: '';
