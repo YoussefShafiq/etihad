@@ -1985,11 +1985,11 @@ body.light {
     }
 
     .footer {
-      font-size: 14px;
+      font-size: 12px;
       display: flex;
       justify-content: space-between;
       width: 100%;
-      color: #fff;
+      color: #a8a4a4;
 
 
 
