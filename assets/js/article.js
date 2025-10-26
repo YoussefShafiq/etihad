@@ -659,5 +659,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 });
 
-
+document.getElementById('ai-summarize-toggle').addEventListener('click', function () {
+    document.getElementById('ai-summarize').classList.toggle('closed');
+});
 

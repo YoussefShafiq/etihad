@@ -32,6 +32,25 @@
     font-family: var(--font-inter);
 }
 
+body.light {
+    #top-background {
+        position: absolute;
+        z-index: -1;
+        height: 400px;
+        width: 100%;
+        background: linear-gradient(to top left, #0d0316 0%, #2a1533 50%, #0f0319 100%);
+        /* background: none; */
+        background-color: var(--dark2);
+
+        @media (max-width: 768px) {
+            height: 600px;
+        }
+    }
+
+    .slider-pagination{
+        background-color: #f8f9fa !important;
+    }
+}
 
 /* colors variables */
 :root {
@@ -47,6 +66,35 @@
     --gradient: linear-gradient(to top left, #0d0316 0%, #2a1533 50%, #0f0319 100%);
     --text: #ffffff;
 }
+
+
+#theme-toggle {
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+    &:hover {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+}
+
+#theme-toggle {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--dark2);
+    border: #666 solid 1px;
+    border-radius: 100%;
+    color: var(--text);
+    z-index: 10000;
+    cursor: pointer;
+}
+
 
 #sub-nav {
     background-color: var(--dark);

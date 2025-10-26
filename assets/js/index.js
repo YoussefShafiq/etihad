@@ -440,9 +440,6 @@ window.addEventListener('error', function (e) {
     console.error('Global error:', e.error);
 });
 
-document.getElementById('theme-toggle').addEventListener('click', function () {
-    document.body.classList.toggle('light');
-});
 
 // Add interactivity to vote options
 document.querySelectorAll('.vote-option').forEach(option => {

@@ -119,6 +119,11 @@ body.light {
         box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
       }
     }
+
+    .currency-card,
+    .crypto-card {
+      background-color: white !important;
+    }
   }
 
   #voting-section {
@@ -129,6 +134,14 @@ body.light {
       background: white;
       border: 1px solid rgba(0, 0, 0, 0.08);
       box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+
+      .vote-reference {
+        color: rgba(0, 0, 0, 0.552) !important;
+      }
+
+      .total-votes {
+        color: black !important;
+      }
     }
 
     .vote-option {
@@ -163,16 +176,6 @@ body.light {
     background-color: #f8f9fa;
   }
 
-  #theme-toggle {
-    background: white;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-
-    &:hover {
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    }
-  }
-
   .tabs {
     background: white;
     border: 1px solid rgba(0, 0, 0, 0.08);
@@ -190,29 +193,6 @@ body.light {
     border-bottom-color: rgba(205, 0, 0, 0.2);
   }
 }
-
-
-
-
-#theme-toggle {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: var(--dark2);
-  border: #666 solid 1px;
-  border-radius: 100%;
-  color: var(--text);
-  z-index: 10000;
-  cursor: pointer;
-}
-
-
-
 
 #top-background {
   position: absolute;
@@ -408,9 +388,9 @@ body.light {
 
   #cards-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 20px;
-    max-width: 1200px;
+    max-width: 1300px;
     margin: 0 auto;
 
   }
@@ -434,8 +414,8 @@ body.light {
       position: absolute;
       top: 0px;
       left: 0px;
-      width: 50px;
-      height: 32px;
+      width: 40px;
+      height: 35px;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -478,27 +458,27 @@ body.light {
       justify-content: space-between;
       gap: 8px;
 
-      h2 {
-        font-size: 18px;
+      h3 {
+        font-size: 17px;
         font-weight: 700;
       }
 
+      >span {
+        font-size: 14px;
+      }
 
       .footer {
-        font-size: 18px;
+        font-size: 12px;
         display: flex;
         width: 100%;
         gap: 12px;
+        color: #00000081;
 
         div {
           display: flex;
           flex-direction: row;
           gap: 4px;
           align-items: center;
-
-          i {
-            color: var(--darktext);
-          }
         }
       }
     }
@@ -575,8 +555,8 @@ body.light {
         }
 
         &.active {
-          background: rgba(124, 42, 158, 0.2);
-          color: #9b3ec7;
+          background: rgba(123, 42, 158, 0.832);
+          color: white;
           border: 1px solid rgba(124, 42, 158, 0.4);
         }
 
@@ -588,7 +568,7 @@ body.light {
   }
 
   /* Tab Content */
-  .tab-content {
+  .tab-content {  
     display: none;
 
     &.active {
@@ -614,15 +594,7 @@ body.light {
       justify-content: space-between;
       gap: 10px;
 
-      .title {
-        display: flex;
-        justify-content: space-between;
-
-        @media (max-width: 768px) {
-          flex-direction: column;
-          gap: 10px;
-        }
-
+      >.title {
         .section-header {
           display: flex;
           align-items: center;
@@ -657,23 +629,23 @@ body.light {
           }
         }
 
-        .chart-container {
-          height: 200px;
-          background: rgba(42, 35, 52, 0.5);
-          border-radius: 16px;
-          padding: 15px;
-          position: relative;
 
-          #goldChart {
-            width: 100% !important;
-            height: 100% !important;
-          }
+
+      }
+
+      .content {
+        display: flex;
+        justify-content: space-between;
+        align-items: start;
+        gap: 10px;
+
+        .title {
+          width: 50%;
         }
 
         .price-cards {
-          display: flex;
-          flex-wrap: wrap;
-          justify-content: space-between;
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
           gap: 12px;
 
           .price-card {
@@ -695,6 +667,20 @@ body.light {
               color: #f59e0b;
               font-weight: bold;
             }
+          }
+        }
+
+        .chart-container {
+          width: 50%;
+          height: 250px;
+          background: rgba(67, 61, 75, 0.052);
+          border-radius: 16px;
+          padding: 15px;
+          position: relative;
+
+          #goldChart {
+            width: 100% !important;
+            height: 100% !important;
           }
         }
       }
@@ -748,11 +734,17 @@ body.light {
         }
 
         .carat-chips {
-          display: grid;
-          grid-template-columns: repeat(2, 1fr);
+          display: flex;
+          align-items: center;
           gap: 8px;
 
+          span {
+            font-size: 18px;
+            font-weight: 700;
+          }
+
           .carat-chip {
+            width: 25%;
             padding: 12px;
             border-radius: 12px;
             border: 2px solid rgba(39, 28, 46, 0.2);
@@ -765,7 +757,7 @@ body.light {
             &.active {
               background: #7c2a9e;
               border-color: #7c2a9e;
-              color: var(--text);
+              color: white;
             }
 
             &:hover {
@@ -1097,20 +1089,35 @@ body.light {
       box-shadow: 0 4px 12px rgba(0, 0, 20, 0.4);
       background-color: var(--faded-background);
       display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      gap: 20px;
+      /* justify-content: space-between; */
+      gap: 80px;
 
       @media (max-width: 768px) {
         width: 100%;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .vote-data {
+        width: 50%;
+        padding: 14px;
+
+        @media (max-width: 768px) {
+          width: 100%;
+        }
       }
 
       /* Vote Question Section */
-      .vote-question-section {
+      .vote-inputs-section {
+        width: 50%;
         background: var(--card-bg);
         border-radius: 16px;
         padding: 20px;
         border: 1px solid var(--border);
+
+        @media (max-width: 768px) {
+          width: 100%;
+        }
 
         .section-header {
           display: flex;
@@ -1242,12 +1249,10 @@ body.light {
             transition: all 0.3s ease;
 
             &.vote-btn {
-              background: var(--primary);
+              background: #25112e;
               color: white;
 
               &:hover {
-                background: var(--cardbase);
-                color: black;
                 transform: translateY(-2px);
               }
             }
@@ -1605,6 +1610,7 @@ body.light {
 
   .clipped-card:hover .number {
     color: var(--highlight);
+    text-shadow: none;
   }
 
   .clipped-card-img {
@@ -1645,6 +1651,7 @@ body.light {
 
   .clipped-card .number {
     position: absolute;
+    text-shadow: 1px 1px 5px rgb(41, 9, 52);
     top: clamp(8px, 0.58vw, 11px);
     left: 0;
     color: var(--base);
@@ -1655,9 +1662,6 @@ body.light {
     transition: 0.3s ease;
     -webkit-background-clip: text;
   }
-
-  /* top 10 movies section end */
-
 
 }
 
@@ -1719,6 +1723,7 @@ body.light {
   }
 
   .title {
+    color: white;
     font-size: 16px;
     font-weight: 700;
     margin-bottom: 12px;
@@ -1947,22 +1952,6 @@ body.light {
   }
 }
 
-#top-movies-section {
-  padding: 40px 28px;
-  overflow: hidden;
-
-
-  @media (max-width: 768px) {
-    padding: 30px 28px;
-
-    h2 {
-      font-size: 40px;
-      margin-bottom: 16px;
-    }
-  }
-
-}
-
 #upcoming-movies-section {
   padding: 40px 28px;
   overflow: hidden;
@@ -2087,6 +2076,7 @@ body.light {
   }
 
   .title {
+    color: white;
     font-size: 16px;
     font-weight: 700;
     margin-bottom: 12px;
@@ -2315,7 +2305,6 @@ body.light {
 
     .head {
       display: flex;
-      flex-direction: row-reverse;
       gap: 0.5rem;
       align-items: center;
       font-size: 14px;
@@ -2326,7 +2315,7 @@ body.light {
     }
 
     .content {
-      font-size: 20px;
+      font-size: 18px;
       font-weight: 800;
       line-height: 1.5;
     }
@@ -2335,6 +2324,7 @@ body.light {
       font-size: 12px;
       display: flex;
       justify-content: space-between;
+      flex-direction: row-reverse;
       width: 100%;
       color: #a8a4a4;
 
@@ -2342,7 +2332,6 @@ body.light {
 
       div {
         display: flex;
-        flex-direction: row-reverse;
         gap: 2px;
         align-items: center;
 
