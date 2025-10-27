@@ -192,6 +192,401 @@ body.light {
     color: #1a1a1a;
     border-bottom-color: rgba(205, 0, 0, 0.2);
   }
+
+
+  /* Weather Section - Dark Mode */
+  .weather-section {
+    background: linear-gradient(135deg,
+        hsl(210, 100%, 98%) 0%,
+        hsl(210, 100%, 96%) 50%,
+        hsl(210, 100%, 94%) 100%);
+    color: hsl(210, 20%, 25%);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+
+    &::before {
+      background: linear-gradient(135deg,
+          rgba(116, 185, 255, 0.05) 0%,
+          rgba(9, 132, 227, 0.08) 100%);
+    }
+
+    .weather-header {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+      .header-content {
+        .header-title {
+          h2 {
+            color: hsl(210, 20%, 25%);
+          }
+
+          p {
+            color: hsl(210, 10%, 55%);
+          }
+        }
+      }
+
+      .weather-search {
+        .search-input-container {
+          background: white;
+          box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2),
+            inset 0 1px 0 rgba(255, 255, 255, 0.05);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+
+
+          &:focus-within {
+            box-shadow:
+              0 8px 30px rgba(0, 0, 0, 0.12),
+              inset 0 1px 0 rgba(0, 0, 0, 0.9);
+
+            border-color: hsl(210, 100%, 60%);
+          }
+
+          input {
+            color: hsl(210, 20%, 25%);
+
+            &::placeholder {
+              color: hsl(210, 10%, 60%);
+            }
+          }
+        }
+      }
+    }
+
+    .weather-content {
+      .current-weather-panel {
+        background: white;
+        box-shadow:
+          0 10px 40px rgba(0, 0, 0, 0.06),
+          0 4px 20px rgba(0, 0, 0, 0.04);
+        border: 1px solid rgba(0, 0, 0, 0.05);
+
+        .weather-location {
+          h3 {
+            color: hsl(210, 20%, 25%);
+
+          }
+
+          p {
+            color: hsl(210, 10%, 55%);
+
+          }
+        }
+
+        .weather-bottomside {
+          .weather-main {
+            background: linear-gradient(135deg,
+                hsl(210, 100%, 97%) 0%,
+                hsl(210, 100%, 95%) 100%);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+
+            .weather-temp {
+              .temp-main {
+                color: hsl(210, 20%, 25%);
+              }
+
+              .temp-feels {
+                color: hsl(210, 10%, 55%);
+              }
+            }
+          }
+        }
+
+        .weather-description {
+          color: hsl(210, 20%, 35%);
+        }
+
+        .weather-details-grid {
+          .weather-detail-card {
+            background: linear-gradient(135deg,
+                hsl(210, 100%, 97%) 0%,
+                hsl(210, 100%, 95%) 100%);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+
+            .detail-icon {
+              background: white;
+              box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            }
+
+            .detail-content {
+              .detail-label {
+                color: hsl(210, 10%, 55%);
+              }
+
+              .detail-value {
+                color: hsl(210, 20%, 25%);
+              }
+            }
+          }
+        }
+      }
+
+      .forecast-panel {
+        background: white;
+        box-shadow:
+          0 10px 40px rgba(0, 0, 0, 0.06),
+          0 4px 20px rgba(0, 0, 0, 0.04);
+        border: 1px solid rgba(0, 0, 0, 0.05);
+
+        .panel-header {
+          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+          h4 {
+            color: hsl(210, 20%, 25%);
+          }
+
+          .forecast-period {
+            color: hsl(210, 10%, 55%);
+          }
+        }
+
+        .forecast-list {
+          .forecast-item {
+            background: linear-gradient(135deg,
+                hsl(210, 100%, 98%) 0%,
+                hsl(210, 100%, 96%) 100%);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+
+            &:hover {
+              background: linear-gradient(135deg,
+                  hsl(210, 25%, 20%) 0%,
+                  hsl(210, 25%, 18%) 100%);
+            }
+
+            .forecast-day {
+              color: hsl(210, 20%, 25%);
+            }
+
+            .forecast-temp {
+              .temp-max {
+                color: hsl(210, 20%, 25%);
+              }
+
+              .temp-min {
+                color: hsl(210, 10%, 55%);
+              }
+            }
+
+            .forecast-desc {
+              color: hsl(210, 10%, 55%);
+            }
+          }
+        }
+      }
+    }
+
+  }
+
+  /* Weather Error States - Dark */
+  .weather-error {
+    background: linear-gradient(135deg,
+        hsl(0, 100%, 97%) 0%,
+        hsl(0, 100%, 95%) 100%);
+    color: hsl(0, 80%, 45%);
+    border: 1px solid hsl(0, 80%, 90%);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  }
+
+  /* Weather Loading State - Dark */
+  .search-loading {
+    background: white;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+
+    span {
+      color: hsl(210, 20%, 35%);
+    }
+  }
+
+  /* Azan Section - Dark Mode */
+  .azan-section {
+    background: linear-gradient(135deg,
+        hsl(150, 60%, 98%) 0%,
+        hsl(150, 60%, 96%) 50%,
+        hsl(150, 60%, 94%) 100%);
+    color: hsl(150, 20%, 25%);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+
+    &::before {
+      background: linear-gradient(135deg,
+          rgba(16, 185, 129, 0.03) 0%,
+          rgba(5, 150, 105, 0.05) 100%);
+    }
+
+    .azan-header {
+      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+
+
+      .header-content {
+        .header-title {
+          h2 {
+            color: hsl(150, 20%, 25%);
+          }
+
+          p {
+            color: hsl(150, 10%, 55%);
+          }
+        }
+      }
+
+      .azan-location-display {
+        .location-info {
+          background: white;
+          box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+          border: 1px solid rgba(0, 0, 0, 0.08);
+
+          span {
+            color: hsl(150, 20%, 25%);
+          }
+        }
+      }
+    }
+
+    .azan-content {
+      .current-prayer-panel {
+        background: linear-gradient(135deg,
+            hsl(150, 60%, 96%) 0%,
+            hsl(150, 60%, 94%) 100%);
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06),
+          0 4px 20px rgba(0, 0, 0, 0.04);
+        border: 1px solid rgba(0, 0, 0, 0.05);
+
+        .current-prayer-header {
+          h3 {
+            color: hsl(150, 20%, 25%);
+          }
+        }
+
+        .current-prayer-info {
+
+          background: white;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+
+          .prayer-name-large {
+            color: hsl(150, 60%, 40%);
+          }
+
+          .prayer-time-large {
+            color: hsl(150, 20%, 25%);
+          }
+
+          .time-remaining {
+            border-top: 1px solid rgba(0, 0, 0, 0.08);
+
+            .remaining-label {
+              color: hsl(150, 10%, 55%);
+            }
+
+            .remaining-value {
+              color: hsl(150, 60%, 40%);
+            }
+          }
+        }
+
+        .next-prayer-info {
+          background: white;
+          border: 1px solid rgba(0, 0, 0, 0.05);
+
+          .next-label {
+            color: hsl(150, 10%, 55%);
+          }
+
+          .next-prayer {
+            color: hsl(150, 20%, 25%);
+          }
+
+          .next-time {
+            color: hsl(150, 60%, 40%);
+          }
+        }
+      }
+
+      .prayer-times-panel {
+        background: white;
+
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06),
+          0 4px 20px rgba(0, 0, 0, 0.04);
+        border: 1px solid rgba(0, 0, 0, 0.05);
+
+        .panel-header {
+          border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+
+          h4 {
+            color: hsl(150, 20%, 25%);
+          }
+
+          .hijri-date {
+            color: hsl(150, 10%, 55%);
+            background: hsl(150, 60%, 96%);
+
+          }
+        }
+
+        .prayer-times-list {
+          .prayer-item {
+            background: linear-gradient(135deg,
+                hsl(150, 60%, 98%) 0%,
+                hsl(150, 60%, 96%) 100%);
+
+            border: 1px solid rgba(255, 255, 255, 0.1);
+
+            &.active {
+              background: linear-gradient(135deg,
+                  hsla(150, 60%, 40%, 0.3) 0%,
+                  hsla(150, 60%, 35%, 0.4) 100%);
+              box-shadow: 0 8px 30px rgba(16, 185, 129, 0.4);
+
+
+              &::before {
+                background: hsl(150, 80%, 30%);
+              }
+
+              .prayer-icon {
+                background: white;
+              }
+            }
+
+            .prayer-icon {
+
+              background: white;
+              box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            }
+
+            .prayer-info {
+              .prayer-name {
+                color: hsl(150, 20%, 25%);
+              }
+
+              .prayer-time {
+                color: hsl(150, 60%, 40%);
+              }
+            }
+          }
+        }
+      }
+    }
+
+  }
+
+  /* Azan Error States - Dark */
+  .azan-error {
+    background: linear-gradient(135deg,
+        hsl(0, 50%, 15%) 0%,
+        hsl(0, 50%, 12%) 100%);
+    color: hsl(0, 80%, 70%);
+    border: 1px solid hsl(0, 50%, 25%);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Azan Loading State - Dark */
+  .azan-loading {
+    background: hsl(150, 25%, 15%);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+
+    span {
+      color: hsl(150, 20%, 80%);
+    }
+  }
+
 }
 
 #top-background {
@@ -2345,17 +2740,17 @@ body.light {
 /* Weather Section - Desktop Optimized */
 .weather-section {
   background: linear-gradient(135deg,
-      hsl(210, 100%, 98%) 0%,
-      hsl(210, 100%, 96%) 50%,
-      hsl(210, 100%, 94%) 100%);
+      hsl(210, 25%, 12%) 0%,
+      hsl(210, 25%, 10%) 50%,
+      hsl(210, 25%, 8%) 100%);
   border-radius: 24px;
   padding: 1rem;
-  color: hsl(210, 20%, 25%);
+  color: hsl(210, 20%, 85%);
   margin-bottom: 2rem;
   width: 100%;
   box-shadow:
     0 2px 12px rgba(0, 0, 0, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   position: relative;
   overflow: hidden;
 
@@ -2404,13 +2799,13 @@ body.light {
           margin: 0;
           font-size: 24px;
           font-weight: 700;
-          color: hsl(210, 20%, 25%);
+          color: hsl(210, 20%, 90%);
           letter-spacing: -0.5px;
         }
 
         p {
           margin: 0.25rem 0 0 0;
-          color: hsl(210, 10%, 55%);
+          color: hsl(210, 10%, 70%);
           font-size: 0.85rem;
           font-weight: 500;
         }
@@ -2422,20 +2817,19 @@ body.light {
 
       .search-input-container {
         display: flex;
-        background: white;
+        background: hsl(210, 25%, 15%);
         border-radius: 16px;
         padding: 0.75rem 1rem;
         box-shadow:
           0 4px 20px rgba(0, 0, 0, 0.08),
-          inset 0 1px 0 rgba(255, 255, 255, 0.8);
+          inset 0 1px 0 rgba(255, 255, 255, 0.1);
         border: 1px solid rgba(0, 0, 0, 0.08);
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
         &:focus-within {
           transform: translateY(-2px);
-          box-shadow:
-            0 8px 30px rgba(0, 0, 0, 0.12),
-            inset 0 1px 0 rgba(255, 255, 255, 0.9);
+          box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3),
+            inset 0 1px 0 rgba(255, 255, 255, 0.1);
           border-color: hsl(210, 100%, 55%);
         }
 
@@ -2446,7 +2840,7 @@ body.light {
           padding: 0.5rem 0.75rem;
           font-size: 1rem;
           outline: none;
-          color: hsl(210, 20%, 25%);
+          color: hsl(210, 20%, 85%);
           font-weight: 500;
 
           &::placeholder {
@@ -2495,13 +2889,12 @@ body.light {
       display: grid;
       grid-template-columns: repeat(1, 1fr);
       align-items: center;
-      background: white;
       border-radius: 20px;
       padding: 1rem;
-      box-shadow:
-        0 10px 40px rgba(0, 0, 0, 0.06),
-        0 4px 20px rgba(0, 0, 0, 0.04);
-      border: 1px solid rgba(0, 0, 0, 0.05);
+      background: hsl(210, 25%, 15%);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2),
+        0 4px 20px rgba(0, 0, 0, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.1);
 
       .weather-location {
         text-align: center;
@@ -2510,13 +2903,13 @@ body.light {
           margin: 0;
           font-size: 1.75rem;
           font-weight: 700;
-          color: hsl(210, 20%, 25%);
+          color: hsl(210, 20%, 90%);
           letter-spacing: -0.5px;
         }
 
         p {
           margin: 0.5rem 0 0 0;
-          color: hsl(210, 10%, 55%);
+          color: hsl(210, 10%, 70%);
           font-size: 1.1rem;
           font-weight: 500;
         }
@@ -2534,11 +2927,14 @@ body.light {
           align-items: center;
           gap: 2rem;
           padding: 2rem;
-          background: linear-gradient(135deg,
-              hsl(210, 100%, 97%) 0%,
-              hsl(210, 100%, 95%) 100%);
+
           border-radius: 20px;
-          border: 1px solid rgba(0, 0, 0, 0.05);
+
+          background: linear-gradient(135deg,
+              hsl(210, 25%, 18%) 0%,
+              hsl(210, 25%, 16%) 100%);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+
 
           .weather-icon-container {
             img {
@@ -2552,14 +2948,15 @@ body.light {
             .temp-main {
               font-size: 3.5rem;
               font-weight: 800;
-              color: hsl(210, 20%, 25%);
+              color: hsl(210, 20%, 90%);
+
               letter-spacing: -2px;
               line-height: 1;
             }
 
             .temp-feels {
               font-size: 1.1rem;
-              color: hsl(210, 10%, 55%);
+              color: hsl(210, 10%, 70%);
               margin-top: 0.5rem;
               font-weight: 500;
             }
@@ -2571,7 +2968,7 @@ body.light {
         font-size: 1rem;
         text-transform: capitalize;
         font-weight: 600;
-        color: hsl(210, 20%, 35%);
+        color: hsl(210, 20%, 80%);
         padding: 1rem 1.5rem;
         border-radius: 16px;
       }
@@ -2586,13 +2983,14 @@ body.light {
           flex-direction: column;
           align-items: center;
           gap: 1.25rem;
+
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
           background: linear-gradient(135deg,
-              hsl(210, 100%, 97%) 0%,
-              hsl(210, 100%, 95%) 100%);
+              hsl(210, 25%, 18%) 0%,
+              hsl(210, 25%, 16%) 100%);
+          border: 1px solid rgba(255, 255, 255, 0.1);
           padding: 1.5rem;
           border-radius: 16px;
-          border: 1px solid rgba(0, 0, 0, 0.05);
-          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
           &:hover {
             transform: translateY(-4px);
@@ -2606,15 +3004,16 @@ body.light {
             display: flex;
             align-items: center;
             justify-content: center;
-            background: white;
+
+            background: hsl(210, 25%, 20%);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
             border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
           }
 
           .detail-content {
             .detail-label {
               font-size: 0.9rem;
-              color: hsl(210, 10%, 55%);
+              color: hsl(210, 10%, 70%);
               font-weight: 500;
               margin-bottom: 0.25rem;
             }
@@ -2622,7 +3021,7 @@ body.light {
             .detail-value {
               font-size: 1.4rem;
               font-weight: 700;
-              color: hsl(210, 20%, 25%);
+              color: hsl(210, 20%, 90%);
             }
           }
         }
@@ -2631,13 +3030,12 @@ body.light {
 
     /* Forecast Panel */
     .forecast-panel {
-      background: white;
       border-radius: 20px;
       padding: 2rem;
-      box-shadow:
-        0 10px 40px rgba(0, 0, 0, 0.06),
-        0 4px 20px rgba(0, 0, 0, 0.04);
-      border: 1px solid rgba(0, 0, 0, 0.05);
+      background: hsl(210, 25%, 15%);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2),
+        0 4px 20px rgba(0, 0, 0, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.1);
       height: fit-content;
 
       .panel-header {
@@ -2652,12 +3050,12 @@ body.light {
           margin: 0;
           font-size: 1.25rem;
           font-weight: 700;
-          color: hsl(210, 20%, 25%);
+          color: hsl(210, 20%, 90%);
         }
 
         .forecast-period {
           font-size: 0.9rem;
-          color: hsl(210, 10%, 55%);
+          color: hsl(210, 10%, 77%);
           font-weight: 500;
         }
       }
@@ -2673,10 +3071,10 @@ body.light {
           justify-content: space-between;
           padding: 1rem 1.25rem;
           background: linear-gradient(135deg,
-              hsl(210, 100%, 98%) 0%,
-              hsl(210, 100%, 96%) 100%);
+              hsl(210, 25%, 18%) 0%,
+              hsl(210, 25%, 16%) 100%);
+          border: 1px solid rgba(255, 255, 255, 0.1);
           border-radius: 12px;
-          border: 1px solid rgba(0, 0, 0, 0.05);
           transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
           &:hover {
@@ -2688,7 +3086,7 @@ body.light {
 
           .forecast-day {
             font-weight: 600;
-            color: hsl(210, 20%, 25%);
+            color: hsl(210, 20%, 85%);
             min-width: 80px;
           }
 
@@ -2706,19 +3104,19 @@ body.light {
             justify-content: flex-end;
 
             .temp-max {
+              color: hsl(210, 20%, 90%);
               font-weight: 700;
-              color: hsl(210, 20%, 25%);
             }
 
             .temp-min {
-              color: hsl(210, 10%, 55%);
+              color: hsl(210, 10%, 70%);
               font-weight: 500;
             }
           }
 
           .forecast-desc {
             font-size: 0.85rem;
-            color: hsl(210, 10%, 55%);
+            color: hsl(210, 10%, 70%);
             font-weight: 500;
             text-align: right;
             flex: 1;
@@ -2729,53 +3127,20 @@ body.light {
     }
   }
 
-  /* Footer */
-  .weather-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-top: 1.5rem;
-    border-top: 1px solid rgba(0, 0, 0, 0.08);
 
-    .last-update {
-      p {
-        margin: 0;
-        color: hsl(210, 10%, 55%);
-        font-size: 0.9rem;
-        font-weight: 500;
-
-        span {
-          font-weight: 600;
-          color: hsl(210, 20%, 35%);
-          background: hsl(210, 100%, 96%);
-          padding: 0.25rem 0.75rem;
-          border-radius: 8px;
-        }
-      }
-    }
-
-    .data-source {
-      p {
-        margin: 0;
-        color: hsl(210, 10%, 60%);
-        font-size: 0.85rem;
-        font-weight: 400;
-      }
-    }
-  }
 }
 
 /* Error States */
 .weather-error {
-  background: linear-gradient(135deg,
-      hsl(0, 100%, 97%) 0%,
-      hsl(0, 100%, 95%) 100%);
   border-radius: 16px;
   padding: 1.5rem;
   margin: 1rem 0;
-  color: hsl(0, 80%, 45%);
-  border: 1px solid hsl(0, 80%, 90%);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  background: linear-gradient(135deg,
+      hsl(0, 50%, 15%) 0%,
+      hsl(0, 50%, 12%) 100%);
+  color: hsl(0, 80%, 70%);
+  border: 1px solid hsl(0, 50%, 25%);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 
   .error-message {
     display: flex;
@@ -2798,9 +3163,9 @@ body.light {
   gap: 1rem;
   margin-top: 1rem;
   padding: 1rem;
-  background: white;
+  background: hsl(210, 25%, 15%);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
   border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
 
   .loading-spinner {
     width: 1.5rem;
@@ -2813,7 +3178,7 @@ body.light {
 
   span {
     font-weight: 500;
-    color: hsl(210, 20%, 35%);
+    color: hsl(210, 20%, 80%);
   }
 }
 
@@ -2839,6 +3204,464 @@ body.light {
 
     .weather-header .weather-search {
       width: 360px;
+    }
+  }
+}
+
+/* Azan Section - Desktop Optimized */
+.azan-section {
+  background: linear-gradient(135deg,
+      hsl(150, 25%, 12%) 0%,
+      hsl(150, 25%, 10%) 50%,
+      hsl(150, 25%, 8%) 100%);
+  color: hsl(150, 20%, 85%);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+
+  border-radius: 24px;
+  padding: 1rem;
+  margin-bottom: 2rem;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg,
+        rgba(16, 185, 129, 0.05) 0%,
+        rgba(5, 150, 105, 0.08) 100%);
+    pointer-events: none;
+  }
+
+  /* Header Section */
+  .azan-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+    .header-content {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+
+      .icon-container {
+        background: linear-gradient(135deg, hsl(150, 60%, 50%), hsl(150, 60%, 40%));
+        border-radius: 16px;
+        padding: 12px;
+        box-shadow: 0 8px 20px rgba(16, 185, 129, 0.15);
+
+        svg {
+          width: 16px;
+          height: 16px;
+          color: white;
+        }
+      }
+
+      .header-title {
+        h2 {
+          margin: 0;
+          font-size: 24px;
+          font-weight: 700;
+          color: hsl(150, 20%, 90%);
+          letter-spacing: -0.5px;
+        }
+
+        p {
+          margin: 0.25rem 0 0 0;
+          color: hsl(150, 10%, 70%);
+          font-size: 0.85rem;
+          font-weight: 500;
+        }
+      }
+    }
+
+    .azan-location-display {
+      .location-info {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.75rem 1.25rem;
+        border-radius: 16px;
+        background: hsl(150, 25%, 15%);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+
+        svg {
+          color: hsl(150, 60%, 45%);
+          width: 16px;
+          height: 16px;
+        }
+
+        span {
+          font-weight: 600;
+          color: hsl(150, 20%, 85%);
+          font-size: 1rem;
+        }
+      }
+    }
+  }
+
+  /* Main Content Layout */
+  .azan-content {
+    display: grid;
+    grid-template-columns: 400px 1fr;
+    gap: 1.2rem;
+
+    /* Current Prayer Panel */
+    .current-prayer-panel {
+      background: linear-gradient(135deg,
+          hsl(150, 25%, 16%) 0%,
+          hsl(150, 25%, 14%) 100%);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2),
+        0 4px 20px rgba(0, 0, 0, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      height: fit-content;
+
+      .current-prayer-header {
+        h3 {
+          margin: 0;
+          font-size: 1.25rem;
+          font-weight: 700;
+          color: hsl(150, 20%, 90%);
+          text-align: center;
+        }
+      }
+
+      .current-prayer-info {
+        text-align: center;
+        padding: 2rem;
+        border-radius: 16px;
+        background: hsl(150, 25%, 15%);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+
+        .prayer-name-large {
+          font-size: 2rem;
+          font-weight: 700;
+          color: hsl(150, 60%, 60%);
+          margin-bottom: 1rem;
+        }
+
+        .prayer-time-large {
+          font-size: 3.5rem;
+          font-weight: 800;
+          color: hsl(150, 20%, 90%);
+          letter-spacing: -2px;
+          line-height: 1;
+          margin-bottom: 1.5rem;
+        }
+
+        .time-remaining {
+          display: flex;
+          flex-direction: column;
+          gap: 0.5rem;
+          padding-top: 1rem;
+          border-top: 1px solid rgba(255, 255, 255, 0.1);
+
+          .remaining-label {
+            font-size: 0.9rem;
+            color: hsl(150, 10%, 70%);
+            font-weight: 500;
+          }
+
+          .remaining-value {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: hsl(150, 60%, 60%);
+            font-family: 'Courier New', monospace;
+          }
+        }
+      }
+
+      .next-prayer-info {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        padding: 1.25rem;
+        border-radius: 12px;
+        text-align: center;
+        background: hsl(150, 25%, 15%);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+
+        .next-label {
+          font-size: 0.9rem;
+          color: hsl(150, 10%, 70%);
+          font-weight: 500;
+        }
+
+        .next-prayer {
+          font-size: 1.25rem;
+          font-weight: 700;
+          color: hsl(150, 20%, 85%);
+        }
+
+        .next-time {
+          font-size: 1.1rem;
+          font-weight: 600;
+          color: hsl(150, 60%, 60%);
+        }
+      }
+    }
+
+    /* Prayer Times Panel */
+    .prayer-times-panel {
+      background: hsl(150, 25%, 15%);
+      border-radius: 20px;
+      padding: 2rem;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2),
+        0 4px 20px rgba(0, 0, 0, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+
+      .panel-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.5rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+        h4 {
+          margin: 0;
+          font-size: 1.25rem;
+          font-weight: 700;
+          color: hsl(150, 20%, 90%);
+        }
+
+        .hijri-date {
+          font-size: 0.95rem;
+          color: hsl(150, 10%, 70%);
+          font-weight: 600;
+          background: hsl(150, 25%, 20%);
+          padding: 0.5rem 1rem;
+          border-radius: 12px;
+        }
+      }
+
+      .prayer-times-list {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+
+        .prayer-item {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+          padding: 1.25rem 1.5rem;
+          background: linear-gradient(135deg,
+              hsl(150, 25%, 18%) 0%,
+              hsl(150, 25%, 16%) 100%);
+          border-radius: 16px;
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          position: relative;
+          overflow: hidden;
+
+          &::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: transparent;
+            transition: all 0.3s ease;
+          }
+
+          &:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+          }
+
+          &.active {
+            background: linear-gradient(135deg,
+                hsla(150, 60%, 50%, 0) 0%,
+                hsla(150, 60%, 45%, 0.563) 100%);
+            box-shadow: 0 8px 30px rgba(16, 185, 129, 0.3);
+
+            &::before {
+              background: hsl(150, 80%, 50%);
+            }
+
+            .prayer-icon {
+              background: hsl(150, 25%, 20%);
+              transform: scale(1.1);
+            }
+
+            .prayer-name,
+            .prayer-time {
+              color: white;
+            }
+
+            .prayer-status {
+              &::after {
+                content: '✓';
+                color: white;
+                font-weight: 700;
+                font-size: 1.25rem;
+              }
+            }
+          }
+
+          &.passed {
+            opacity: 0.7;
+
+            .prayer-status {
+              &::after {
+                content: '✓';
+                color: hsl(150, 60%, 40%);
+                font-weight: 700;
+                font-size: 1rem;
+              }
+            }
+          }
+
+          .prayer-icon {
+            font-size: 2rem;
+            width: 3rem;
+            height: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            background: hsl(150, 25%, 20%);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+          }
+
+          .prayer-info {
+            flex: 1;
+
+            .prayer-name {
+              font-size: 1.1rem;
+              font-weight: 700;
+              color: hsl(150, 20%, 85%);
+              margin-bottom: 0.25rem;
+            }
+
+            .prayer-time {
+              font-size: 1.5rem;
+              font-weight: 700;
+              color: hsl(150, 60%, 60%);
+              font-family: 'Courier New', monospace;
+            }
+          }
+
+          .prayer-status {
+            width: 1.5rem;
+            height: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+        }
+      }
+    }
+  }
+
+  /* Error States */
+  .azan-error {
+    background: linear-gradient(135deg,
+        hsl(0, 100%, 97%) 0%,
+        hsl(0, 100%, 95%) 100%);
+    border-radius: 16px;
+    padding: 1.5rem;
+    margin: 1rem 0;
+    color: hsl(0, 80%, 45%);
+    border: 1px solid hsl(0, 80%, 90%);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+
+    .error-message {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      font-weight: 600;
+
+      svg {
+        flex-shrink: 0;
+        color: hsl(0, 80%, 45%);
+      }
+    }
+  }
+
+  /* Loading State */
+  .azan-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin: 1rem 0;
+    padding: 2rem;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+
+    .loading-spinner {
+      width: 1.5rem;
+      height: 1.5rem;
+      border: 2px solid hsl(150, 60%, 90%);
+      border-top: 2px solid hsl(150, 60%, 50%);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    span {
+      font-weight: 500;
+      color: hsl(150, 20%, 35%);
+    }
+  }
+}
+
+/* Large Desktop Enhancements */
+@media (min-width: 1600px) {
+  .azan-section {
+    padding: 3rem;
+
+    .azan-content {
+      grid-template-columns: 450px 1fr;
+      gap: 3rem;
+    }
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+  .azan-section {
+    .azan-content {
+      grid-template-columns: 1fr;
+
+      .prayer-times-panel .prayer-times-list {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .azan-section {
+    .azan-header {
+      flex-direction: column;
+      gap: 1rem;
+      align-items: stretch;
+    }
+
+    .azan-content {
+      grid-template-columns: 1fr;
+
+      .prayer-times-panel .prayer-times-list {
+        grid-template-columns: 1fr;
+      }
     }
   }
 }

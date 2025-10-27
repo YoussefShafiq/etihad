@@ -137,6 +137,22 @@ function initializeTabs() {
             if (tabContent) {
                 tabContent.classList.add('active');
                 console.log(`✅ Switched to ${tabId} tab`);
+
+                // Initialize Azan tab when opened
+                if (tabId === 'azan') {
+                    console.log('Initializing Azan tab...');
+                    fetchPrayerTimes('Cairo');
+                }
+
+                // Initialize Weather tab when opened
+                if (tabId === 'weather') {
+                    console.log('Initializing Weather tab...');
+                    // Only fetch if not already loaded
+                    const weatherCity = document.getElementById('weather-city');
+                    if (weatherCity && weatherCity.textContent === 'القاهرة') {
+                        fetchWeatherData('Cairo');
+                    }
+                }
             } else {
                 console.error(`❌ Tab content with id ${tabId}-tab not found`);
             }
@@ -403,8 +419,6 @@ function updateWeatherForecast(forecast) {
     console.log('✅ Weather forecast updated successfully');
 }
 
-
-
 function createFallbackForecast() {
     const forecastContainer = document.getElementById('forecastContainer');
     if (!forecastContainer) return;
@@ -482,6 +496,298 @@ function handleWeatherSearch() {
     } else {
         showError('يرجى إدخال اسم المدينة');
     }
+}
+
+// Prayer Times API Functions
+let prayerTimesData = null;
+let countdownInterval = null;
+
+const prayerNames = {
+    fajr: 'الفجر',
+    sunrise: 'الشروق',
+    dhuhr: 'الظهر',
+    asr: 'العصر',
+    maghrib: 'المغرب',
+    isha: 'العشاء'
+};
+
+async function fetchPrayerTimes(city = 'Cairo') {
+    console.log(`Fetching prayer times for: ${city}`);
+
+    showAzanLoading(true);
+    hideAzanError();
+
+    try {
+        // Get current date
+        const now = new Date();
+        const day = now.getDate();
+        const month = now.getMonth() + 1;
+        const year = now.getFullYear();
+
+        // Using Aladhan API for prayer times
+        const response = await fetch(
+            `https://api.aladhan.com/v1/timingsByCity/${day}-${month}-${year}?city=${encodeURIComponent(city)}&country=Egypt&method=5`
+        );
+
+        if (!response.ok) {
+            throw new Error('Unable to fetch prayer times');
+        }
+
+        const data = await response.json();
+
+        if (data.code !== 200) {
+            throw new Error('Invalid response from API');
+        }
+
+        console.log('✅ Prayer times fetched successfully:', data);
+
+        prayerTimesData = data.data;
+        updatePrayerTimesDisplay(data.data);
+        startCountdown();
+        showAzanLoading(false);
+
+    } catch (error) {
+        console.error('❌ Error fetching prayer times:', error);
+        showAzanLoading(false);
+        showAzanError('لم نتمكن من جلب مواقيت الصلاة. يرجى المحاولة مرة أخرى.');
+    }
+}
+
+function updatePrayerTimesDisplay(data) {
+    console.log('Updating prayer times display...');
+
+    const timings = data.timings;
+    const date = data.date;
+
+    // Update city name
+    updateElementText('azan-city-name', data.meta.timezone.split('/')[1] || 'القاهرة');
+
+    // Update dates
+    updateElementText('hijriDate', `${date.hijri.day} ${date.hijri.month.ar} ${date.hijri.year}`);
+    updateElementText('gregorianDate', `${date.readable}`);
+
+    // Update prayer times
+    updateElementText('fajr-time', formatTime(timings.Fajr));
+    updateElementText('sunrise-time', formatTime(timings.Sunrise));
+    updateElementText('dhuhr-time', formatTime(timings.Dhuhr));
+    updateElementText('asr-time', formatTime(timings.Asr));
+    updateElementText('maghrib-time', formatTime(timings.Maghrib));
+    updateElementText('isha-time', formatTime(timings.Isha));
+
+    // Update current prayer info
+    updateCurrentPrayer(timings);
+
+    // Update timestamp
+    const now = new Date();
+    updateElementText('azan-update-time', now.toLocaleTimeString('ar-EG'));
+
+    console.log('✅ Prayer times display updated successfully');
+}
+
+function formatTime(time24) {
+    // Convert 24-hour format to 12-hour format
+    const [hours, minutes] = time24.split(':');
+    let hour = parseInt(hours);
+    const period = hour >= 12 ? 'م' : 'ص';
+
+    if (hour > 12) hour -= 12;
+    if (hour === 0) hour = 12;
+
+    return `${hour}:${minutes}`;
+}
+
+function parseTime(timeStr) {
+    const [hours, minutes] = timeStr.split(':').map(Number);
+    const date = new Date();
+    date.setHours(hours, minutes, 0, 0);
+    return date;
+}
+
+function updateCurrentPrayer(timings) {
+    const now = new Date();
+    const prayers = [
+        { name: 'fajr', arabicName: 'الفجر', time: parseTime(timings.Fajr) },
+        { name: 'sunrise', arabicName: 'الشروق', time: parseTime(timings.Sunrise) },
+        { name: 'dhuhr', arabicName: 'الظهر', time: parseTime(timings.Dhuhr) },
+        { name: 'asr', arabicName: 'العصر', time: parseTime(timings.Asr) },
+        { name: 'maghrib', arabicName: 'المغرب', time: parseTime(timings.Maghrib) },
+        { name: 'isha', arabicName: 'العشاء', time: parseTime(timings.Isha) }
+    ];
+
+    let currentPrayer = null;
+    let nextPrayer = null;
+
+    // Find current and next prayer
+    for (let i = 0; i < prayers.length; i++) {
+        if (now < prayers[i].time) {
+            nextPrayer = prayers[i];
+            currentPrayer = i > 0 ? prayers[i - 1] : prayers[prayers.length - 1];
+            break;
+        }
+    }
+
+    // If no next prayer found, we're past Isha
+    if (!nextPrayer) {
+        currentPrayer = prayers[prayers.length - 1];
+        nextPrayer = prayers[0]; // Fajr of next day
+    }
+
+    // Update current prayer display
+    if (currentPrayer) {
+        updateElementText('currentPrayerName', currentPrayer.arabicName);
+        updateElementText('currentPrayerTime', formatTime(timings[capitalizeFirst(currentPrayer.name)]));
+    }
+
+    // Update next prayer display
+    if (nextPrayer) {
+        updateElementText('nextPrayerName', nextPrayer.arabicName);
+        updateElementText('nextPrayerTime', formatTime(timings[capitalizeFirst(nextPrayer.name)]));
+    }
+
+    // Update prayer item states
+    updatePrayerItemStates(prayers, now);
+}
+
+function updatePrayerItemStates(prayers, now) {
+    prayers.forEach((prayer, index) => {
+        const prayerItem = document.querySelector(`.prayer-item[data-prayer="${prayer.name}"]`);
+        if (!prayerItem) return;
+
+        // Remove all state classes
+        prayerItem.classList.remove('active', 'passed');
+
+        // Check if prayer time has passed
+        if (now > prayer.time) {
+            prayerItem.classList.add('passed');
+        }
+
+        // Check if this is the current prayer (between this prayer and next)
+        const nextPrayer = prayers[index + 1];
+        if (now > prayer.time && (!nextPrayer || now < nextPrayer.time)) {
+            prayerItem.classList.add('active');
+        }
+    });
+}
+
+function startCountdown() {
+    // Clear existing interval
+    if (countdownInterval) {
+        clearInterval(countdownInterval);
+    }
+
+    // Update countdown every second
+    countdownInterval = setInterval(updateCountdown, 1000);
+    updateCountdown(); // Initial update
+}
+
+function updateCountdown() {
+    if (!prayerTimesData) return;
+
+    const now = new Date();
+    const timings = prayerTimesData.timings;
+
+    const prayers = [
+        { name: 'fajr', time: parseTime(timings.Fajr) },
+        { name: 'sunrise', time: parseTime(timings.Sunrise) },
+        { name: 'dhuhr', time: parseTime(timings.Dhuhr) },
+        { name: 'asr', time: parseTime(timings.Asr) },
+        { name: 'maghrib', time: parseTime(timings.Maghrib) },
+        { name: 'isha', time: parseTime(timings.Isha) }
+    ];
+
+    // Find next prayer
+    let nextPrayerTime = null;
+    for (const prayer of prayers) {
+        if (now < prayer.time) {
+            nextPrayerTime = prayer.time;
+            break;
+        }
+    }
+
+    // If no prayer found today, use Fajr of tomorrow
+    if (!nextPrayerTime) {
+        nextPrayerTime = parseTime(timings.Fajr);
+        nextPrayerTime.setDate(nextPrayerTime.getDate() + 1);
+    }
+
+    // Calculate time difference
+    const diff = nextPrayerTime - now;
+
+    if (diff > 0) {
+        const hours = Math.floor(diff / (1000 * 60 * 60));
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+        const timeString = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+
+        const remainingElement = document.querySelector('.time-remaining .remaining-value');
+        if (remainingElement) {
+            remainingElement.textContent = timeString;
+        }
+    }
+}
+
+function capitalizeFirst(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+function showAzanLoading(show) {
+    const loadingElement = document.getElementById('azanLoading');
+    if (loadingElement) {
+        loadingElement.style.display = show ? 'flex' : 'none';
+    }
+}
+
+function showAzanError(message) {
+    const errorElement = document.getElementById('azanError');
+    const errorText = document.getElementById('azanErrorText');
+
+    if (errorElement && errorText) {
+        errorText.textContent = message;
+        errorElement.style.display = 'block';
+    }
+}
+
+function hideAzanError() {
+    const errorElement = document.getElementById('azanError');
+    if (errorElement) {
+        errorElement.style.display = 'none';
+    }
+}
+
+function updateElementText(id, text) {
+    const element = document.getElementById(id);
+    if (element) {
+        element.textContent = text;
+    }
+}
+
+function initializeAzanTab() {
+    console.log('Initializing Azan tab...');
+
+    // Fetch prayer times for default city (Cairo)
+    fetchPrayerTimes('Cairo');
+
+    // Update prayer times every minute
+    setInterval(() => {
+        if (prayerTimesData) {
+            updateCurrentPrayer(prayerTimesData.timings);
+        }
+    }, 60000);
+
+    console.log('✅ Azan tab initialized successfully');
+}
+
+// Function to sync with weather tab city changes
+function syncAzanWithWeatherCity(city) {
+    console.log(`Syncing Azan times with weather city: ${city}`);
+    fetchPrayerTimes(city);
+}
+
+// Export functions for use in main app
+if (typeof window !== 'undefined') {
+    window.initializeAzanTab = initializeAzanTab;
+    window.syncAzanWithWeatherCity = syncAzanWithWeatherCity;
 }
 
 // Fetch Crypto Prices (using a free API)
@@ -603,14 +909,16 @@ document.addEventListener('DOMContentLoaded', function () {
     // Initialize components
     initializeGoldChart();
     initializeGoldCalculator();
-    initializeTabs();
+    initializeTabs(); // This will handle Azan initialization when tab is clicked
     initializeWeatherSearch();
 
-    // Fetch initial data
+    // Fetch initial data for default tabs only
     fetchGoldPrices();
     fetchCurrencyRates();
     fetchCryptoPrices();
-    fetchWeatherData();
+    // DON'T fetch weather or azan here - let them load when tabs are clicked
+    // fetchWeatherData(); // REMOVE THIS
+    // fetchPrayerTimes(); // REMOVE THIS
 
     // Start auto-refresh
     startAutoRefresh();
