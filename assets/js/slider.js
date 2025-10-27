@@ -393,6 +393,27 @@ if (document.getElementById('article-gallery-slider')) {
     });
 }
 
+if (document.getElementById('article-main-characters-slider')) {
+    const articleMainCharactersSlider = new CustomSlider(document.getElementById('article-main-characters-slider'), {
+        loop: true,
+        autoplay: true,
+        autoplayDelay: 3000,
+        keyboard: true,
+        mousewheel: true,
+        rtl: true,
+        slidesPerView: {
+            mobile: 1,
+            tablet: 2,
+            desktop: 3
+        },
+        breakpoints: {
+            mobile: 640,
+            tablet: 1024
+        },
+        spaceBetween: 20
+    });
+}
+
 if (document.getElementById('single-slide-slider')) {
     const singlesliderslide = new CustomSlider(document.getElementById('single-slide-slider'), {
         loop: true,

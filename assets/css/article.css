@@ -111,7 +111,7 @@ body.light {
 
   /* Article actions */
   .article-actions {
-    border-top: 1px solid var(--faded-background);
+    border-top: 1px solid #ddd;
 
     .action-btn {
       background: var(--cardbase);
@@ -129,7 +129,7 @@ body.light {
     background: var(--faded-background);
 
     a {
-      background: var(--faded-background);
+      background: #dedede;
       color: var(--dark);
     }
   }
@@ -181,10 +181,6 @@ body.light {
 
   /* FAQ section */
   .faq-section {
-    background-color: black;
-    padding-block: 24px;
-    border-radius: 20px;
-
     .faq-header {
       h2 {
         color: white !important;
@@ -426,14 +422,7 @@ body.light {
     font-size: 16px;
   }
 
-  &.ad-bottom .ad-content {
-    width: 100%;
-    max-width: 728px;
-    height: 90px;
-    line-height: 1.2;
-    font-size: 18px;
-    margin: 0 auto;
-  }
+
 }
 
 /* رأس المقال */
@@ -498,8 +487,11 @@ body.light {
   line-height: 1.8;
   font-size: 1.1rem;
   color: var(--text);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 
-  h2 {
+  >h2 {
     font-size: 1.8rem;
     margin: 30px 0 15px;
     color: var(--text);
@@ -595,6 +587,7 @@ body.light {
   .slide {
     height: 200px;
     cursor: pointer;
+    border-radius: 10px;
 
     img {
       width: 100%;
@@ -605,52 +598,44 @@ body.light {
   }
 }
 
-/* سلايدر الشخصيات المهمة */
-.important-figures-slider {
-  margin: 40px 0;
+#article-main-characters-slider {
+  .character-slide {
+    background-color: var(--dark2);
+    border-radius: 14px;
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    align-items: center;
+    justify-content: center;
 
-  h3 {
-    font-size: 1.5rem;
-    margin-bottom: 20px;
-    color: var(--text);
-  }
-
-  #figures-slider {
-    height: 300px;
-
-    .figure-slide {
-      text-align: center;
-      padding: 20px;
+    .img {
+      width: 100px;
+      height: 100px;
+      border: 4px solid rgb(122, 0, 204);
+      border-radius: 50%;
+      overflow: hidden;
 
       img {
-        width: 120px;
-        height: 120px;
-        border-radius: 50%;
+        width: 100%;
+        height: 100%;
         object-fit: cover;
-        margin: 0 auto 15px;
-        border: 3px solid var(--highlight);
       }
+    }
 
-      .figure-info {
-        h4 {
-          font-size: 1.2rem;
-          margin-bottom: 5px;
-          color: var(--text);
-        }
+    h3 {
+      font-size: 14px;
+    }
 
-        p {
-          color: var(--darktext);
-          font-size: 0.9rem;
-          margin: 0;
-        }
-      }
+    span {
+      font-size: 12px;
     }
   }
 }
 
+
 /* الكلمات المفتاحية والإجراءات */
 .article-tags {
-  margin: 30px 0;
   padding: 20px;
   background: var(--faded-background);
   border-radius: 8px;
@@ -676,8 +661,7 @@ body.light {
 .article-actions {
   display: flex;
   gap: 15px;
-  margin: 30px 0;
-  padding-top: 20px;
+  padding-top: 8px;
   border-top: 1px solid var(--faded-background);
 
   .action-btn {
@@ -1306,9 +1290,10 @@ body.light {
 
 /* قسم الأسئلة الشائعة */
 .faq-section {
+  background-color: black;
+  padding: 24px 20px;
+  border-radius: 20px;
   max-width: 1200px;
-  margin: 60px auto;
-  padding: 0 20px;
 
 
   .faq-header {
@@ -1318,7 +1303,7 @@ body.light {
     h2 {
       font-size: 2rem;
       color: var(--text);
-      margin-bottom: 10px;
+      /* margin-bottom: 10px; */
       position: relative;
       display: inline-block;
       border-right: none;
@@ -1811,10 +1796,6 @@ body.light {
     }
   }
 
-  .ad-bottom .ad-content {
-    width: 100%;
-    max-width: 728px;
-  }
 
   #article-images-slider {
     height: 300px;
@@ -1885,10 +1866,6 @@ body.light {
     font-size: 14px;
   }
 
-  .ad-bottom .ad-content {
-    height: 70px;
-    font-size: 14px;
-  }
 
   .ad-inline .ad-content {
     height: 150px;
