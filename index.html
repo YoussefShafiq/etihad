@@ -637,27 +637,22 @@
                     <span>التوقيت العالمى</span>
                 </div>
                 <div class="tab" data-tab="currencies">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                        class="bi bi-currency-dollar" viewbox="0 0 16 16">
-                        <path
-                            d="M4 10.781c.148 1.667 1.513 2.85 3.591 3.003V15h1.043v-1.216c2.27-.179 3.678-1.438 3.678-3.3 0-1.59-.947-2.51-2.956-3.028l-.722-.187V3.467c1.122.11 1.879.714 2.07 1.616h1.47c-.166-1.6-1.54-2.748-3.54-2.875V1H7.591v1.233c-1.939.23-3.27 1.472-3.27 3.156 0 1.454.966 2.483 2.661 2.917l.61.162v4.031c-1.149-.17-1.94-.8-2.131-1.718zm3.391-3.836c-1.043-.263-1.6-.825-1.6-1.616 0-.944.704-1.641 1.8-1.828v3.495l-.2-.05zm1.591 1.872c1.287.323 1.852.859 1.852 1.769 0 1.097-.826 1.828-2.2 1.939V8.73z">
-                        </path>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 48 48">
+                        <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round"
+                            d="M34.5 5.5h-21c-4.4 0-8 3.6-8 8v21c0 4.4 3.6 8 8 8h21c4.4 0 8-3.6 8-8v-21c0-4.4-3.6-8-8-8Z" />
+                        <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round"
+                            d="M15.333 37C12.95 37 11 36.056 11 33.673V14c0-1.65 1.35-3 3-3h20c1.65 0 3 1.35 3 3v18.667A4.346 4.346 0 0 1 32.667 37v-1.526c-1.214-1.005-1.693-1.21-1.693-1.21s1.524-1.23 1.898-1.756c.816-1.15 2.863-6.045-1.469-9.095c-1.552-1.093-6.31-3.317-6.31-3.317c-1.036-2.482-1.128-3.545-1.093-6.172c.035 2.627-.057 3.69-1.094 6.172c0 0-4.756 2.224-6.309 3.317c-4.332 3.05-2.285 7.945-1.469 9.095c.374.527 1.898 1.756 1.898 1.756s-.479.205-1.692 1.21V37Z" />
                     </svg>
                     <span>موقيت الصلاة</span>
                 </div>
-                <div class="tab" data-tab="currencies">
+                <div class="tab" data-tab="weather">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                        class="bi bi-currency-dollar" viewbox="0 0 16 16">
+                        class="bi bi-cloud-haze2" viewBox="0 0 16 16">
                         <path
-                            d="M4 10.781c.148 1.667 1.513 2.85 3.591 3.003V15h1.043v-1.216c2.27-.179 3.678-1.438 3.678-3.3 0-1.59-.947-2.51-2.956-3.028l-.722-.187V3.467c1.122.11 1.879.714 2.07 1.616h1.47c-.166-1.6-1.54-2.748-3.54-2.875V1H7.591v1.233c-1.939.23-3.27 1.472-3.27 3.156 0 1.454.966 2.483 2.661 2.917l.61.162v4.031c-1.149-.17-1.94-.8-2.131-1.718zm3.391-3.836c-1.043-.263-1.6-.825-1.6-1.616 0-.944.704-1.641 1.8-1.828v3.495l-.2-.05zm1.591 1.872c1.287.323 1.852.859 1.852 1.769 0 1.097-.826 1.828-2.2 1.939V8.73z">
-                        </path>
+                            d="M8.5 3a4 4 0 0 0-3.8 2.745.5.5 0 1 1-.949-.313 5.002 5.002 0 0 1 9.654.595A3 3 0 0 1 13 12H4.5a.5.5 0 0 1 0-1H13a2 2 0 0 0 .001-4h-.026a.5.5 0 0 1-.5-.445A4 4 0 0 0 8.5 3M0 7.5A.5.5 0 0 1 .5 7h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m2 2a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5m-2 4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5" />
                     </svg>
                     <span>حالة الطقس</span>
                 </div>
-
-
-
-
             </div>
         </div>
 
@@ -928,6 +923,121 @@
                 <div class="last-update">
                     <p>آخر تحديث: <span id="crypto-update-time">--:--</span></p>
                 </div>
+            </div>
+        </div>
+
+        <!-- Weather Tab Content - Desktop Optimized -->
+        <div class="tab-content" id="weather-tab">
+            <div class="weather-section">
+                <div class="weather-header">
+                    <div class="header-content">
+                        <div class="icon-container weather-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                                class="bi bi-cloud-sun" viewBox="0 0 16 16">
+                                <path
+                                    d="M7 8a3.5 3.5 0 0 1 3.5 3.555.5.5 0 0 0 .624.492A1.503 1.503 0 0 1 13 13.5a1.5 1.5 0 0 1-1.5 1.5H3a2 2 0 1 1 .1-3.998.5.5 0 0 0 .51-.375A3.5 3.5 0 0 1 7 8zm4.473 3a4.5 4.5 0 0 0-8.72-.99A3 3 0 0 0 3 16h8.5a2.5 2.5 0 0 0 0-5h-.027z" />
+                                <path
+                                    d="M10.5 1.5a.5.5 0 0 0-1 0v1a.5.5 0 0 0 1 0v-1zm3.743 1.964a.5.5 0 1 0-.707-.707l-.708.707a.5.5 0 0 0 .708.708l.707-.708zm-7.779-.707a.5.5 0 0 0-.707.707l.707.708a.5.5 0 1 0 .708-.708l-.708-.707zM8 3.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0 0 1h1a.5.5 0 0 0 .5-.5z" />
+                            </svg>
+                        </div>
+                        <div class="header-title">
+                            <h2>الطقس</h2>
+                            <p>حالة الطقس في مصر</p>
+                        </div>
+                    </div>
+
+                    <div class="weather-search">
+                        <div class="search-input-container">
+                            <input type="text" id="cityInput" placeholder="ابحث عن مدينة...">
+                            <button id="searchWeather">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-search" viewBox="0 0 16 16">
+                                    <path
+                                        d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Weather Error Message -->
+                <div class="weather-error" id="weatherError" style="display: none;">
+                    <div class="error-message">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                            class="bi bi-exclamation-triangle" viewBox="0 0 16 16">
+                            <path
+                                d="M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.15.15 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.2.2 0 0 1-.054.06.1.1 0 0 1-.066.017H1.146a.1.1 0 0 1-.066-.017.2.2 0 0 1-.054-.06.18.18 0 0 1 .002-.183L7.884 2.073a.15.15 0 0 1 .054-.057m1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767z" />
+                            <path
+                                d="M7.002 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0M7.1 5.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0z" />
+                        </svg>
+                        <span id="errorText">لم نتمكن من العثور على بيانات الطقس لهذه المدينة. يرجى المحاولة مرة
+                            أخرى.</span>
+                    </div>
+                </div>
+
+                <!-- Main Weather Content - Desktop Layout -->
+                <div class="weather-content">
+                    <!-- Current Weather Panel -->
+                    <div class="current-weather-panel">
+                        <div class="weather-location">
+                            <h3 id="weather-city">القاهرة</h3>
+                            <p id="weather-date">-- -- --</p>
+                        </div>
+                        <div class="weather-bottomside">
+
+                            <div class="weather-main">
+                                <div class="weather-icon-container">
+                                    <img id="weather-icon" src="" alt="Weather Icon">
+                                </div>
+                                <div class="weather-temp">
+                                    <div class="temp-main" id="weather-temp">--°</div>
+                                    <div class="temp-feels" id="weather-feels">يشعر بـ --°</div>
+                                </div>
+                                <div class="weather-description" id="weather-description">--</div>
+                            </div>
+
+
+                            <div class="weather-details-grid">
+                                <div class="weather-detail-card">
+                                    <div class="detail-icon">💧</div>
+                                    <div class="detail-content">
+                                        <div class="detail-label">الرطوبة</div>
+                                        <div class="detail-value" id="weather-humidity">--%</div>
+                                    </div>
+                                </div>
+
+                                <div class="weather-detail-card">
+                                    <div class="detail-icon">💨</div>
+                                    <div class="detail-content">
+                                        <div class="detail-label">سرعة الرياح</div>
+                                        <div class="detail-value" id="weather-wind">-- كم/س</div>
+                                    </div>
+                                </div>
+
+                                <div class="weather-detail-card">
+                                    <div class="detail-icon">🌡️</div>
+                                    <div class="detail-content">
+                                        <div class="detail-label">الضغط</div>
+                                        <div class="detail-value" id="weather-pressure">-- hPa</div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Forecast Panel -->
+                    <div class="forecast-panel">
+                        <div class="panel-header">
+                            <h4>توقعات الأيام القادمة</h4>
+                        </div>
+
+                        <div class="forecast-list" id="forecastContainer">
+                            <!-- Forecast items will be dynamically added here -->
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>

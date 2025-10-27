@@ -302,6 +302,187 @@ async function fetchCurrencyRates() {
         console.log('✅ Currency rates updated with fallback data');
     }
 }
+// Weather API Functions - Using free API without key
+async function fetchWeatherData(city = 'Cairo') {
+    console.log(`Fetching weather data for: ${city}`);
+
+    // Show loading state
+    showLoading(true);
+    hideError();
+
+    try {
+        // Using a free weather API that doesn't require API key
+        const response = await fetch(`https://api.weatherapi.com/v1/forecast.json?key=1f039acad4d9499b854172033241206&q=${encodeURIComponent(city)}&days=5&lang=ar`);
+
+        if (!response.ok) {
+            throw new Error('City not found or API error');
+        }
+
+        const data = await response.json();
+        console.log('✅ Weather data fetched successfully:', data);
+
+        updateWeatherDisplay(data);
+        showLoading(false);
+
+    } catch (error) {
+        // console.error('❌ Error fetching weather data:', error);
+        showLoading(false);
+        showError('لم نتمكن من العثور على هذه المدينة. يرجى التأكد من اسم المدينة والمحاولة مرة أخرى.');
+    }
+}
+
+function updateWeatherDisplay(data) {
+    console.log('Updating weather display...');
+
+    const current = data.current;
+    const location = data.location;
+    const forecast = data.forecast;
+
+    // Update current weather
+    updateElementText('weather-city', location.name);
+    updateElementText('weather-temp', `${Math.round(current.temp_c)}°`);
+    updateElementText('weather-feels', `يشعر بـ ${Math.round(current.feelslike_c)}°`);
+    updateElementText('weather-description', current.condition.text);
+    updateElementText('weather-humidity', `${current.humidity}%`);
+    updateElementText('weather-wind', `${Math.round(current.wind_kph)} كم/س`);
+    updateElementText('weather-pressure', `${current.pressure_mb} hPa`);
+
+    // Update weather icon
+    const weatherIcon = document.getElementById('weather-icon');
+    if (weatherIcon) {
+        weatherIcon.src = `https:${current.condition.icon}`;
+        weatherIcon.alt = current.condition.text;
+    }
+
+    // Update date
+    const now = new Date();
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    updateElementText('weather-date', now.toLocaleDateString('ar-EG', options));
+
+    // Update timestamp
+    updateElementText('weather-update-time', now.toLocaleTimeString('ar-EG'));
+
+    // Update forecast
+    updateWeatherForecast(forecast);
+
+    console.log('✅ Weather display updated successfully');
+}
+
+function updateWeatherForecast(forecast) {
+    console.log('Updating weather forecast...');
+
+    const forecastContainer = document.getElementById('forecastContainer');
+    if (!forecastContainer) return;
+
+    // Clear previous forecast
+    forecastContainer.innerHTML = '';
+
+    // Create forecast items for next 5 days
+    forecast.forecastday.forEach(day => {
+        const date = new Date(day.date);
+        const dayName = date.toLocaleDateString('ar-EG', { weekday: 'short' });
+
+        const forecastItem = document.createElement('div');
+        forecastItem.className = 'forecast-item';
+        forecastItem.innerHTML = `
+            <div class="forecast-day">${dayName}</div>
+            <div class="forecast-date">${date.getDate()}/${date.getMonth() + 1}</div>
+            <div class="forecast-icon">
+                <img src="https:${day.day.condition.icon}" alt="${day.day.condition.text}">
+            </div>
+            <div class="forecast-temp">
+                <span class="temp-max">${Math.round(day.day.maxtemp_c)}°</span>
+                <span class="temp-min">${Math.round(day.day.mintemp_c)}°</span>
+            </div>
+            <div class="forecast-desc">${day.day.condition.text}</div>
+        `;
+
+        forecastContainer.appendChild(forecastItem);
+    });
+
+    console.log('✅ Weather forecast updated successfully');
+}
+
+
+
+function createFallbackForecast() {
+    const forecastContainer = document.getElementById('forecastContainer');
+    if (!forecastContainer) return;
+
+    forecastContainer.innerHTML = '';
+
+    const days = ['الأحد', 'الإثنين', 'الثلاثاء', 'الأربعاء', 'الخميس'];
+
+    days.forEach(day => {
+        const forecastItem = document.createElement('div');
+        forecastItem.className = 'forecast-item';
+        forecastItem.innerHTML = `
+            <div class="forecast-day">${day}</div>
+            <div class="forecast-icon">☀️</div>
+            <div class="forecast-temp">
+                <span class="temp-max">28°</span>
+                <span class="temp-min">22°</span>
+            </div>
+            <div class="forecast-desc">مشمس</div>
+        `;
+        forecastContainer.appendChild(forecastItem);
+    });
+}
+
+function showLoading(show) {
+    const loadingElement = document.getElementById('searchLoading');
+    if (loadingElement) {
+        loadingElement.style.display = show ? 'flex' : 'none';
+    }
+}
+
+function showError(message) {
+    const errorElement = document.getElementById('weatherError');
+    const errorText = document.getElementById('errorText');
+
+    if (errorElement && errorText) {
+        errorText.textContent = message;
+        errorElement.style.display = 'block';
+    }
+}
+
+function hideError() {
+    const errorElement = document.getElementById('weatherError');
+    if (errorElement) {
+        errorElement.style.display = 'none';
+    }
+}
+
+function initializeWeatherSearch() {
+    console.log('Initializing weather search...');
+
+    const searchButton = document.getElementById('searchWeather');
+    const cityInput = document.getElementById('cityInput');
+
+    if (searchButton && cityInput) {
+        searchButton.addEventListener('click', handleWeatherSearch);
+
+        cityInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                handleWeatherSearch();
+            }
+        });
+    }
+
+    console.log('✅ Weather search initialized successfully');
+}
+
+function handleWeatherSearch() {
+    const cityInput = document.getElementById('cityInput');
+    const city = cityInput.value.trim();
+
+    if (city) {
+        console.log('Searching for city:', city);
+        fetchWeatherData(city);
+    } else {
+        showError('يرجى إدخال اسم المدينة');
+    }
+}
 
 // Fetch Crypto Prices (using a free API)
 async function fetchCryptoPrices() {
@@ -423,11 +604,13 @@ document.addEventListener('DOMContentLoaded', function () {
     initializeGoldChart();
     initializeGoldCalculator();
     initializeTabs();
+    initializeWeatherSearch();
 
     // Fetch initial data
     fetchGoldPrices();
     fetchCurrencyRates();
     fetchCryptoPrices();
+    fetchWeatherData();
 
     // Start auto-refresh
     startAutoRefresh();
