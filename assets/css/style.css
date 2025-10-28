@@ -348,8 +348,9 @@ body.light {
 
             &:hover {
               background: linear-gradient(135deg,
-                  hsl(210, 25%, 20%) 0%,
-                  hsl(210, 25%, 18%) 100%);
+                  hsl(210, 100%, 96%) 0%,
+                  hsl(210, 100%, 94%) 100%);
+
             }
 
             .forecast-day {
@@ -1034,11 +1035,20 @@ body.light {
         align-items: start;
         gap: 10px;
 
+        @media (max-width: 768px) {
+          flex-direction: column;
+        }
+
         .title {
           width: 50%;
+
+          @media (max-width: 768px) {
+            width: 100%;
+          }
         }
 
         .price-cards {
+
           display: grid;
           grid-template-columns: repeat(2, 1fr);
           gap: 12px;
@@ -1072,6 +1082,10 @@ body.light {
           border-radius: 16px;
           padding: 15px;
           position: relative;
+
+          @media (max-width: 768px) {
+            width: 100%;
+          }
 
           #goldChart {
             width: 100% !important;
@@ -2884,6 +2898,11 @@ body.light {
     grid-template-columns: 1fr 400px;
     gap: 1.2rem;
 
+    @media (max-width: 768px) {
+      display: flex;
+      flex-direction: column;
+    }
+
     /* Current Weather Panel */
     .current-weather-panel {
       display: grid;
@@ -2895,6 +2914,7 @@ body.light {
       box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2),
         0 4px 20px rgba(0, 0, 0, 0.15);
       border: 1px solid rgba(255, 255, 255, 0.1);
+
 
       .weather-location {
         text-align: center;
@@ -2919,7 +2939,10 @@ body.light {
         display: flex;
         gap: 20px;
 
-
+        @media (max-width: 768px) {
+          padding-top: 12px;
+          flex-direction: column;
+        }
 
         .weather-main {
           flex-grow: 1;
@@ -3080,8 +3103,8 @@ body.light {
           &:hover {
             transform: translateX(4px);
             background: linear-gradient(135deg,
-                hsl(210, 100%, 96%) 0%,
-                hsl(210, 100%, 94%) 100%);
+                hsl(210, 25%, 20%) 0%,
+                hsl(210, 25%, 18%) 100%);
           }
 
           .forecast-day {
