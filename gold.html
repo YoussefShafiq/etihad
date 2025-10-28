@@ -1,0 +1,214 @@
+﻿<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أسعار الذهب | الاتحاد</title>
+
+    <!-- CSS Libraries -->
+    <link rel="stylesheet" href="assets/vendor/animate-wow/animate.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/global.css">
+    <link rel="stylesheet" href="assets/css/gold.css">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="./images/logo_icon.svg" type="image/x-icon">
+</head>
+
+<body>
+    <!-- Header Section -->
+    <header id="gold-header">
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="back-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                        viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                            d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z" />
+                    </svg>
+                    العودة للرئيسية
+                </a>
+                <div class="header-title">
+                    <h1>أسعار الذهب العالمية</h1>
+                    <p>أسعار الذهب المحدثة حسب الدول والعيارات</p>
+                </div>
+                <div class="header-actions">
+                    <div class="last-update">
+                        آخر تحديث: <span id="last-update-time">--:--</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main id="gold-main">
+        <div class="container">
+            <!-- Filters Section -->
+            <section class="filters-section">
+                <div class="filters-header">
+                    <h2>تصفية النتائج</h2>
+                    <button class="reset-filters" id="resetFilters">
+                        إعادة التعيين
+                    </button>
+                </div>
+
+                <div class="filters-grid">
+                    <!-- Country Filter -->
+                    <div class="filter-group">
+                        <label for="countryFilter">الدولة</label>
+                        <select id="countryFilter" class="filter-select">
+                            <option value="all">جميع الدول</option>
+                            <option value="egypt">مصر</option>
+                            <option value="saudi">السعودية</option>
+                            <option value="uae">الإمارات</option>
+                            <option value="kuwait">الكويت</option>
+                            <option value="qatar">قطر</option>
+                            <option value="oman">عُمان</option>
+                            <option value="bahrain">البحرين</option>
+                            <option value="jordan">الأردن</option>
+                            <option value="lebanon">لبنان</option>
+                            <option value="usa">الولايات المتحدة</option>
+                            <option value="uk">المملكة المتحدة</option>
+                            <option value="europe">أوروبا</option>
+                        </select>
+                    </div>
+
+                    <!-- Carat Filter -->
+                    <div class="filter-group">
+                        <label for="caratFilter">العيار</label>
+                        <select id="caratFilter" class="filter-select">
+                            <option value="all">جميع العيارات</option>
+                            <option value="24">عيار 24</option>
+                            <option value="21">عيار 21</option>
+                            <option value="18">عيار 18</option>
+                            <option value="14">عيار 14</option>
+                        </select>
+                    </div>
+
+                    <!-- Currency Filter -->
+                    <div class="filter-group">
+                        <label for="currencyFilter">العملة</label>
+                        <select id="currencyFilter" class="filter-select">
+                            <option value="all">جميع العملات</option>
+                            <option value="EGP">جنيه مصري</option>
+                            <option value="SAR">ريال سعودي</option>
+                            <option value="AED">درهم إماراتي</option>
+                            <option value="KWD">دينار كويتي</option>
+                            <option value="USD">دولار أمريكي</option>
+                            <option value="EUR">يورو</option>
+                        </select>
+                    </div>
+
+                    <!-- Sort Filter -->
+                    <div class="filter-group">
+                        <label for="sortFilter">ترتيب حسب</label>
+                        <select id="sortFilter" class="filter-select">
+                            <option value="price-low">السعر (منخفض إلى مرتفع)</option>
+                            <option value="price-high">السعر (مرتفع إلى منخفض)</option>
+                            <option value="country">اسم الدولة</option>
+                            <option value="change">التغير</option>
+                        </select>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Gold Prices Grid -->
+            <section class="gold-prices-section">
+                <div class="section-header">
+                    <h2>أسعار الذهب</h2>
+                    <div class="results-count">
+                        عرض <span id="resultsCount">0</span> نتيجة
+                    </div>
+                </div>
+
+                <div class="gold-prices-grid" id="goldPricesGrid">
+                    <!-- Gold cards will be dynamically inserted here -->
+                </div>
+
+                <!-- Loading State -->
+                <div class="loading-state" id="loadingState">
+                    <div class="loading-spinner"></div>
+                    <span>جاري تحميل أسعار الذهب...</span>
+                </div>
+
+                <!-- Empty State -->
+                <div class="empty-state" id="emptyState" style="display: none;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor"
+                        viewBox="0 0 16 16">
+                        <path d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zm0 13A6 6 0 1 1 8 2a6 6 0 0 1 0 12z" />
+                        <path d="M7.5 7.5h1v1h-1v-1zm0-3h1v3h-1v-3z" />
+                    </svg>
+                    <h3>لا توجد نتائج</h3>
+                    <p>لم نتمكن من العثور على أسعار ذهب تطابق معايير البحث الخاصة بك</p>
+                </div>
+            </section>
+
+            <!-- Gold Calculator Section -->
+            <section class="gold-calculator-section">
+                <div class="section-header">
+                    <h2>حاسبة الذهب</h2>
+                    <p>احسب سعر الذهب حسب الوزن والعيار</p>
+                </div>
+
+                <div class="calculator-content">
+                    <div class="calculator-inputs">
+                        <div class="input-group">
+                            <label for="calcWeight">الوزن (جرام)</label>
+                            <input type="number" id="calcWeight" placeholder="أدخل الوزن" step="0.01" min="0">
+                        </div>
+
+                        <div class="input-group">
+                            <label for="calcCarat">العيار</label>
+                            <select id="calcCarat">
+                                <option value="24">عيار 24</option>
+                                <option value="21">عيار 21</option>
+                                <option value="18">عيار 18</option>
+                                <option value="14">عيار 14</option>
+                            </select>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="calcCurrency">العملة</label>
+                            <select id="calcCurrency">
+                                <option value="EGP">جنيه مصري</option>
+                                <option value="SAR">ريال سعودي</option>
+                                <option value="AED">درهم إماراتي</option>
+                                <option value="USD">دولار أمريكي</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="calculator-result">
+                        <div class="result-card">
+                            <div class="result-label">السعر الإجمالي</div>
+                            <div class="result-value" id="calcResult">0.00</div>
+                            <div class="result-currency" id="calcCurrencySymbol">ج.م</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer id="gold-footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2024 الاتحاد. جميع الحقوق محفوظة.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Libraries -->
+    <script src="assets/vendor/animate-wow/wow.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Custom JavaScript -->
+    <script src="assets/js/gold.js"></script>
+</body>
+
+</html>

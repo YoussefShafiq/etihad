@@ -1,0 +1,685 @@
+/* World Clock Page Styles */
+:root {
+    --clock-primary: #3b82f6;
+    --clock-secondary: #1d4ed8;
+    --clock-light: #dbeafe;
+    --clock-dark: #1e3a8a;
+    --day-color: #da0bf5;
+    --night-color: #1e40af;
+}
+
+#worldclock-header {
+    background: var(--gradient);
+    padding: 2rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+#worldclock-header .header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+}
+
+#worldclock-header .header-content .back-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text);
+    text-decoration: none;
+    padding: 0.75rem 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+#worldclock-header .header-content .back-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateX(-4px);
+}
+
+#worldclock-header .header-content .header-title h1 {
+    margin: 0;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--text);
+    text-align: center;
+}
+
+#worldclock-header .header-content .header-title p {
+    margin: 0.5rem 0 0 0;
+    color: var(--darktext);
+    text-align: center;
+}
+
+#worldclock-header .header-content .current-time {
+    text-align: center;
+    padding: 1rem 1.5rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+#worldclock-header .header-content .current-time .time {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 0.25rem;
+}
+
+#worldclock-header .header-content .current-time .date {
+    font-size: 0.9rem;
+    color: var(--darktext);
+}
+
+#worldclock-main {
+    padding: 2rem 0;
+    background: var(--dark2);
+    min-height: 80vh;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+/* GMT Section */
+.gmt-section {
+    margin-bottom: 3rem;
+}
+
+.gmt-section .section-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.gmt-section .section-header h2 {
+    margin: 0 0 0.5rem 0;
+    color: var(--text);
+    font-size: 1.75rem;
+}
+
+.gmt-section .section-header p {
+    margin: 0;
+    color: var(--darktext);
+}
+
+.gmt-section .gmt-card {
+    background: var(--faded-background);
+    border-radius: 20px;
+    padding: 2rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: center;
+}
+
+.gmt-section .gmt-card .gmt-display {
+    text-align: center;
+    padding: 2rem;
+    background: linear-gradient(135deg, var(--clock-primary), var(--clock-secondary));
+    border-radius: 16px;
+    color: white;
+}
+
+.gmt-section .gmt-card .gmt-display .gmt-time {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    font-family: 'Courier New', monospace;
+}
+
+.gmt-section .gmt-card .gmt-display .gmt-date {
+    font-size: 1.2rem;
+    opacity: 0.9;
+}
+
+.gmt-section .gmt-card .gmt-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.gmt-section .gmt-card .gmt-info .info-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.gmt-section .gmt-card .gmt-info .info-item .label {
+    color: var(--darktext);
+    font-size: 0.9rem;
+}
+
+.gmt-section .gmt-card .gmt-info .info-item .value {
+    color: var(--text);
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+/* Cities Section */
+.cities-section {
+    margin-bottom: 3rem;
+}
+
+.cities-section .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.cities-section .section-header h2 {
+    margin: 0;
+    color: var(--text);
+    font-size: 1.75rem;
+}
+
+.cities-section .section-header .section-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.cities-section .section-header .section-actions .search-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.cities-section .section-header .section-actions .search-box input {
+    background: var(--dark);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    padding: 0.75rem 1rem 0.75rem 2.5rem;
+    color: var(--text);
+    font-size: 0.9rem;
+    width: 250px;
+    transition: all 0.3s ease;
+}
+
+.cities-section .section-header .section-actions .search-box input:focus {
+    outline: none;
+    border-color: var(--clock-primary);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.cities-section .section-header .section-actions .search-box svg {
+    position: absolute;
+    left: 0.75rem;
+    color: var(--darktext);
+}
+
+.cities-section .section-header .section-actions .refresh-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--clock-primary);
+    border: none;
+    border-radius: 8px;
+    padding: 0.75rem 1.25rem;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.cities-section .section-header .section-actions .refresh-btn:hover {
+    background: var(--clock-secondary);
+    transform: translateY(-2px);
+}
+
+.cities-section .cities-filters {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.cities-section .cities-filters .filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.cities-section .cities-filters .filter-group label {
+    color: var(--text);
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.cities-section .cities-filters .filter-group select {
+    background: var(--dark);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    color: var(--text);
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 150px;
+}
+
+.cities-section .cities-filters .filter-group select:focus {
+    outline: none;
+    border-color: var(--clock-primary);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.cities-section .cities-filters .filter-group select option {
+    background: var(--dark);
+    color: var(--text);
+}
+
+.cities-section .cities-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.cities-section .cities-grid .city-card {
+    background: var(--faded-background);
+    border-radius: 16px;
+    padding: 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.cities-section .cities-grid .city-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--clock-primary), var(--clock-secondary));
+}
+
+.cities-section .cities-grid .city-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    border-color: var(--clock-primary);
+}
+
+.cities-section .cities-grid .city-card.daytime {
+    background: linear-gradient(135deg, var(--faded-background), rgba(241, 11, 245, 0.1));
+}
+
+.cities-section .cities-grid .city-card.nighttime {
+    background: linear-gradient(135deg, var(--faded-background), rgba(30, 64, 175, 0.1));
+}
+
+.cities-section .cities-grid .city-card .city-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+}
+
+.cities-section .cities-grid .city-card .city-header .city-info {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.cities-section .cities-grid .city-card .city-header .city-info .city-flag {
+    font-size: 2rem;
+}
+
+.cities-section .cities-grid .city-card .city-header .city-info .city-details h3 {
+    margin: 0;
+    color: var(--text);
+    font-size: 1.1rem;
+}
+
+.cities-section .cities-grid .city-card .city-header .city-info .city-details .city-country {
+    color: var(--darktext);
+    font-size: 0.9rem;
+}
+
+.cities-section .cities-grid .city-card .city-header .timezone {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 0.25rem 0.5rem;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    color: var(--darktext);
+}
+
+.cities-section .cities-grid .city-card .clock-display {
+    text-align: center;
+    margin: 1.5rem 0;
+}
+
+.cities-section .cities-grid .city-card .clock-display .city-time {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+    font-family: 'Courier New', monospace;
+}
+
+.cities-section .cities-grid .city-card .clock-display .city-date {
+    color: var(--darktext);
+    font-size: 0.9rem;
+}
+
+.cities-section .cities-grid .city-card .day-night {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.cities-section .cities-grid .city-card .day-night .day-night-icon {
+    font-size: 1.5rem;
+}
+
+.cities-section .cities-grid .city-card .day-night .day-night-text {
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+}
+
+.cities-section .cities-grid .city-card.daytime .day-night .day-night-text {
+    background: rgba(206, 11, 245, 0.2);
+    color: var(--day-color);
+}
+
+.cities-section .cities-grid .city-card.nighttime .day-night .day-night-text {
+    background: rgba(30, 64, 175, 0.2);
+    color: var(--night-color);
+}
+
+.cities-section .loading-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem;
+    color: var(--darktext);
+}
+
+.cities-section .loading-state .loading-spinner {
+    width: 2rem;
+    height: 2rem;
+    border: 3px solid rgba(255, 255, 255, 0.1);
+    border-top: 3px solid var(--clock-primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 1rem;
+}
+
+.cities-section .error-state {
+    text-align: center;
+    padding: 3rem;
+    color: var(--darktext);
+}
+
+.cities-section .error-state svg {
+    margin-bottom: 1rem;
+    opacity: 0.5;
+    color: #ef4444;
+}
+
+.cities-section .error-state h3 {
+    margin: 0 0 0.5rem 0;
+    color: var(--text);
+}
+
+.cities-section .error-state p {
+    margin: 0 0 1.5rem 0;
+    color: var(--darktext);
+}
+
+.cities-section .error-state .retry-btn {
+    background: var(--clock-primary);
+    border: none;
+    border-radius: 8px;
+    padding: 0.75rem 1.5rem;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.cities-section .error-state .retry-btn:hover {
+    background: var(--clock-secondary);
+}
+
+/* Zones Section */
+.zones-section {
+    margin-bottom: 3rem;
+}
+
+.zones-section .section-header {
+    margin-bottom: 1.5rem;
+}
+
+.zones-section .section-header h2 {
+    margin: 0;
+    color: var(--text);
+    font-size: 1.75rem;
+}
+
+.zones-section .zones-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.zones-section .zones-grid .zone-card {
+    background: var(--faded-background);
+    border-radius: 16px;
+    padding: 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.zones-section .zones-grid .zone-card .zone-header {
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.zones-section .zones-grid .zone-card .zone-header h3 {
+    margin: 0;
+    color: var(--text);
+    font-size: 1.2rem;
+}
+
+.zones-section .zones-grid .zone-card .zone-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.zones-section .zones-grid .zone-card .zone-content .zone-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.zones-section .zones-grid .zone-card .zone-content .zone-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.zones-section .zones-grid .zone-card .zone-content .zone-item .zone-name {
+    color: var(--text);
+    font-size: 0.9rem;
+}
+
+.zones-section .zones-grid .zone-card .zone-content .zone-item .zone-offset {
+    color: var(--clock-primary);
+    font-weight: 600;
+    font-size: 0.85rem;
+    background: rgba(59, 130, 246, 0.2);
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+}
+
+.zones-section .zones-grid .zone-card .zone-content .fact-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.zones-section .zones-grid .zone-card .zone-content .fact-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.zones-section .zones-grid .zone-card .zone-content .fact-item .fact-icon {
+    font-size: 1.25rem;
+}
+
+.zones-section .zones-grid .zone-card .zone-content .fact-item .fact-text {
+    color: var(--text);
+    font-size: 0.9rem;
+    flex: 1;
+}
+
+/* Footer */
+#worldclock-footer {
+    background: var(--dark);
+    padding: 1.5rem 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+#worldclock-footer .footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+#worldclock-footer .footer-content p {
+    margin: 0;
+    color: var(--darktext);
+    font-size: 0.9rem;
+}
+
+#worldclock-footer .footer-content .footer-info {
+    color: var(--darktext);
+    font-size: 0.85rem;
+}
+
+/* Animations */
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.7;
+    }
+}
+
+.pulse {
+    animation: pulse 2s infinite;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    #worldclock-header .header-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+    }
+
+    #worldclock-header .header-content .header-title h1 {
+        font-size: 2rem;
+    }
+
+    .gmt-section .gmt-card {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .cities-section .section-header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .cities-section .section-header .section-actions {
+        justify-content: space-between;
+    }
+
+    .cities-section .section-header .section-actions .search-box input {
+        width: 100%;
+    }
+
+    .cities-section .cities-filters {
+        flex-direction: column;
+    }
+
+    .cities-section .cities-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .zones-section .zones-grid {
+        grid-template-columns: 1fr;
+    }
+
+    #worldclock-footer .footer-content {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .gmt-section .gmt-card,
+    .cities-section .cities-grid .city-card,
+    .zones-section .zones-grid .zone-card {
+        padding: 1.25rem;
+    }
+
+    .gmt-section .gmt-card .gmt-display .gmt-time {
+        font-size: 2.5rem;
+    }
+
+    .cities-section .cities-grid .city-card .clock-display .city-time {
+        font-size: 2rem;
+    }
+
+    .cities-section .section-header .section-actions {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .cities-section .section-header .section-actions .search-box {
+        width: 100%;
+    }
+}

@@ -123,6 +123,9 @@ function initializeTabs() {
         return;
     }
 
+    console.log('📊 Found tabs:', tabs.length);
+    console.log('📊 Found tab contents:', tabContents.length);
+
     tabs.forEach(tab => {
         tab.addEventListener('click', () => {
             // Remove active class from all tabs and contents
@@ -134,24 +137,31 @@ function initializeTabs() {
             const tabId = tab.getAttribute('data-tab');
             const tabContent = document.getElementById(`${tabId}-tab`);
 
+            console.log(`🖱️ Tab clicked: ${tabId}`);
+
             if (tabContent) {
                 tabContent.classList.add('active');
                 console.log(`✅ Switched to ${tabId} tab`);
 
                 // Initialize Azan tab when opened
                 if (tabId === 'azan') {
-                    console.log('Initializing Azan tab...');
+                    console.log('🕌 Initializing Azan tab...');
                     fetchPrayerTimes('Cairo');
                 }
 
                 // Initialize Weather tab when opened
                 if (tabId === 'weather') {
-                    console.log('Initializing Weather tab...');
-                    // Only fetch if not already loaded
+                    console.log('🌤️ Initializing Weather tab...');
                     const weatherCity = document.getElementById('weather-city');
                     if (weatherCity && weatherCity.textContent === 'القاهرة') {
                         fetchWeatherData('Cairo');
                     }
+                }
+
+                // Initialize World Clock tab when opened
+                if (tabId === 'worldclock') {
+                    console.log('🌍 Initializing World Clock tab...');
+                    initializeWorldClock();
                 }
             } else {
                 console.error(`❌ Tab content with id ${tabId}-tab not found`);
@@ -167,26 +177,6 @@ async function fetchGoldPrices() {
     console.log('Fetching gold prices...');
 
     let goldPrice = null;
-
-    // Try first API
-    try {
-        console.log('Trying metals.dev API...');
-        const response = await fetch('https://api.metals.dev/v1/latest', {
-            headers: {
-                'Accept': 'application/json',
-            }
-        });
-
-        if (response.ok) {
-            const data = await response.json();
-            if (data.metals && data.metals.gold) {
-                goldPrice = data.metals.gold * 31.10; // Convert from troy ounce to grams
-                console.log(`✅ Gold price from metals.dev: $${data.metals.gold}/oz -> ${goldPrice.toFixed(2)} EGP/g`);
-            }
-        }
-    } catch (error) {
-        console.log('❌ Metals.dev API failed, trying fallback...');
-    }
 
     // If first API failed, try a different approach with free financial APIs
     if (!goldPrice) {
@@ -318,7 +308,8 @@ async function fetchCurrencyRates() {
         console.log('✅ Currency rates updated with fallback data');
     }
 }
-// Weather API Functions - Using free API without key
+
+// Weather API Functions
 async function fetchWeatherData(city = 'Cairo') {
     console.log(`Fetching weather data for: ${city}`);
 
@@ -327,7 +318,6 @@ async function fetchWeatherData(city = 'Cairo') {
     hideError();
 
     try {
-        // Using a free weather API that doesn't require API key
         const response = await fetch(`https://api.weatherapi.com/v1/forecast.json?key=1f039acad4d9499b854172033241206&q=${encodeURIComponent(city)}&days=5&lang=ar`);
 
         if (!response.ok) {
@@ -341,7 +331,6 @@ async function fetchWeatherData(city = 'Cairo') {
         showLoading(false);
 
     } catch (error) {
-        // console.error('❌ Error fetching weather data:', error);
         showLoading(false);
         showError('لم نتمكن من العثور على هذه المدينة. يرجى التأكد من اسم المدينة والمحاولة مرة أخرى.');
     }
@@ -374,9 +363,6 @@ function updateWeatherDisplay(data) {
     const now = new Date();
     const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
     updateElementText('weather-date', now.toLocaleDateString('ar-EG', options));
-
-    // Update timestamp
-    updateElementText('weather-update-time', now.toLocaleTimeString('ar-EG'));
 
     // Update forecast
     updateWeatherForecast(forecast);
@@ -417,30 +403,6 @@ function updateWeatherForecast(forecast) {
     });
 
     console.log('✅ Weather forecast updated successfully');
-}
-
-function createFallbackForecast() {
-    const forecastContainer = document.getElementById('forecastContainer');
-    if (!forecastContainer) return;
-
-    forecastContainer.innerHTML = '';
-
-    const days = ['الأحد', 'الإثنين', 'الثلاثاء', 'الأربعاء', 'الخميس'];
-
-    days.forEach(day => {
-        const forecastItem = document.createElement('div');
-        forecastItem.className = 'forecast-item';
-        forecastItem.innerHTML = `
-            <div class="forecast-day">${day}</div>
-            <div class="forecast-icon">☀️</div>
-            <div class="forecast-temp">
-                <span class="temp-max">28°</span>
-                <span class="temp-min">22°</span>
-            </div>
-            <div class="forecast-desc">مشمس</div>
-        `;
-        forecastContainer.appendChild(forecastItem);
-    });
 }
 
 function showLoading(show) {
@@ -755,13 +717,6 @@ function hideAzanError() {
     }
 }
 
-function updateElementText(id, text) {
-    const element = document.getElementById(id);
-    if (element) {
-        element.textContent = text;
-    }
-}
-
 function initializeAzanTab() {
     console.log('Initializing Azan tab...');
 
@@ -782,12 +737,6 @@ function initializeAzanTab() {
 function syncAzanWithWeatherCity(city) {
     console.log(`Syncing Azan times with weather city: ${city}`);
     fetchPrayerTimes(city);
-}
-
-// Export functions for use in main app
-if (typeof window !== 'undefined') {
-    window.initializeAzanTab = initializeAzanTab;
-    window.syncAzanWithWeatherCity = syncAzanWithWeatherCity;
 }
 
 // Fetch Crypto Prices (using a free API)
@@ -870,6 +819,317 @@ async function fetchCryptoPrices() {
     }
 }
 
+// World Clock Configuration
+const worldCities = [
+    {
+        name: "القاهرة",
+        country: "مصر",
+        timezone: "Africa/Cairo",
+        flag: "🇪🇬",
+        offset: "+2"
+    },
+    {
+        name: "دبي",
+        country: "الإمارات",
+        timezone: "Asia/Dubai",
+        flag: "🇦🇪",
+        offset: "+4"
+    },
+    {
+        name: "الرياض",
+        country: "السعودية",
+        timezone: "Asia/Riyadh",
+        flag: "🇸🇦",
+        offset: "+3"
+    },
+    {
+        name: "لندن",
+        country: "المملكة المتحدة",
+        timezone: "Europe/London",
+        flag: "🇬🇧",
+        offset: "+0"
+    },
+    {
+        name: "نيويورك",
+        country: "الولايات المتحدة",
+        timezone: "America/New_York",
+        flag: "🇺🇸",
+        offset: "-4"
+    },
+    {
+        name: "بكين",
+        country: "الصين",
+        timezone: "Asia/Shanghai",
+        flag: "🇨🇳",
+        offset: "+8"
+    }
+];
+
+let worldClockInterval = null;
+let gmtOffsetFetched = false;
+
+// Optimized World Clock Initialization
+function initializeWorldClock() {
+    console.log('🌍 Initializing World Clock...');
+
+    const grid = document.getElementById('worldclocks-grid');
+    const gmtTime = document.getElementById('gmt-time');
+    const gmtDate = document.getElementById('gmt-date');
+
+    if (!grid || !gmtTime || !gmtDate) {
+        console.error('❌ Required world clock elements not found!');
+        return;
+    }
+
+    // Create city clocks
+    createCityClocks();
+
+    // Fetch GMT offset only once
+    if (!gmtOffsetFetched) {
+        fetchGMTTimeOnce();
+        gmtOffsetFetched = true;
+    }
+
+    // Start updating clocks immediately using browser time
+    updateAllClocks();
+
+    // Set up interval to update clocks every second
+    if (worldClockInterval) {
+        clearInterval(worldClockInterval);
+    }
+
+    worldClockInterval = setInterval(() => {
+        updateAllClocks();
+    }, 1000);
+
+    console.log('✅ World clock initialized successfully');
+}
+
+// Fetch GMT time only once to get initial offset
+async function fetchGMTTimeOnce() {
+    try {
+        console.log('🕐 Fetching GMT time once for initial setup...');
+        const response = await fetch('https://www.timeapi.io/api/time/current/coordinate?latitude=0&longitude=0');
+
+        if (!response.ok) {
+            throw new Error('GMT API response not ok');
+        }
+
+        const data = await response.json();
+        const serverTime = new Date(data.dateTime);
+        const localTime = new Date();
+
+        // Calculate the offset between server time and local time
+        const timeDiff = serverTime.getTime() - localTime.getTime();
+        localStorage.setItem('gmtTimeOffset', timeDiff.toString());
+
+        console.log('✅ GMT time offset stored:', timeDiff, 'ms');
+
+    } catch (error) {
+        console.error('❌ Error fetching GMT time, using local time:', error);
+        localStorage.removeItem('gmtTimeOffset');
+    }
+}
+
+// Get accurate time considering the offset
+function getAccurateTime() {
+    const storedOffset = localStorage.getItem('gmtTimeOffset');
+    const now = new Date();
+
+    if (storedOffset) {
+        // Apply the stored offset to get more accurate time
+        return new Date(now.getTime() + parseInt(storedOffset));
+    }
+
+    // Fallback to local time
+    return now;
+}
+
+// Update all clocks using browser time (much faster)
+function updateAllClocks() {
+    const accurateTime = getAccurateTime();
+
+    // Update GMT display
+    updateGMTDisplay(accurateTime);
+
+    // Update all city clocks
+    worldCities.forEach(city => {
+        updateCityClock(city, accurateTime);
+    });
+
+    // Update timestamp every minute (to reduce unnecessary updates)
+    const now = new Date();
+    if (now.getSeconds() === 0) {
+        updateElementText('worldclock-update-time', now.toLocaleTimeString('ar-EG'));
+    }
+}
+
+// Update GMT display
+function updateGMTDisplay(time) {
+    // Get current UTC time directly without any offset adjustments
+    const now = new Date();
+    const utcHours = now.getUTCHours().toString().padStart(2, '0');
+    const utcMinutes = now.getUTCMinutes().toString().padStart(2, '0');
+    const utcSeconds = now.getUTCSeconds().toString().padStart(2, '0');
+    const timeString = `${utcHours}:${utcMinutes}`;
+
+    // Format date in UTC
+    const dateString = now.toLocaleDateString('ar-EG', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        timeZone: 'UTC'
+    });
+
+    updateElementText('gmt-time', timeString);
+    updateElementText('gmt-date', dateString);
+}
+
+// Update individual city clock using browser timezone - FIXED VERSION
+function updateCityClock(city, baseTime) {
+    try {
+        // Create a new date object for the specific timezone
+        const cityTime = new Date(baseTime.toLocaleString("en-US", { timeZone: city.timezone }));
+
+        // Format time in 12-hour format with AM/PM
+        const timeString = cityTime.toLocaleTimeString('en-US', {
+            hour12: true,
+            hour: '2-digit',
+            minute: '2-digit'
+            // second: '2-digit'
+        });
+
+        // Format date
+        const dateString = cityTime.toLocaleDateString('ar-EG', {
+            weekday: 'short',
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric'
+        });
+
+        // Get hours for day/night indicator - use the actual city time hours
+        const hours = cityTime.getHours();
+
+        const timeElement = document.getElementById(`time-${city.name.replace(/\s+/g, '-')}`);
+        const dateElement = document.getElementById(`date-${city.name.replace(/\s+/g, '-')}`);
+        const iconElement = document.getElementById(`icon-${city.name.replace(/\s+/g, '-')}`);
+        const periodElement = document.getElementById(`period-${city.name.replace(/\s+/g, '-')}`);
+
+        if (timeElement) timeElement.textContent = timeString;
+        if (dateElement) dateElement.textContent = dateString;
+
+        // Update day/night indicator
+        updateDayNightIndicator(hours, iconElement, periodElement);
+
+    } catch (error) {
+        console.error(`❌ Error updating time for ${city.name}:`, error);
+        // Fallback: use offset calculation
+        updateCityClockWithOffset(city, baseTime);
+    }
+}
+
+// Also fix the fallback function
+function updateCityClockWithOffset(city, baseTime) {
+    const offset = parseOffset(city.offset);
+    const cityTime = new Date(baseTime.getTime() + (offset * 60 * 60 * 1000));
+
+    const timeElement = document.getElementById(`time-${city.name.replace(/\s+/g, '-')}`);
+    const dateElement = document.getElementById(`date-${city.name.replace(/\s+/g, '-')}`);
+    const iconElement = document.getElementById(`icon-${city.name.replace(/\s+/g, '-')}`);
+    const periodElement = document.getElementById(`period-${city.name.replace(/\s+/g, '-')}`);
+
+    if (timeElement && dateElement) {
+        // Use 12-hour format for fallback too
+        const timeString = cityTime.toLocaleTimeString('en-US', {
+            hour12: true,
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit'
+        });
+        const dateString = cityTime.toLocaleDateString('ar-EG', {
+            weekday: 'short',
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric'
+        });
+
+        timeElement.textContent = timeString;
+        dateElement.textContent = dateString;
+
+        const hours = cityTime.getHours();
+        updateDayNightIndicator(hours, iconElement, periodElement);
+    }
+}
+
+// Also fix the hours extraction in the main function - remove this problematic code:
+// Remove this section from updateCityClock function:
+/*
+const hours = baseTime.toLocaleTimeString('en-GB', {
+    timeZone: city.timezone,
+    hour: '2-digit',
+    hour12: true
+});
+*/
+// Parse offset string to hours
+function parseOffset(offset) {
+    const sign = offset.charAt(0) === '+' ? 1 : -1;
+    const hours = parseInt(offset.substring(1));
+    return sign * hours;
+}
+
+// Update day/night indicator
+function updateDayNightIndicator(hours, iconElement, periodElement) {
+    let icon = '🌞';
+    let period = 'نهار';
+
+    if (hours >= 18 || hours < 6) {
+        icon = '🌙';
+        period = 'ليل';
+    } else if (hours >= 6 && hours < 12) {
+        icon = '🌅';
+        period = 'صباح';
+    } else if (hours >= 12 && hours < 18) {
+        icon = '🌇';
+        period = 'مساء';
+    }
+
+    if (iconElement) iconElement.textContent = icon;
+    if (periodElement) periodElement.textContent = period;
+}
+
+// Create city clock elements
+function createCityClocks() {
+    const grid = document.getElementById('worldclocks-grid');
+    if (!grid) return;
+
+    grid.innerHTML = '';
+
+    worldCities.forEach(city => {
+        const clockElement = document.createElement('div');
+        clockElement.className = 'city-clock';
+        clockElement.innerHTML = `
+            <div class="city-header">
+                <div class="city-flag">${city.flag}</div>
+                <div class="city-info">
+                    <div class="city-name">${city.name}</div>
+                    <div class="city-country">${city.country}</div>
+                    <div class="timezone">UTC${city.offset}</div>
+                </div>
+            </div>
+            <div class="clock-display">
+                <div class="city-time" id="time-${city.name.replace(/\s+/g, '-')}">--:--:--</div>
+                <div class="city-date" id="date-${city.name.replace(/\s+/g, '-')}">-- -- ----</div>
+            </div>
+            <div class="day-night">
+                <div class="day-night-icon" id="icon-${city.name.replace(/\s+/g, '-')}">🌞</div>
+                <div class="day-night-text" id="period-${city.name.replace(/\s+/g, '-')}">--</div>
+            </div>
+        `;
+        grid.appendChild(clockElement);
+    });
+}
+
 // Helper functions
 function updateElementText(elementId, text) {
     const element = document.getElementById(elementId);
@@ -909,16 +1169,13 @@ document.addEventListener('DOMContentLoaded', function () {
     // Initialize components
     initializeGoldChart();
     initializeGoldCalculator();
-    initializeTabs(); // This will handle Azan initialization when tab is clicked
+    initializeTabs();
     initializeWeatherSearch();
 
     // Fetch initial data for default tabs only
     fetchGoldPrices();
     fetchCurrencyRates();
     fetchCryptoPrices();
-    // DON'T fetch weather or azan here - let them load when tabs are clicked
-    // fetchWeatherData(); // REMOVE THIS
-    // fetchPrayerTimes(); // REMOVE THIS
 
     // Start auto-refresh
     startAutoRefresh();
@@ -931,42 +1188,9 @@ window.addEventListener('error', function (e) {
     console.error('Global error:', e.error);
 });
 
-
-// Add interactivity to vote options
-document.querySelectorAll('.vote-option').forEach(option => {
-    option.addEventListener('click', function () {
-        // Remove selected class from all options
-        document.querySelectorAll('.vote-option').forEach(opt => {
-            opt.classList.remove('selected');
-        });
-
-        // Add selected class to clicked option
-        this.classList.add('selected');
-
-        // Check the radio button
-        const radio = this.querySelector('input[type="radio"]');
-        radio.checked = true;
-    });
-});
-
-// Handle vote submission
-document.getElementById('submitVote').addEventListener('click', function () {
-    const selectedOption = document.querySelector('input[name="voteOption"]:checked');
-
-    if (!selectedOption) {
-        alert('يرجى اختيار خيار قبل التصويت');
-        return;
-    }
-
-    alert(`شكرًا لك! لقد قمت بالتصويت لـ "${selectedOption.value}"`);
-
-    // Reset selection
-    document.querySelectorAll('.vote-option').forEach(opt => {
-        opt.classList.remove('selected');
-    });
-});
-
-// Handle view results button
-document.getElementById('viewResults').addEventListener('click', function () {
-    alert('سيتم عرض نتائج التصويت الحالي هنا');
-});
+// Export functions for use in main app
+if (typeof window !== 'undefined') {
+    window.initializeAzanTab = initializeAzanTab;
+    window.syncAzanWithWeatherCity = syncAzanWithWeatherCity;
+    window.initializeWorldClock = initializeWorldClock;
+}
