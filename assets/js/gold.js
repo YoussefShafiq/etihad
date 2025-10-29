@@ -34,8 +34,6 @@ class GoldPricesManager {
         this.showLoading(true);
 
         try {
-            // Simulate API delay
-            await new Promise(resolve => setTimeout(resolve, 1500));
 
             // Sample data - in real app, this would come from API
             this.goldData = [

@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حالة الطقس | الاتحاد</title>
+
+    <!-- CSS Libraries -->
+    <link rel="stylesheet" href="assets/vendor/animate-wow/animate.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/global.css">
+    <link rel="stylesheet" href="assets/css/weather.css">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="./images/logo_icon.svg" type="image/x-icon">
+</head>
+
+<body>
+    <!-- Header Section -->
+    <header id="weather-header">
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="back-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                        viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                            d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z" />
+                    </svg>
+                    العودة للرئيسية
+                </a>
+                <div class="header-title">
+                    <h1>حالة الطقس</h1>
+                    <p>معلومات الطقس المحدثة والتنبؤات للأيام القادمة</p>
+                </div>
+                <div class="header-actions">
+                    <div class="last-update">
+                        آخر تحديث: <span id="last-update-time">--:--</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main id="weather-main">
+        <div class="container">
+            <!-- Weather Search Section -->
+            <section class="search-section">
+                <div class="section-header">
+                    <h2>ابحث عن مدينة</h2>
+                    <p>احصل على معلومات الطقس لأي مدينة حول العالم</p>
+                </div>
+
+                <div class="search-card">
+                    <div class="search-input-container">
+                        <input type="text" id="cityInput" placeholder="أدخل اسم المدينة...">
+                        <button id="searchWeather" class="search-btn">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                                class="bi bi-search" viewBox="0 0 16 16">
+                                <path
+                                    d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                            </svg>
+                            بحث
+                        </button>
+                    </div>
+                    <div class="suggestions" id="suggestions" style="display: none;"></div>
+                </div>
+            </section>
+
+            <!-- Current Weather Section -->
+            <section class="current-weather-section">
+                <div class="section-header">
+                    <h2>الطقس الحالي</h2>
+                    <div class="section-actions">
+                        <button class="refresh-btn" id="refreshWeather">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                viewBox="0 0 16 16">
+                                <path d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z" />
+                                <path
+                                    d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z" />
+                            </svg>
+                            تحديث
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Loading State -->
+                <div class="loading-state" id="loadingState">
+                    <div class="loading-spinner"></div>
+                    <span>جاري تحميل بيانات الطقس...</span>
+                </div>
+
+                <!-- Error State -->
+                <div class="error-state" id="errorState" style="display: none;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor"
+                        viewBox="0 0 16 16">
+                        <path
+                            d="M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.15.15 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.2.2 0 0 1-.054.06.1.1 0 0 1-.066.017H1.146a.1.1 0 0 1-.066-.017.2.2 0 0 1-.054-.06.18.18 0 0 1 .002-.183L7.884 2.073a.15.15 0 0 1 .054-.057zm1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566z" />
+                        <path
+                            d="M7.002 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 5.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995z" />
+                    </svg>
+                    <h3>حدث خطأ في تحميل البيانات</h3>
+                    <p id="errorText">لم نتمكن من جلب بيانات الطقس. يرجى المحاولة مرة أخرى.</p>
+                    <button class="retry-btn" id="retryButton">إعادة المحاولة</button>
+                </div>
+
+                <!-- Current Weather Content -->
+                <div class="current-weather-content" id="currentWeatherContent" style="display: none;">
+                    <div class="weather-location">
+                        <h3 id="weather-city">القاهرة</h3>
+                        <p id="weather-date">-- -- --</p>
+                    </div>
+
+                    <div class="weather-main-info">
+                        <div class="weather-icon-container">
+                            <img id="weather-icon" src="" alt="Weather Icon">
+                        </div>
+                        <div class="weather-temp">
+                            <div class="temp-main" id="weather-temp">--°</div>
+                            <div class="temp-feels" id="weather-feels">يشعر بـ --°</div>
+                        </div>
+                        <div class="weather-description" id="weather-description">--</div>
+                    </div>
+
+                    <div class="weather-details-grid">
+                        <div class="weather-detail-card">
+                            <div class="detail-icon">💧</div>
+                            <div class="detail-content">
+                                <div class="detail-label">الرطوبة</div>
+                                <div class="detail-value" id="weather-humidity">--%</div>
+                            </div>
+                        </div>
+
+                        <div class="weather-detail-card">
+                            <div class="detail-icon">💨</div>
+                            <div class="detail-content">
+                                <div class="detail-label">سرعة الرياح</div>
+                                <div class="detail-value" id="weather-wind">-- كم/س</div>
+                            </div>
+                        </div>
+
+                        <div class="weather-detail-card">
+                            <div class="detail-icon">🌡️</div>
+                            <div class="detail-content">
+                                <div class="detail-label">الضغط</div>
+                                <div class="detail-value" id="weather-pressure">-- hPa</div>
+                            </div>
+                        </div>
+
+                        <div class="weather-detail-card">
+                            <div class="detail-icon">👁️</div>
+                            <div class="detail-content">
+                                <div class="detail-label">الرؤية</div>
+                                <div class="detail-value" id="weather-visibility">-- كم</div>
+                            </div>
+                        </div>
+
+                        <div class="weather-detail-card">
+                            <div class="detail-icon">☁️</div>
+                            <div class="detail-content">
+                                <div class="detail-label">الغيوم</div>
+                                <div class="detail-value" id="weather-clouds">--%</div>
+                            </div>
+                        </div>
+
+                        <div class="weather-detail-card">
+                            <div class="detail-icon">🌡️</div>
+                            <div class="detail-content">
+                                <div class="detail-label">UV Index</div>
+                                <div class="detail-value" id="weather-uv">--</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Forecast Section -->
+            <section class="forecast-section">
+                <div class="section-header">
+                    <h2>توقعات الأيام القادمة</h2>
+                    <div class="forecast-period" id="forecastPeriod">3 أيام القادمة</div>
+                </div>
+
+                <div class="forecast-content" id="forecastContent" style="display: none;">
+                    <div class="forecast-list" id="forecastContainer">
+                        <!-- Forecast items will be dynamically added here -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Popular Cities Section -->
+            <section class="cities-section">
+                <div class="section-header">
+                    <h2>مدن شائعة</h2>
+                    <p>اطلع على حالة الطقس في المدن الرئيسية</p>
+                </div>
+
+                <div class="cities-grid">
+                    <div class="city-card" data-city="Cairo">
+                        <div class="city-name">القاهرة</div>
+                        <div class="city-country">مصر</div>
+                        <div class="city-weather" id="cairo-weather">--°</div>
+                    </div>
+
+                    <div class="city-card" data-city="Riyadh">
+                        <div class="city-name">الرياض</div>
+                        <div class="city-country">السعودية</div>
+                        <div class="city-weather" id="riyadh-weather">--°</div>
+                    </div>
+
+                    <div class="city-card" data-city="Dubai">
+                        <div class="city-name">دبي</div>
+                        <div class="city-country">الإمارات</div>
+                        <div class="city-weather" id="dubai-weather">--°</div>
+                    </div>
+
+                    <div class="city-card" data-city="Amman">
+                        <div class="city-name">عمان</div>
+                        <div class="city-country">الأردن</div>
+                        <div class="city-weather" id="amman-weather">--°</div>
+                    </div>
+
+                    <div class="city-card" data-city="Beirut">
+                        <div class="city-name">بيروت</div>
+                        <div class="city-country">لبنان</div>
+                        <div class="city-weather" id="beirut-weather">--°</div>
+                    </div>
+
+                    <div class="city-card" data-city="Doha">
+                        <div class="city-name">الدوحة</div>
+                        <div class="city-country">قطر</div>
+                        <div class="city-weather" id="doha-weather">--°</div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer id="weather-footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2024 الاتحاد. جميع الحقوق محفوظة.</p>
+                <div class="api-credit">
+                    بيانات الطقس مقدمة من
+                    <a href="https://www.weatherapi.com/" target="_blank">WeatherAPI.com</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Libraries -->
+    <script src="assets/vendor/animate-wow/wow.min.js"></script>
+
+    <!-- Custom JavaScript -->
+    <script src="assets/js/weather.js"></script>
+</body>
+
+</html>

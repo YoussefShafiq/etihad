@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مواقيت الصلاة | الاتحاد</title>
+
+    <!-- CSS Libraries -->
+    <link rel="stylesheet" href="assets/vendor/animate-wow/animate.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/global.css">
+    <link rel="stylesheet" href="assets/css/prayer-times.css">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="./images/logo_icon.svg" type="image/x-icon">
+</head>
+
+<body>
+    <!-- Header Section -->
+    <header id="prayer-header">
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="back-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                        viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                            d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z" />
+                    </svg>
+                    العودة للرئيسية
+                </a>
+                <div class="header-title">
+                    <h1>مواقيت الصلاة</h1>
+                    <p>مواقيت الصلاة اليومية حسب توقيت مدينتك</p>
+                </div>
+                <div class="header-actions">
+                    <div class="last-update">
+                        آخر تحديث: <span id="last-update-time">--:--</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main id="prayer-main">
+        <div class="container">
+            <!-- Location Selection Section -->
+            <section class="location-section">
+                <div class="section-header">
+                    <h2>اختر موقعك</h2>
+                    <p>اختر المدينة للحصول على مواقيت الصلاة الدقيقة</p>
+                </div>
+
+                <div class="location-card">
+                    <div class="location-form">
+                        <div class="location-input">
+                            <label for="citySelect">المدينة</label>
+                            <div class="input-with-icon">
+                                <select id="citySelect">
+                                    <option value="Cairo" selected>القاهرة</option>
+                                    <option value="Alexandria">الإسكندرية</option>
+                                    <option value="Giza">الجيزة</option>
+                                    <option value="Luxor">الأقصر</option>
+                                    <option value="Aswan">أسوان</option>
+                                    <option value="Port Said">بورسعيد</option>
+                                    <option value="Suez">السويس</option>
+                                    <option value="Mansoura">المنصورة</option>
+                                    <option value="Tanta">طنطا</option>
+                                    <option value="Ismailia">الإسماعيلية</option>
+                                </select>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                                    viewBox="0 0 16 16">
+                                    <path
+                                        d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="location-actions">
+                            <button id="refreshPrayerTimes" class="refresh-btn">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    viewBox="0 0 16 16">
+                                    <path d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z" />
+                                    <path
+                                        d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z" />
+                                </svg>
+                                تحديث المواقيت
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Next Prayer Section -->
+            <section class="next-prayer-section">
+                <div class="section-header">
+                    <h2>الصلاة التالية</h2>
+                </div>
+
+                <div class="next-prayer-card">
+                    <div class="prayer-highlight">
+                        <div class="prayer-icon-large">🕌</div>
+                        <div class="prayer-info-large">
+                            <div class="prayer-name" id="nextPrayerName">--</div>
+                            <div class="prayer-time" id="nextPrayerTime">--:--</div>
+                            <div class="time-remaining" id="timeRemaining">
+                                <span class="remaining-label">الوقت المتبقي:</span>
+                                <span class="remaining-value">--:--:--</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="prayer-date-info">
+                        <div class="hijri-date" id="hijriDate">-- -- ----</div>
+                        <div class="gregorian-date" id="gregorianDate">-- -- ----</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- All Prayer Times Section -->
+            <section class="prayer-times-section">
+                <div class="section-header">
+                    <h2>مواقيت الصلاة اليوم</h2>
+                    <div class="location-display">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            viewBox="0 0 16 16">
+                            <path
+                                d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6" />
+                        </svg>
+                        <span id="currentCityName">القاهرة</span>
+                    </div>
+                </div>
+
+                <!-- Loading State -->
+                <div class="loading-state" id="loadingState">
+                    <div class="loading-spinner"></div>
+                    <span>جاري تحميل مواقيت الصلاة...</span>
+                </div>
+
+                <!-- Error State -->
+                <div class="error-state" id="errorState" style="display: none;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor"
+                        viewBox="0 0 16 16">
+                        <path
+                            d="M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.15.15 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.2.2 0 0 1-.054.06.1.1 0 0 1-.066.017H1.146a.1.1 0 0 1-.066-.017.2.2 0 0 1-.054-.06.18.18 0 0 1 .002-.183L7.884 2.073a.15.15 0 0 1 .054-.057zm1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566z" />
+                        <path
+                            d="M7.002 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 5.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995z" />
+                    </svg>
+                    <h3>حدث خطأ في تحميل البيانات</h3>
+                    <p>لم نتمكن من جلب مواقيت الصلاة. يرجى المحاولة مرة أخرى.</p>
+                    <button class="retry-btn" id="retryButton">إعادة المحاولة</button>
+                </div>
+
+                <!-- Prayer Times Grid -->
+                <div class="prayer-times-grid" id="prayerTimesGrid">
+                    <!-- Prayer items will be dynamically inserted here -->
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer id="prayer-footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2024 الاتحاد. جميع الحقوق محفوظة.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Libraries -->
+    <script src="assets/vendor/animate-wow/wow.min.js"></script>
+
+    <!-- Custom JavaScript -->
+    <script src="assets/js/prayer-times.js"></script>
+</body>
+
+</html>
