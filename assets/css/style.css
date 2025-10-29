@@ -60,6 +60,12 @@ body.light {
 
   #pricing-section {
     background: linear-gradient(to top left, #f8f9fa 0%, #e9ecef 50%, #f8f9fa 100%);
+
+    .worldclocks-grid {
+      .city-clock {
+        background: #f7f2ff !important;
+      }
+    }
   }
 
   .gold-chart-section {
@@ -201,7 +207,7 @@ body.light {
         hsl(210, 100%, 96%) 50%,
         hsl(210, 100%, 94%) 100%);
     color: hsl(210, 20%, 25%);
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+    box-shadow: none;
     border: 1px solid rgba(255, 255, 255, 0.1);
 
     &::before {
@@ -403,7 +409,7 @@ body.light {
         hsl(150, 60%, 96%) 50%,
         hsl(150, 60%, 94%) 100%);
     color: hsl(150, 20%, 25%);
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    box-shadow: none;
     border: 1px solid rgba(255, 255, 255, 0.8);
 
     &::before {
@@ -2342,7 +2348,7 @@ body.light {
     font-size: 16px;
     font-weight: 700;
     margin-bottom: 12px;
-    line-height: 1.2;
+    line-height: 1.5;
   }
 
   .stats {
@@ -2350,6 +2356,11 @@ body.light {
     gap: 16px;
     font-size: 12px;
     color: #ccc;
+
+    >div {
+      display: flex;
+      gap: 4px;
+    }
   }
 
   .stats span {
@@ -2543,6 +2554,11 @@ body.light {
       gap: 12px;
       flex-direction: column;
       gap: 4px;
+
+      >div {
+        display: flex;
+        gap: 4px;
+      }
     }
   }
 
@@ -2695,7 +2711,7 @@ body.light {
     font-size: 16px;
     font-weight: 700;
     margin-bottom: 12px;
-    line-height: 1.2;
+    line-height: 1.5;
   }
 
   .stats {
@@ -2703,6 +2719,11 @@ body.light {
     gap: 16px;
     font-size: 12px;
     color: #ccc;
+
+    >div {
+      display: flex;
+      gap: 4px;
+    }
   }
 
   .stats span {
@@ -2860,6 +2881,11 @@ body.light {
       font-size: 10px;
       flex-direction: column;
       gap: 4px;
+
+      >div {
+        display: flex;
+        gap: 4px;
+      }
     }
   }
 
@@ -3034,7 +3060,11 @@ body.light {
     }
 
     .weather-search {
-      width: 320px;
+      display: flex;
+      align-items: center;
+      justify-content: end;
+      gap: 16px;
+      width: 400px;
 
       .search-input-container {
         display: flex;
@@ -3514,6 +3544,10 @@ body.light {
     }
 
     .azan-location-display {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+
       .location-info {
         display: flex;
         align-items: center;
