@@ -1,0 +1,742 @@
+/* Crypto Page Styles - Nested CSS */
+:root {
+    --crypto-primary: #f59e0b;
+    --crypto-secondary: #d97706;
+    --crypto-light: #fef3c7;
+    --crypto-dark: #92400e;
+    --crypto-bitcoin: #f7931a;
+    --crypto-ethereum: #627eea;
+    --crypto-ripple: #00aae4;
+    --crypto-litecoin: #bfbbbb;
+}
+
+#crypto-header {
+    background: var(--gradient);
+    padding: 2rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+    .header-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 2rem;
+
+        .back-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text);
+            text-decoration: none;
+            padding: 0.75rem 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+
+            &:hover {
+                background: rgba(255, 255, 255, 0.1);
+                transform: translateX(-4px);
+            }
+        }
+
+        .header-title {
+            h1 {
+                margin: 0;
+                font-size: 2.5rem;
+                font-weight: 700;
+                color: var(--text);
+                text-align: center;
+            }
+
+            p {
+                margin: 0.5rem 0 0 0;
+                color: var(--darktext);
+                text-align: center;
+            }
+        }
+
+        .last-update {
+            color: var(--darktext);
+            font-size: 0.9rem;
+        }
+    }
+}
+
+#crypto-main {
+    padding: 2rem 0;
+    background: var(--dark2);
+    min-height: 80vh;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+/* Top Crypto Section */
+.top-crypto-section {
+    margin-bottom: 3rem;
+
+    .section-header {
+        text-align: center;
+        margin-bottom: 2rem;
+
+        h2 {
+            margin: 0 0 0.5rem 0;
+            color: var(--text);
+            font-size: 1.75rem;
+        }
+
+        p {
+            margin: 0;
+            color: var(--darktext);
+        }
+    }
+
+    .crypto-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 1.5rem;
+
+        .crypto-card {
+            background: var(--faded-background);
+            border-radius: 16px;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+
+            &::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                height: 4px;
+            }
+
+            &.bitcoin::before {
+                background: var(--crypto-bitcoin);
+            }
+
+            &.ethereum::before {
+                background: var(--crypto-ethereum);
+            }
+
+            &.ripple::before {
+                background: var(--crypto-ripple);
+            }
+
+            &.litecoin::before {
+                background: var(--crypto-litecoin);
+            }
+
+            &:hover {
+                transform: translateY(-4px);
+                box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            }
+
+            .crypto-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-start;
+                margin-bottom: 1rem;
+
+                .crypto-info {
+                    display: flex;
+                    align-items: center;
+                    gap: 0.75rem;
+
+                    .crypto-icon {
+                        width: 40px;
+                        height: 40px;
+                        border-radius: 50%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-size: 1.25rem;
+
+                        &.bitcoin {
+                            background: var(--crypto-bitcoin);
+                            color: white;
+                        }
+
+                        &.ethereum {
+                            background: var(--crypto-ethereum);
+                            color: white;
+                        }
+
+                        &.ripple {
+                            background: var(--crypto-ripple);
+                            color: white;
+                        }
+
+                        &.litecoin {
+                            background: var(--crypto-litecoin);
+                            color: white;
+                        }
+                    }
+
+                    .crypto-details {
+                        h3 {
+                            margin: 0;
+                            color: var(--text);
+                            font-size: 1.1rem;
+                        }
+
+                        .crypto-symbol {
+                            color: var(--darktext);
+                            font-size: 0.9rem;
+                        }
+                    }
+                }
+
+                .crypto-price {
+                    text-align: right;
+
+                    .price {
+                        font-size: 1.5rem;
+                        font-weight: 700;
+                        color: var(--crypto-primary);
+                        margin-bottom: 0.25rem;
+                    }
+
+                    .currency {
+                        color: var(--darktext);
+                        font-size: 0.9rem;
+                    }
+                }
+            }
+
+            .crypto-change {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding-top: 1rem;
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
+
+                .change-info {
+                    display: flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                    font-size: 0.85rem;
+                    font-weight: 600;
+
+                    &.positive {
+                        color: #10b981;
+                    }
+
+                    &.negative {
+                        color: #ef4444;
+                    }
+                }
+
+                .market-cap {
+                    color: var(--darktext);
+                    font-size: 0.8rem;
+                }
+            }
+        }
+    }
+
+    .loading-state {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 3rem;
+        color: var(--darktext);
+
+        .loading-spinner {
+            width: 2rem;
+            height: 2rem;
+            border: 3px solid rgba(255, 255, 255, 0.1);
+            border-top: 3px solid var(--crypto-primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 1rem;
+        }
+    }
+
+    .error-state {
+        text-align: center;
+        padding: 3rem;
+        color: var(--darktext);
+
+        svg {
+            margin-bottom: 1rem;
+            opacity: 0.5;
+            color: #ef4444;
+        }
+
+        h3 {
+            margin: 0 0 0.5rem 0;
+            color: var(--text);
+        }
+
+        p {
+            margin: 0 0 1.5rem 0;
+            color: var(--darktext);
+        }
+
+        .retry-btn {
+            background: var(--crypto-primary);
+            border: none;
+            border-radius: 8px;
+            padding: 0.75rem 1.5rem;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+
+            &:hover {
+                background: var(--crypto-secondary);
+            }
+        }
+    }
+}
+
+/* Converter Section */
+.converter-section {
+    margin-bottom: 3rem;
+
+    .section-header {
+        text-align: center;
+        margin-bottom: 2rem;
+
+        h2 {
+            margin: 0 0 0.5rem 0;
+            color: var(--text);
+            font-size: 1.75rem;
+        }
+
+        p {
+            margin: 0;
+            color: var(--darktext);
+        }
+    }
+
+    .converter-card {
+        background: var(--faded-background);
+        border-radius: 20px;
+        padding: 2rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+
+        .converter-form {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 1.5rem;
+            align-items: end;
+
+            .amount-input {
+                display: flex;
+                flex-direction: column;
+                gap: 0.75rem;
+
+                label {
+                    color: var(--text);
+                    font-weight: 600;
+                    font-size: 0.9rem;
+                }
+
+                .input-with-select {
+                    display: flex;
+                    background: var(--dark);
+                    border: 1px solid rgba(255, 255, 255, 0.2);
+                    border-radius: 12px;
+                    overflow: hidden;
+                    transition: all 0.3s ease;
+
+                    &:focus-within {
+                        border-color: var(--crypto-primary);
+                        box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1);
+                    }
+
+                    input {
+                        flex: 1;
+                        background: none;
+                        border: none;
+                        padding: 1rem;
+                        color: var(--text);
+                        font-size: 1.1rem;
+                        font-weight: 600;
+                        outline: none;
+
+                        &::placeholder {
+                            color: var(--darktext);
+                        }
+
+                        &:read-only {
+                            background: rgba(255, 255, 255, 0.05);
+                            color: var(--darktext);
+                        }
+                    }
+
+                    select {
+                        background: var(--dark);
+                        border: none;
+                        border-right: 1px solid rgba(255, 255, 255, 0.1);
+                        padding: 1rem;
+                        color: var(--text);
+                        font-size: 0.9rem;
+                        cursor: pointer;
+                        min-width: 160px;
+                        outline: none;
+
+                        option {
+                            background: var(--dark);
+                            color: var(--text);
+                        }
+                    }
+                }
+            }
+
+            .swap-button {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding-bottom: 0.75rem;
+
+                .swap-btn {
+                    background: var(--crypto-primary);
+                    border: none;
+                    border-radius: 50%;
+                    width: 50px;
+                    height: 50px;
+                    color: white;
+                    cursor: pointer;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    transition: all 0.3s ease;
+                    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+
+                    &:hover {
+                        background: var(--crypto-secondary);
+                        transform: rotate(180deg) scale(1.1);
+                    }
+                }
+            }
+        }
+
+        .conversion-details {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+
+            .exchange-rate {
+                font-size: 1rem;
+                font-weight: 600;
+                color: var(--crypto-primary);
+            }
+
+            .conversion-time {
+                font-size: 0.85rem;
+                color: var(--darktext);
+            }
+        }
+    }
+}
+
+/* Market Section */
+.market-section {
+    margin-bottom: 3rem;
+
+    .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.5rem;
+
+        h2 {
+            margin: 0;
+            color: var(--text);
+            font-size: 1.75rem;
+        }
+
+        .section-actions {
+            .refresh-btn {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                background: var(--crypto-primary);
+                border: none;
+                border-radius: 8px;
+                padding: 0.75rem 1.25rem;
+                color: white;
+                font-weight: 600;
+                cursor: pointer;
+                transition: all 0.3s ease;
+
+                &:hover {
+                    background: var(--crypto-secondary);
+                    transform: translateY(-2px);
+                }
+
+                &:active {
+                    transform: translateY(0);
+                }
+            }
+        }
+    }
+
+    .market-stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+
+        .stat-card {
+            background: var(--faded-background);
+            border-radius: 16px;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+
+            &:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+                border-color: var(--crypto-primary);
+            }
+
+            .stat-icon {
+                background: var(--crypto-primary);
+                border-radius: 12px;
+                padding: 0.75rem;
+                color: white;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                svg {
+                    width: 24px;
+                    height: 24px;
+                }
+            }
+
+            .stat-content {
+                .stat-value {
+                    font-size: 1.5rem;
+                    font-weight: 700;
+                    color: var(--text);
+                    margin-bottom: 0.25rem;
+                }
+
+                .stat-label {
+                    color: var(--darktext);
+                    font-size: 0.9rem;
+                }
+            }
+        }
+    }
+}
+
+/* News Section */
+.news-section {
+    .section-header {
+        margin-bottom: 1.5rem;
+
+        h2 {
+            margin: 0;
+            color: var(--text);
+            font-size: 1.75rem;
+        }
+    }
+
+    .news-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1.5rem;
+
+        .news-card {
+            background: var(--faded-background);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+
+            &:hover {
+                transform: translateY(-4px);
+                box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+                border-color: var(--crypto-primary);
+            }
+
+            .news-image {
+                height: 180px;
+                overflow: hidden;
+
+                img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    transition: transform 0.3s ease;
+                }
+            }
+
+            &:hover .news-image img {
+                transform: scale(1.05);
+            }
+
+            .news-content {
+                padding: 1.5rem;
+
+                h3 {
+                    margin: 0 0 0.75rem 0;
+                    color: var(--text);
+                    font-size: 1.1rem;
+                    line-height: 1.4;
+                }
+
+                p {
+                    margin: 0 0 1rem 0;
+                    color: var(--darktext);
+                    font-size: 0.9rem;
+                    line-height: 1.5;
+                }
+
+                .news-meta {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    font-size: 0.8rem;
+                    color: var(--darktext);
+
+                    .news-date {
+                        color: var(--crypto-primary);
+                    }
+
+                    .news-source {
+                        background: rgba(245, 158, 11, 0.1);
+                        padding: 0.25rem 0.5rem;
+                        border-radius: 4px;
+                        color: var(--crypto-primary);
+                    }
+                }
+            }
+        }
+    }
+}
+
+/* Footer */
+#crypto-footer {
+    background: var(--dark);
+    padding: 1.5rem 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+
+    p {
+        margin: 0;
+        color: var(--darktext);
+        font-size: 0.9rem;
+    }
+}
+
+/* Animations */
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    #crypto-header {
+        .header-content {
+            flex-direction: column;
+            text-align: center;
+            gap: 1rem;
+
+            .header-title {
+                h1 {
+                    font-size: 2rem;
+                }
+            }
+        }
+    }
+
+    .converter-section {
+        .converter-card {
+            .converter-form {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+
+                .swap-button {
+                    order: 2;
+                    padding-bottom: 0;
+
+                    .swap-btn {
+                        transform: rotate(90deg);
+
+                        &:hover {
+                            transform: rotate(270deg) scale(1.1);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .market-section {
+        .section-header {
+            flex-direction: column;
+            gap: 1rem;
+            text-align: center;
+        }
+
+        .market-stats {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    .news-section {
+        .news-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+}
+
+@media (max-width: 480px) {
+
+    .converter-section,
+    .top-crypto-section,
+    .market-section,
+    .news-section {
+
+        .converter-card,
+        .crypto-card,
+        .stat-card,
+        .news-card {
+            padding: 1.25rem;
+        }
+    }
+
+    .converter-section {
+        .converter-card {
+            .converter-form {
+                .amount-input {
+                    .input-with-select {
+                        flex-direction: column;
+
+                        select {
+                            border-right: none;
+                            border-top: 1px solid rgba(255, 255, 255, 0.1);
+                            min-width: auto;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

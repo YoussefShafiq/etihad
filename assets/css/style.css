@@ -1382,33 +1382,39 @@ body.light {
       .section-header {
         display: flex;
         align-items: center;
+        justify-content: space-between;
         margin-bottom: 20px;
 
-        .icon-container {
-          padding: 12px;
-          border-radius: 12px;
-          margin-left: 12px;
+        .header-title {
+          display: flex;
+          align-items: center;
 
-          &.crypto-icon {
-            background: rgba(59, 130, 246, 0.15);
-            color: #3b82f6;
+          .icon-container {
+            padding: 12px;
+            border-radius: 12px;
+            margin-left: 12px;
+
+            &.crypto-icon {
+              background: rgba(59, 130, 246, 0.15);
+              color: #3b82f6;
+            }
+
+            i {
+              font-size: 28px;
+            }
           }
 
-          i {
-            font-size: 28px;
-          }
-        }
+          .section-title {
+            h2 {
+              font-size: 1.5rem;
+              font-weight: bold;
+              margin-bottom: 4px;
+            }
 
-        .section-title {
-          h2 {
-            font-size: 1.5rem;
-            font-weight: bold;
-            margin-bottom: 4px;
-          }
-
-          p {
-            font-size: 0.875rem;
-            color: #10b981;
+            p {
+              font-size: 0.875rem;
+              color: #10b981;
+            }
           }
         }
       }

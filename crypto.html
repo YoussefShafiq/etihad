@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>العملات الرقمية | الاتحاد</title>
+
+    <!-- CSS Libraries -->
+    <link rel="stylesheet" href="assets/vendor/animate-wow/animate.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/global.css">
+    <link rel="stylesheet" href="assets/css/crypto.css">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="./images/logo_icon.svg" type="image/x-icon">
+</head>
+
+<body>
+    <!-- Header Section -->
+    <header id="crypto-header">
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="back-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                        viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                            d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z" />
+                    </svg>
+                    العودة للرئيسية
+                </a>
+                <div class="header-title">
+                    <h1>العملات الرقمية</h1>
+                    <p>أسعار وتوقعات العملات المشفرة</p>
+                </div>
+                <div class="header-actions">
+                    <div class="last-update">
+                        آخر تحديث: <span id="last-update-time">--:--</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main id="crypto-main">
+        <div class="container">
+
+            <!-- Crypto Converter Section -->
+            <section class="converter-section">
+                <div class="section-header">
+                    <h2>محول العملات الرقمية</h2>
+                    <p>تحويل بين العملات الرقمية والعملات التقليدية</p>
+                </div>
+
+                <div class="converter-card">
+                    <div class="converter-form">
+                        <div class="amount-input">
+                            <label for="amount">المبلغ</label>
+                            <div class="input-with-select">
+                                <input type="number" id="amount" placeholder="أدخل المبلغ" value="1" min="0"
+                                    step="0.00000001">
+                                <select id="fromCurrency">
+                                    <option value="bitcoin">BTC - Bitcoin</option>
+                                    <option value="ethereum">ETH - Ethereum</option>
+                                    <option value="ripple">XRP - Ripple</option>
+                                    <option value="litecoin">LTC - Litecoin</option>
+                                    <option value="cardano">ADA - Cardano</option>
+                                    <option value="polkadot">DOT - Polkadot</option>
+                                    <option value="bitcoin-cash">BCH - Bitcoin Cash</option>
+                                    <option value="chainlink">LINK - Chainlink</option>
+                                    <option value="usd" selected>USD - دولار أمريكي</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="swap-button">
+                            <button id="swapCurrencies" class="swap-btn">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                                    viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                        d="M1 11.5a.5.5 0 0 0 .5.5h11.793l-3.147 3.146a.5.5 0 0 0 .708.708l4-4a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 11H1.5a.5.5 0 0 0-.5.5zm14-7a.5.5 0 0 1-.5.5H2.707l3.147 3.146a.5.5 0 1 1-.708.708l-4-4a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H14.5a.5.5 0 0 1 .5.5z" />
+                                </svg>
+                            </button>
+                        </div>
+
+                        <div class="amount-input">
+                            <label for="convertedAmount">المبلغ المحول</label>
+                            <div class="input-with-select">
+                                <input type="number" id="convertedAmount" placeholder="المبلغ المحول" readonly>
+                                <select id="toCurrency">
+                                    <option value="bitcoin" selected>BTC - Bitcoin</option>
+                                    <option value="ethereum">ETH - Ethereum</option>
+                                    <option value="ripple">XRP - Ripple</option>
+                                    <option value="litecoin">LTC - Litecoin</option>
+                                    <option value="cardano">ADA - Cardano</option>
+                                    <option value="polkadot">DOT - Polkadot</option>
+                                    <option value="bitcoin-cash">BCH - Bitcoin Cash</option>
+                                    <option value="chainlink">LINK - Chainlink</option>
+                                    <option value="usd">USD - دولار أمريكي</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="conversion-details">
+                        <div class="exchange-rate">
+                            <span id="exchangeRateText">1 BTC = 0.00 USD</span>
+                        </div>
+                        <div class="conversion-time">
+                            آخر تحديث: <span id="conversionTime">--:--</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Top Cryptocurrencies Section -->
+            <section class="top-crypto-section">
+                <div class="section-header">
+                    <h2>أهم العملات الرقمية</h2>
+                    <p>أسعار العملات المشفرة مقابل الدولار الأمريكي</p>
+                </div>
+
+                <div class="crypto-grid" id="cryptoGrid">
+                    <!-- Crypto cards will be dynamically inserted here -->
+                </div>
+
+                <!-- Loading State -->
+                <div class="loading-state" id="loadingState">
+                    <div class="loading-spinner"></div>
+                    <span>جاري تحميل بيانات العملات الرقمية...</span>
+                </div>
+
+
+            </section>
+
+
+
+            <!-- Market Overview Section -->
+            <section class="market-section">
+                <div class="section-header">
+                    <h2>نظرة عامة على السوق</h2>
+                    <div class="section-actions">
+                        <button class="refresh-btn" id="refreshMarket">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                viewBox="0 0 16 16">
+                                <path d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z" />
+                                <path
+                                    d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z" />
+                            </svg>
+                            تحديث
+                        </button>
+                    </div>
+                </div>
+
+                <div class="market-stats">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                                viewBox="0 0 16 16">
+                                <path
+                                    d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zM8 1a7 7 0 1 1 0 14A7 7 0 0 1 8 1zm0 2a1 1 0 0 0-1 1v6a1 1 0 0 0 2 0V4a1 1 0 0 0-1-1zm0 8a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
+                            </svg>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-value" id="marketCap">--</div>
+                            <div class="stat-label">القيمة السوقية الإجمالية</div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                                viewBox="0 0 16 16">
+                                <path d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zm0 13A6 6 0 1 1 8 2a6 6 0 0 1 0 12z" />
+                                <path
+                                    d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3.5a.5.5 0 0 1-.5-.5v-3.5A.5.5 0 0 1 8 4z" />
+                            </svg>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-value" id="volume24h">--</div>
+                            <div class="stat-label">حجم التداول (24 ساعة)</div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                                viewBox="0 0 16 16">
+                                <path d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zm0 13A6 6 0 1 1 8 2a6 6 0 0 1 0 12z" />
+                                <path
+                                    d="M7.5 7.5A.5.5 0 0 1 8 7h4a.5.5 0 0 1 0 1H8.707l2.147 2.146a.5.5 0 0 1-.708.708L8 8.707V12a.5.5 0 0 1-1 0V8a.5.5 0 0 1 .5-.5z" />
+                            </svg>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-value" id="btcDominance">--</div>
+                            <div class="stat-label">هيمنة البيتكوين</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer id="crypto-footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2024 الاتحاد. جميع الحقوق محفوظة.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Libraries -->
+    <script src="assets/vendor/animate-wow/wow.min.js"></script>
+
+    <!-- Custom JavaScript -->
+    <script src="assets/js/crypto.js"></script>
+</body>
+
+</html>
