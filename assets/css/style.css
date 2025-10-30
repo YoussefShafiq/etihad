@@ -2131,9 +2131,7 @@ body.light {
           font-weight: 600;
           transition: color 0.3s;
 
-          &:hover {
-            color: #6aa8f1;
-          }
+
         }
       }
 
@@ -2219,7 +2217,6 @@ body.light {
             width: 100%;
             padding: 12px 20px;
             background: var(--highlight);
-            color: var(--text);
             border: none;
             border-radius: 8px;
             font-size: 16px;
@@ -2230,13 +2227,14 @@ body.light {
             justify-content: center;
             align-items: center;
             gap: 8px;
+            color: white;
 
             &:hover:not(:disabled) {
-              background: #6aa8f1;
               transform: translateY(-2px);
             }
 
             &:disabled {
+              color: var(--text);
               background: var(--dark3);
               cursor: not-allowed;
               opacity: 0.6;
