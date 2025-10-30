@@ -1,3 +1,6 @@
+// Location Services
+let currentCity = null; // No default city - will be detected dynamically
+
 // Gold Chart
 function initializeGoldChart() {
     console.log('Initializing gold chart...');
@@ -146,15 +149,22 @@ function initializeTabs() {
                 // Initialize Azan tab when opened
                 if (tabId === 'azan') {
                     console.log('🕌 Initializing Azan tab...');
-                    fetchPrayerTimes('Cairo');
+                    if (currentCity) {
+                        fetchPrayerTimes(currentCity);
+                    } else {
+                        console.log('📍 Waiting for location detection before loading prayer times');
+                        showAzanLoading(true);
+                    }
                 }
 
                 // Initialize Weather tab when opened
                 if (tabId === 'weather') {
                     console.log('🌤️ Initializing Weather tab...');
-                    const weatherCity = document.getElementById('weather-city');
-                    if (weatherCity && weatherCity.textContent === 'القاهرة') {
-                        fetchWeatherData('Cairo');
+                    if (currentCity) {
+                        fetchWeatherData(currentCity);
+                    } else {
+                        console.log('📍 Waiting for location detection before loading weather');
+                        showLoading(true);
                     }
                 }
 
@@ -170,6 +180,155 @@ function initializeTabs() {
     });
 
     console.log('✅ Tabs initialized successfully');
+}
+
+// Location Detection Functions
+async function detectUserLocation() {
+    console.log('📍 Detecting user location...');
+
+    try {
+        // Try HTML5 Geolocation first
+        const position = await getGeolocation();
+        const { latitude, longitude } = position.coords;
+
+        console.log(`📍 Geolocation coordinates: ${latitude}, ${longitude}`);
+
+        // Reverse geocoding to get city name
+        const city = await reverseGeocode(latitude, longitude);
+        if (city) {
+            currentCity = city;
+            console.log(`📍 Location detected via geolocation: ${currentCity}`);
+            updateLocationDisplay(currentCity, 'geolocation');
+
+            // Load data for current city
+            loadCityData(currentCity);
+            return city;
+        }
+    } catch (geolocationError) {
+        console.log('📍 Geolocation failed:', geolocationError);
+    }
+
+    // If we reach here, location detection failed
+    console.log('📍 Location detection failed');
+    showLocationError();
+    return null;
+}
+
+function getGeolocation() {
+    return new Promise((resolve, reject) => {
+        if (!navigator.geolocation) {
+            reject(new Error('Geolocation is not supported by this browser'));
+            return;
+        }
+
+        navigator.geolocation.getCurrentPosition(resolve, reject, {
+            enableHighAccuracy: true,
+            timeout: 15000,
+            maximumAge: 300000 // 5 minutes
+        });
+    });
+}
+
+async function reverseGeocode(latitude, longitude) {
+    try {
+        // Using OpenStreetMap Nominatim (free service)
+        const response = await fetch(
+            `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&accept-language=ar`
+        );
+
+        if (!response.ok) {
+            throw new Error('Reverse geocoding failed');
+        }
+
+        const data = await response.json();
+
+        if (data && data.address) {
+            // Try to get city name from different possible fields
+            const city = data.address.city ||
+                data.address.town ||
+                data.address.village ||
+                data.address.municipality ||
+                data.address.county;
+
+            if (city) {
+                console.log(`📍 Reverse geocoded city: ${city}`);
+                return city;
+            }
+        }
+
+        throw new Error('No city found in geocoding response');
+    } catch (error) {
+        console.error('❌ Reverse geocoding error:', error);
+        throw error;
+    }
+}
+
+function updateLocationDisplay(city, source) {
+    console.log(`📍 Updating location display: ${city} (source: ${source})`);
+
+    // Update weather city input if it exists
+    const cityInput = document.getElementById('cityInput');
+    if (cityInput) {
+        cityInput.value = city;
+    }
+
+    // Update any location indicator in the UI
+    const locationIndicator = document.getElementById('location-indicator');
+    if (locationIndicator) {
+        let sourceText = '';
+        switch (source) {
+            case 'geolocation':
+                sourceText = ' (موقعك الحالي)';
+                break;
+            default:
+                sourceText = ' (موقعك)';
+                break;
+        }
+        locationIndicator.textContent = `${city}${sourceText}`;
+    }
+}
+
+function loadCityData(city) {
+    console.log(`📍 Loading data for city: ${city}`);
+
+    // Load weather data
+    fetchWeatherData(city);
+
+    // Load prayer times
+    fetchPrayerTimes(city);
+
+    // Update any active tabs
+    updateActiveTabsWithCity(city);
+}
+
+function updateActiveTabsWithCity(city) {
+    // Check if weather tab is active and update it
+    const weatherTab = document.querySelector('.tab[data-tab="weather"].active');
+    if (weatherTab) {
+        console.log('📍 Updating active weather tab with new city');
+        fetchWeatherData(city);
+    }
+
+    // Check if azan tab is active and update it
+    const azanTab = document.querySelector('.tab[data-tab="azan"].active');
+    if (azanTab) {
+        console.log('📍 Updating active azan tab with new city');
+        fetchPrayerTimes(city);
+    }
+}
+
+function showLocationError() {
+    console.log('📍 Showing location error to user');
+
+    // Show error in weather tab
+    showError('تعذر تحديد موقعك تلقائياً. يرجى إدخال اسم المدينة يدوياً.');
+
+    // Show error in azan tab
+    showAzanError('تعذر تحديد موقعك تلقائياً. يرجى إدخال اسم المدينة يدوياً.');
+
+    // Hide loading states
+    showLoading(false);
+    showAzanLoading(false);
 }
 
 // Fetch Gold Prices (with multiple API fallbacks)
@@ -310,7 +469,13 @@ async function fetchCurrencyRates() {
 }
 
 // Weather API Functions
-async function fetchWeatherData(city = 'Cairo') {
+async function fetchWeatherData(city) {
+    if (!city) {
+        console.error('❌ No city provided for weather data');
+        showError('يرجى تحديد المدينة أولاً');
+        return;
+    }
+
     console.log(`Fetching weather data for: ${city}`);
 
     // Show loading state
@@ -331,6 +496,7 @@ async function fetchWeatherData(city = 'Cairo') {
         showLoading(false);
 
     } catch (error) {
+        console.error('❌ Error fetching weather data:', error);
         showLoading(false);
         showError('لم نتمكن من العثور على هذه المدينة. يرجى التأكد من اسم المدينة والمحاولة مرة أخرى.');
     }
@@ -454,7 +620,9 @@ function handleWeatherSearch() {
 
     if (city) {
         console.log('Searching for city:', city);
+        currentCity = city;
         fetchWeatherData(city);
+        fetchPrayerTimes(city);
     } else {
         showError('يرجى إدخال اسم المدينة');
     }
@@ -473,7 +641,13 @@ const prayerNames = {
     isha: 'العشاء'
 };
 
-async function fetchPrayerTimes(city = 'Cairo') {
+async function fetchPrayerTimes(city) {
+    if (!city) {
+        console.error('❌ No city provided for prayer times');
+        showAzanError('يرجى تحديد المدينة أولاً');
+        return;
+    }
+
     console.log(`Fetching prayer times for: ${city}`);
 
     showAzanLoading(true);
@@ -522,7 +696,7 @@ function updatePrayerTimesDisplay(data) {
     const date = data.date;
 
     // Update city name
-    updateElementText('azan-city-name', data.meta.timezone.split('/')[1] || 'القاهرة');
+    updateElementText('azan-city-name', data.meta.timezone.split('/')[1] || currentCity);
 
     // Update dates
     updateElementText('hijriDate', `${date.hijri.day} ${date.hijri.month.ar} ${date.hijri.year}`);
@@ -720,8 +894,13 @@ function hideAzanError() {
 function initializeAzanTab() {
     console.log('Initializing Azan tab...');
 
-    // Fetch prayer times for default city (Cairo)
-    fetchPrayerTimes('Cairo');
+    // Fetch prayer times for current city if available
+    if (currentCity) {
+        fetchPrayerTimes(currentCity);
+    } else {
+        console.log('📍 Waiting for location detection before loading prayer times');
+        showAzanLoading(true);
+    }
 
     // Update prayer times every minute
     setInterval(() => {
@@ -731,12 +910,6 @@ function initializeAzanTab() {
     }, 60000);
 
     console.log('✅ Azan tab initialized successfully');
-}
-
-// Function to sync with weather tab city changes
-function syncAzanWithWeatherCity(city) {
-    console.log(`Syncing Azan times with weather city: ${city}`);
-    fetchPrayerTimes(city);
 }
 
 // Fetch Crypto Prices (using a free API)
@@ -997,7 +1170,6 @@ function updateCityClock(city, baseTime) {
             hour12: true,
             hour: '2-digit',
             minute: '2-digit'
-            // second: '2-digit'
         });
 
         // Format date
@@ -1062,15 +1234,6 @@ function updateCityClockWithOffset(city, baseTime) {
     }
 }
 
-// Also fix the hours extraction in the main function - remove this problematic code:
-// Remove this section from updateCityClock function:
-/*
-const hours = baseTime.toLocaleTimeString('en-GB', {
-    timeZone: city.timezone,
-    hour: '2-digit',
-    hour12: true
-});
-*/
 // Parse offset string to hours
 function parseOffset(offset) {
     const sign = offset.charAt(0) === '+' ? 1 : -1;
@@ -1157,6 +1320,12 @@ function startAutoRefresh() {
         fetchGoldPrices();
         fetchCurrencyRates();
         fetchCryptoPrices();
+
+        // Refresh city data if we have a city
+        if (currentCity) {
+            console.log(`📍 Auto-refreshing data for ${currentCity}`);
+            loadCityData(currentCity);
+        }
     }, 5 * 60 * 1000); // 5 minutes
 }
 
@@ -1166,21 +1335,51 @@ document.addEventListener('DOMContentLoaded', function () {
     console.log('Chart.js available:', typeof Chart !== 'undefined');
     console.log('Gold chart canvas:', document.getElementById('goldChart'));
 
-    // Initialize components
-    initializeGoldChart();
-    initializeGoldCalculator();
-    initializeTabs();
-    initializeWeatherSearch();
+    // Initialize location detection first
+    detectUserLocation().then(city => {
+        if (city) {
+            console.log(`📍 Final detected city: ${city}`);
 
-    // Fetch initial data for default tabs only
-    fetchGoldPrices();
-    fetchCurrencyRates();
-    fetchCryptoPrices();
+            // Initialize components after successful location detection
+            initializeGoldChart();
+            initializeGoldCalculator();
+            initializeTabs();
+            initializeWeatherSearch();
 
-    // Start auto-refresh
-    startAutoRefresh();
+            // Fetch initial data
+            fetchGoldPrices();
+            fetchCurrencyRates();
+            fetchCryptoPrices();
 
-    console.log('=== Application Initialized ===');
+            // Start auto-refresh
+            startAutoRefresh();
+
+            console.log('=== Application Initialized with Location ===');
+        } else {
+            // Location failed but we can still initialize other components
+            console.log('📍 Location detection failed, initializing without city data');
+            initializeGoldChart();
+            initializeGoldCalculator();
+            initializeTabs();
+            initializeWeatherSearch();
+            fetchGoldPrices();
+            fetchCurrencyRates();
+            fetchCryptoPrices();
+            startAutoRefresh();
+        }
+    }).catch(error => {
+        console.error('❌ Location detection failed:', error);
+
+        // Initialize without location data
+        initializeGoldChart();
+        initializeGoldCalculator();
+        initializeTabs();
+        initializeWeatherSearch();
+        fetchGoldPrices();
+        fetchCurrencyRates();
+        fetchCryptoPrices();
+        startAutoRefresh();
+    });
 });
 
 // Error handling for page load
@@ -1191,6 +1390,7 @@ window.addEventListener('error', function (e) {
 // Export functions for use in main app
 if (typeof window !== 'undefined') {
     window.initializeAzanTab = initializeAzanTab;
-    window.syncAzanWithWeatherCity = syncAzanWithWeatherCity;
     window.initializeWorldClock = initializeWorldClock;
+    window.detectUserLocation = detectUserLocation;
+    window.currentCity = currentCity;
 }
