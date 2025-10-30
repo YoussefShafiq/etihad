@@ -1384,3 +1384,96 @@ if (typeof window !== 'undefined') {
     window.detectUserLocation = detectUserLocation;
     window.currentCity = currentCity;
 }
+
+
+// Fuel tabs functionality
+document.querySelectorAll('.fuel-tab').forEach(tab => {
+    tab.addEventListener('click', function () {
+        // Remove active class from all tabs
+        document.querySelectorAll('.fuel-tab').forEach(t => {
+            t.classList.remove('active');
+        });
+
+        // Add active class to clicked tab
+        this.classList.add('active');
+
+        // Filter car brands based on fuel type
+        const fuelType = this.getAttribute('data-fuel');
+        filterCarsByFuelType(fuelType);
+    });
+});
+
+// Brand accordion functionality
+document.querySelectorAll('.brand-header').forEach(header => {
+    header.addEventListener('click', function () {
+        const brand = this.parentElement;
+        const modelsContainer = brand.querySelector('.models-container');
+        const arrow = this.querySelector('.brand-arrow');
+
+        // Close all other brand sections
+        document.querySelectorAll('.brand').forEach(otherBrand => {
+            if (otherBrand !== brand) {
+                otherBrand.classList.remove('active');
+                otherBrand.querySelector('.models-container').classList.remove('active');
+            }
+        });
+
+        // Toggle current brand section
+        brand.classList.toggle('active');
+        modelsContainer.classList.toggle('active');
+    });
+});
+
+// View button functionality
+document.querySelectorAll('.view-btn').forEach(button => {
+    button.addEventListener('click', function (e) {
+        e.stopPropagation(); // Prevent triggering brand header click
+        const modelName = this.closest('.model').querySelector('.model-name').textContent;
+        const modelPrice = this.closest('.model').querySelector('.model-price').textContent;
+
+        // Show model details (you can replace this with your preferred method)
+        showModelDetails(modelName, modelPrice);
+    });
+});
+
+// Filter cars by fuel type
+function filterCarsByFuelType(fuelType) {
+    const brands = document.querySelectorAll('.brand');
+
+    brands.forEach(brand => {
+        // In a real application, you would have data attributes on brands
+        // indicating which fuel types they support
+        const brandName = brand.querySelector('.brand-name span').textContent;
+
+        // Example filtering logic (customize based on your data)
+        if (fuelType === 'electric') {
+            // Show only electric car brands
+            if (brandName === 'تويوتا' || brandName === 'هيونداي') {
+                brand.style.display = 'block';
+            } else {
+                brand.style.display = 'none';
+            }
+        } else {
+            // Show all brands for gasoline
+            brand.style.display = 'block';
+        }
+    });
+}
+
+// Show model details function
+function showModelDetails(modelName, modelPrice) {
+    // You can implement a modal, redirect, or any other display method
+    alert(`عرض تفاصيل ${modelName}\nالسعر: ${modelPrice}`);
+
+    // Example for modal implementation:
+    // const modal = document.createElement('div');
+    // modal.className = 'model-modal';
+    // modal.innerHTML = `
+    //     <div class="modal-content">
+    //         <h3>${modelName}</h3>
+    //         <p>${modelPrice}</p>
+    //         <button class="close-modal">إغلاق</button>
+    //     </div>
+    // `;
+    // document.body.appendChild(modal);
+}
