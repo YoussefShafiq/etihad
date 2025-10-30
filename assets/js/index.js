@@ -1384,96 +1384,252 @@ if (typeof window !== 'undefined') {
     window.detectUserLocation = detectUserLocation;
     window.currentCity = currentCity;
 }
-
-
-// Fuel tabs functionality
-document.querySelectorAll('.fuel-tab').forEach(tab => {
-    tab.addEventListener('click', function () {
-        // Remove active class from all tabs
-        document.querySelectorAll('.fuel-tab').forEach(t => {
-            t.classList.remove('active');
-        });
-
-        // Add active class to clicked tab
-        this.classList.add('active');
-
-        // Filter car brands based on fuel type
-        const fuelType = this.getAttribute('data-fuel');
-        filterCarsByFuelType(fuelType);
-    });
-});
-
-// Brand accordion functionality
-document.querySelectorAll('.brand-header').forEach(header => {
-    header.addEventListener('click', function () {
-        const brand = this.parentElement;
-        const modelsContainer = brand.querySelector('.models-container');
-        const arrow = this.querySelector('.brand-arrow');
-
-        // Close all other brand sections
-        document.querySelectorAll('.brand').forEach(otherBrand => {
-            if (otherBrand !== brand) {
-                otherBrand.classList.remove('active');
-                otherBrand.querySelector('.models-container').classList.remove('active');
+// Car data structure
+const carData = {
+    gasoline: {
+        hyundai: {
+            name: "هيونداي",
+            models: {
+                "sonata-2023": { name: "سوناتا 2023", price: "850,000 جنيه" },
+                "accent-2023": { name: "اكسنت 2023", price: "420,000 جنيه" },
+                "tucson-2023": { name: "توسان 2023", price: "750,000 جنيه" }
             }
-        });
-
-        // Toggle current brand section
-        brand.classList.toggle('active');
-        modelsContainer.classList.toggle('active');
-    });
-});
-
-// View button functionality
-document.querySelectorAll('.view-btn').forEach(button => {
-    button.addEventListener('click', function (e) {
-        e.stopPropagation(); // Prevent triggering brand header click
-        const modelName = this.closest('.model').querySelector('.model-name').textContent;
-        const modelPrice = this.closest('.model').querySelector('.model-price').textContent;
-
-        // Show model details (you can replace this with your preferred method)
-        showModelDetails(modelName, modelPrice);
-    });
-});
-
-// Filter cars by fuel type
-function filterCarsByFuelType(fuelType) {
-    const brands = document.querySelectorAll('.brand');
-
-    brands.forEach(brand => {
-        // In a real application, you would have data attributes on brands
-        // indicating which fuel types they support
-        const brandName = brand.querySelector('.brand-name span').textContent;
-
-        // Example filtering logic (customize based on your data)
-        if (fuelType === 'electric') {
-            // Show only electric car brands
-            if (brandName === 'تويوتا' || brandName === 'هيونداي') {
-                brand.style.display = 'block';
-            } else {
-                brand.style.display = 'none';
+        },
+        mercedes: {
+            name: "مرسيدس",
+            models: {
+                "c-class-2023": { name: "فئة C 2023", price: "1,800,000 جنيه" },
+                "e-class-2023": { name: "فئة E 2023", price: "2,400,000 جنيه" },
+                "s-class-2023": { name: "فئة S 2023", price: "3,500,000 جنيه" }
             }
-        } else {
-            // Show all brands for gasoline
-            brand.style.display = 'block';
+        },
+        toyota: {
+            name: "تويوتا",
+            models: {
+                "corolla-2023": { name: "كورولا 2023", price: "550,000 جنيه" },
+                "camry-2023": { name: "كامري 2023", price: "850,000 جنيه" },
+                "rav4-2023": { name: "RAV4 2023", price: "950,000 جنيه" }
+            }
+        },
+        bmw: {
+            name: "بي إم دبليو",
+            models: {
+                "series-3-2023": { name: "السلسلة 3 2023", price: "1,200,000 جنيه" },
+                "series-5-2023": { name: "السلسلة 5 2023", price: "1,800,000 جنيه" },
+                "x5-2023": { name: "X5 2023", price: "2,500,000 جنيه" }
+            }
+        },
+        nissan: {
+            name: "نيسان",
+            models: {
+                "sunny-2023": { name: "صنny 2023", price: "380,000 جنيه" },
+                "x-trail-2023": { name: "اكس-ترايل 2023", price: "800,000 جنيه" },
+                "patrol-2023": { name: "باترول 2023", price: "2,200,000 جنيه" }
+            }
         }
+    },
+    electric: {
+        hyundai: {
+            name: "هيونداي",
+            models: {
+                "ioniq5-2023": { name: "آيونيك 5 2023", price: "1,200,000 جنيه" },
+                "kona-electric-2023": { name: "كونا كهرباء 2023", price: "900,000 جنيه" }
+            }
+        },
+        toyota: {
+            name: "تويوتا",
+            models: {
+                "bZ4X-2023": { name: "bZ4X 2023", price: "1,100,000 جنيه" },
+                "prius-prime-2023": { name: "بريوس برايم 2023", price: "950,000 جنيه" }
+            }
+        },
+        bmw: {
+            name: "بي إم دبليو",
+            models: {
+                "i4-2023": { name: "i4 2023", price: "1,800,000 جنيه" },
+                "iX-2023": { name: "iX 2023", price: "2,800,000 جنيه" }
+            }
+        }
+    }
+};
+
+// DOM Elements
+const brandSelect = document.getElementById('brand-select');
+const modelSelect = document.getElementById('model-select');
+const viewPricesBtn = document.getElementById('view-prices-btn');
+const fuelTabs = document.querySelectorAll('.fuel-tab');
+const selectedInfo = document.getElementById('selected-info');
+const selectedBrandModel = document.getElementById('selected-brand-model');
+const selectedPrice = document.getElementById('selected-price');
+const selectedFuelType = document.getElementById('selected-fuel-type');
+
+// Current selection state
+let currentFuelType = 'gasoline';
+let selectedBrand = '';
+let selectedModel = '';
+
+// Initialize the component
+function initCarPrices() {
+    // Set up fuel tab event listeners
+    fuelTabs.forEach(tab => {
+        tab.addEventListener('click', handleFuelTabClick);
+    });
+
+    // Set up brand select change listener
+    brandSelect.addEventListener('change', handleBrandChange);
+
+    // Set up model select change listener
+    modelSelect.addEventListener('change', handleModelChange);
+
+    // Set up view prices button click listener
+    viewPricesBtn.addEventListener('click', handleViewPrices);
+}
+
+// Handle fuel tab click
+function handleFuelTabClick(e) {
+    const tab = e.target;
+    const fuelType = tab.getAttribute('data-fuel');
+
+    // Update active tab
+    fuelTabs.forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+
+    // Update current fuel type
+    currentFuelType = fuelType;
+
+    // Reset selections
+    resetSelections();
+
+    // Update brands dropdown
+    updateBrandsDropdown();
+}
+
+// Handle brand selection change
+function handleBrandChange(e) {
+    selectedBrand = e.target.value;
+
+    if (selectedBrand) {
+        // Enable and update models dropdown
+        modelSelect.disabled = false;
+        updateModelsDropdown();
+
+        // Reset model selection
+        modelSelect.value = '';
+        selectedModel = '';
+        updateViewButtonState();
+    } else {
+        // Disable models dropdown
+        modelSelect.disabled = true;
+        modelSelect.innerHTML = '<option value="">-- اختر الماركة أولا --</option>';
+        selectedModel = '';
+        updateViewButtonState();
+    }
+
+    // Hide selected info
+    selectedInfo.style.display = 'none';
+}
+
+// Handle model selection change
+function handleModelChange(e) {
+    selectedModel = e.target.value;
+    updateViewButtonState();
+
+    // Hide selected info when changing model
+    selectedInfo.style.display = 'none';
+}
+
+// Handle view prices button click
+function handleViewPrices() {
+    if (selectedBrand && selectedModel) {
+        // Show selected information
+        // showSelectedInfo();
+
+        // Navigate to details page (you can modify the URL as needed)
+        navigateToCarDetails();
+    }
+}
+
+// Update brands dropdown based on current fuel type
+function updateBrandsDropdown() {
+    const brands = carData[currentFuelType];
+    brandSelect.innerHTML = '<option value="">-- اختر الماركة --</option>';
+
+    Object.keys(brands).forEach(brandKey => {
+        const brand = brands[brandKey];
+        const option = document.createElement('option');
+        option.value = brandKey;
+        option.textContent = brand.name;
+        brandSelect.appendChild(option);
     });
 }
 
-// Show model details function
-function showModelDetails(modelName, modelPrice) {
-    // You can implement a modal, redirect, or any other display method
-    alert(`عرض تفاصيل ${modelName}\nالسعر: ${modelPrice}`);
+// Update models dropdown based on selected brand
+function updateModelsDropdown() {
+    const brand = carData[currentFuelType][selectedBrand];
+    modelSelect.innerHTML = '<option value="">-- اختر الموديل --</option>';
 
-    // Example for modal implementation:
-    // const modal = document.createElement('div');
-    // modal.className = 'model-modal';
-    // modal.innerHTML = `
-    //     <div class="modal-content">
-    //         <h3>${modelName}</h3>
-    //         <p>${modelPrice}</p>
-    //         <button class="close-modal">إغلاق</button>
-    //     </div>
-    // `;
-    // document.body.appendChild(modal);
+    Object.keys(brand.models).forEach(modelKey => {
+        const model = brand.models[modelKey];
+        const option = document.createElement('option');
+        option.value = modelKey;
+        option.textContent = model.name;
+        modelSelect.appendChild(option);
+    });
 }
+
+// Update view button state based on selections
+function updateViewButtonState() {
+    if (selectedBrand && selectedModel) {
+        viewPricesBtn.disabled = false;
+    } else {
+        viewPricesBtn.disabled = true;
+    }
+}
+
+// Show selected car information
+function showSelectedInfo() {
+    const brand = carData[currentFuelType][selectedBrand];
+    const model = brand.models[selectedModel];
+
+    selectedBrandModel.textContent = `${brand.name} - ${model.name}`;
+    selectedPrice.textContent = `السعر: ${model.price}`;
+    selectedFuelType.textContent = `نوع الوقود: ${currentFuelType === 'gasoline' ? 'بنزين' : 'كهرباء'}`;
+
+    selectedInfo.style.display = 'block';
+}
+
+// Navigate to car details page
+function navigateToCarDetails() {
+    const brand = carData[currentFuelType][selectedBrand];
+    const model = brand.models[selectedModel];
+
+    // Create URL parameters
+    const params = new URLSearchParams({
+        brand: selectedBrand,
+        brandName: brand.name,
+        model: selectedModel,
+        modelName: model.name,
+        fuelType: currentFuelType
+    });
+
+    // Navigate to details page (replace with your actual URL)
+    const detailsUrl = `#car-details.html?${params.toString()}`;
+    window.location.href = detailsUrl;
+
+    // For demo purposes, show an alert instead of actual navigation
+    // alert(`سيتم التوجيه إلى صفحة التفاصيل:\n${brand.name} - ${model.name}`);
+}
+
+// Reset all selections
+function resetSelections() {
+    brandSelect.value = '';
+    modelSelect.innerHTML = '<option value="">-- اختر الماركة أولا --</option>';
+    modelSelect.disabled = true;
+    selectedBrand = '';
+    selectedModel = '';
+    updateViewButtonState();
+    selectedInfo.style.display = 'none';
+}
+
+// Initialize when DOM is loaded
+document.addEventListener('DOMContentLoaded', initCarPrices);

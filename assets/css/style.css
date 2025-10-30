@@ -1936,12 +1936,64 @@ body.light {
             height: 100%;
             overflow: hidden;
             border-radius: 12px;
+            position: relative;
 
             img {
               width: 100%;
               height: 100%;
               object-fit: cover;
               object-position: center;
+            }
+
+            .gradient-overlay-card {
+              position: absolute;
+              padding: 1rem;
+              inset: 0;
+              background: linear-gradient(to top, #000000dc 20%, transparent 100%);
+              display: flex;
+              flex-direction: column;
+              justify-content: end;
+              align-items: start;
+              row-gap: 6px;
+              color: white;
+
+              .head {
+                display: flex;
+                flex-direction: row-reverse;
+                gap: 0.5rem;
+                align-items: center;
+                font-size: 14px;
+
+                img {
+                  height: 16px;
+                }
+              }
+
+              .content {
+                font-size: 20px;
+                font-weight: 600;
+              }
+
+              .footer {
+                font-size: 12px;
+                display: flex;
+                /* justify-content: space-between; */
+                gap: 12px;
+                width: 100%;
+                color: #a8a4a4;
+
+
+
+                div {
+                  display: flex;
+                  gap: 3px;
+                  align-items: center;
+
+                  i {
+                    color: var(--darktext);
+                  }
+                }
+              }
             }
           }
 
@@ -1999,7 +2051,6 @@ body.light {
               width: 40%;
               overflow: hidden;
               aspect-ratio: 16/9;
-              clip-path: polygon(0.32% 39.22%, 0.65% 37.51%, 1.29% 35.53%, 1.89% 34.21%, 2.58% 33.02%, 3.28% 32.47%, 4.24% 32.02%, 5.21% 31.75%, 6.19% 31.49%, 18.18% 31.49%, 18.18% 31.49%, 19.17% 31.42%, 20.28% 31.25%, 21.39% 31.08%, 22.33% 30.31%, 23% 29.02%, 23.66% 27.73%, 24.06% 25.93%, 24.18% 7.19%, 24.55% 5.06%, 25.01% 3.66%, 25.55% 2.66%, 26.1% 1.66%, 26.81% 1.13%, 27.6% 0.7%, 28.46% 0.39%, 29.38% 0.19%, 30.3% 0%, 93.94% 0%, 100% 0%, 100% 100%, 5.08% 99.93%, 4.15% 99.72%, 3.28% 99.39%, 2.48% 98.95%, 1.78% 98.41%, 1.17% 97.78%, 0.68% 97.06%, 0.31% 96.28%, 0.08% 95.45%, 0% 94.57%, 0.08% 41.8%);
               position: relative;
               overflow: hidden;
 
@@ -2063,9 +2114,31 @@ body.light {
         width: 100%;
       }
 
+      .section-heading {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+
+        h2 {
+          font-size: 24px;
+          font-weight: 700;
+        }
+
+        span {
+          color: var(--primary);
+          cursor: pointer;
+          font-weight: 600;
+          transition: color 0.3s;
+
+          &:hover {
+            color: #6aa8f1;
+          }
+        }
+      }
 
       .car-prices-section {
-        background: var(--card-bg);
+        background: var(--faded-background);
         border-radius: 16px;
         padding: 20px;
         border: 1px solid var(--border);
@@ -2101,105 +2174,115 @@ body.light {
           }
         }
 
-        .brands-container {
-          .brand {
-            margin-bottom: 15px;
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            overflow: hidden;
+        .selection-container {
+          .select-group {
+            margin-bottom: 20px;
 
-            .brand-header {
-              padding: 12px 15px;
-              background: var(--dark3);
-              display: flex;
-              justify-content: space-between;
-              align-items: center;
-              cursor: pointer;
-              transition: background 0.3s;
-
-              &:hover {
-                background: rgba(255, 255, 255, 0.05);
-              }
-
-              .brand-name {
-                display: flex;
-                align-items: center;
-                gap: 10px;
-
-                .brand-logo {
-                  width: 30px;
-                  height: 30px;
-                  display: flex;
-                  align-items: center;
-                  justify-content: center;
-                  background: var(--faded-background);
-                  border-radius: 6px;
-                }
-
-                span {
-                  font-weight: 600;
-                }
-              }
-
-              .brand-arrow {
-                transition: transform 0.3s;
-              }
-
-              &.active .brand-arrow {
-                transform: rotate(180deg);
-              }
+            label {
+              display: block;
+              margin-bottom: 8px;
+              font-weight: 600;
+              color: var(--text);
             }
 
-            .models-container {
-              max-height: 0;
-              overflow: hidden;
-              transition: max-height 0.3s ease;
+            .car-select {
+              width: 100%;
+              padding: 12px 15px;
+              border: 1px solid var(--border);
+              border-radius: 8px;
+              background: var(--faded-background);
+              color: var(--text);
+              font-size: 14px;
+              cursor: pointer;
+              transition: all 0.3s ease;
 
-              &.active {
-                max-height: 500px;
+              &:focus {
+                outline: none;
+                border-color: var(--highlight);
+                box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
               }
 
-              .model {
-                padding: 12px 15px;
-                border-bottom: 1px solid var(--border);
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
+              &:disabled {
+                opacity: 0.6;
+                cursor: not-allowed;
+              }
 
-                &:last-child {
-                  border-bottom: none;
-                }
+              option {
+                background: var(--dark2);
+                color: var(--text);
+                padding: 10px;
+              }
+            }
+          }
 
-                .model-info {
-                  .model-name {
-                    font-weight: 600;
-                    margin-bottom: 5px;
-                  }
+          .view-prices-btn {
+            width: 100%;
+            padding: 12px 20px;
+            background: var(--highlight);
+            color: var(--text);
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
 
-                  .model-price {
-                    font-size: 14px;
-                    color: rgb(255, 0, 0);
-                  }
-                }
+            &:hover:not(:disabled) {
+              background: #6aa8f1;
+              transform: translateY(-2px);
+            }
 
-                .view-btn {
-                  background: var(--highlight);
-                  color: white;
-                  border: none;
-                  padding: 6px 12px;
-                  border-radius: 6px;
-                  cursor: pointer;
-                  font-weight: 600;
-                  transition: background 0.3s;
+            &:disabled {
+              background: var(--dark3);
+              cursor: not-allowed;
+              opacity: 0.6;
+            }
+          }
+        }
 
-                  &:hover {
-                    background: #6aa8f1;
-                  }
-                }
+        .selected-info {
+          margin-top: 20px;
+          animation: fadeIn 0.3s ease;
+
+          .selected-card {
+            background: var(--dark3);
+            border-radius: 12px;
+            padding: 20px;
+            border-left: 4px solid var(--highlight);
+
+            h3 {
+              font-size: 18px;
+              font-weight: 700;
+              margin-bottom: 10px;
+              color: var(--highlight);
+            }
+
+            p {
+              margin-bottom: 8px;
+              font-size: 14px;
+
+              &:last-child {
+                margin-bottom: 0;
               }
             }
           }
         }
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
       }
     }
   }
