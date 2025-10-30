@@ -1664,7 +1664,7 @@ body.light {
 
   .polls-and-file-section-content {
     display: flex;
-    gap: 10px;
+    gap: 20px;
 
     @media (max-width: 768px) {
       flex-direction: column;
