@@ -1078,29 +1078,24 @@ function initializeWorldClock() {
     console.log('✅ World clock initialized successfully');
 }
 
-// Fetch GMT time only once to get initial offset
-async function fetchGMTTimeOnce() {
+// Get GMT time using local browser time converted to UTC
+function fetchGMTTimeOnce() {
     try {
-        console.log('🕐 Fetching GMT time once for initial setup...');
-        const response = await fetch('https://www.timeapi.io/api/time/current/coordinate?latitude=0&longitude=0');
-
-        if (!response.ok) {
-            throw new Error('GMT API response not ok');
-        }
-
-        const data = await response.json();
-        const serverTime = new Date(data.dateTime);
+        console.log('🕐 Getting GMT time from local browser...');
         const localTime = new Date();
 
-        // Calculate the offset between server time and local time
-        const timeDiff = serverTime.getTime() - localTime.getTime();
-        localStorage.setItem('gmtTimeOffset', timeDiff.toString());
+        // Extract GMT time using the specified logic
+        const gmtTime = localTime.toUTCString().split(' ')[4];
 
-        console.log('✅ GMT time offset stored:', timeDiff, 'ms');
+        // Store the GMT time string
+        localStorage.setItem('gmtTime', gmtTime);
+
+        console.log('✅ GMT time stored:', gmtTime);
+        console.log('✅ Local time was:', localTime.toTimeString().split(' ')[0]);
 
     } catch (error) {
-        console.error('❌ Error fetching GMT time, using local time:', error);
-        localStorage.removeItem('gmtTimeOffset');
+        console.error('❌ Error getting GMT time:', error);
+        localStorage.removeItem('gmtTime');
     }
 }
 
@@ -1118,36 +1113,31 @@ function getAccurateTime() {
     return now;
 }
 
-// Update all clocks using browser time (much faster)
+// Update the main updateAllClocks function to be more efficient
 function updateAllClocks() {
-    const accurateTime = getAccurateTime();
+    const now = new Date();
 
     // Update GMT display
-    updateGMTDisplay(accurateTime);
+    updateGMTDisplay(now);
 
     // Update all city clocks
     worldCities.forEach(city => {
-        updateCityClock(city, accurateTime);
+        updateCityClock(city, now);
     });
 
-    // Update timestamp every minute (to reduce unnecessary updates)
-    const now = new Date();
-    if (now.getSeconds() === 0) {
+    // Update timestamp every minute
+    const currentSeconds = now.getSeconds();
+    if (currentSeconds === 0) {
         updateElementText('worldclock-update-time', now.toLocaleTimeString('ar-EG'));
     }
 }
 
-// Update GMT display
+// Also update the GMT function to match your working approach
 function updateGMTDisplay(time) {
-    // Get current UTC time directly without any offset adjustments
-    const now = new Date();
-    const utcHours = now.getUTCHours().toString().padStart(2, '0');
-    const utcMinutes = now.getUTCMinutes().toString().padStart(2, '0');
-    const utcSeconds = now.getUTCSeconds().toString().padStart(2, '0');
-    const timeString = `${utcHours}:${utcMinutes}`;
+    // Use the exact same method from your working page
+    const gmtTime = time.toUTCString().split(' ')[4];
 
-    // Format date in UTC
-    const dateString = now.toLocaleDateString('ar-EG', {
+    const gmtDate = time.toLocaleDateString('ar-EG', {
         weekday: 'long',
         year: 'numeric',
         month: 'long',
@@ -1155,24 +1145,23 @@ function updateGMTDisplay(time) {
         timeZone: 'UTC'
     });
 
-    updateElementText('gmt-time', timeString);
-    updateElementText('gmt-date', dateString);
+    updateElementText('gmt-time', gmtTime);
+    updateElementText('gmt-date', gmtDate);
 }
 
-// Update individual city clock using browser timezone - FIXED VERSION
+// Update individual city clock - USING THE WORKING APPROACH
 function updateCityClock(city, baseTime) {
     try {
-        // Create a new date object for the specific timezone
+        // Use the same method that works in your other page
         const cityTime = new Date(baseTime.toLocaleString("en-US", { timeZone: city.timezone }));
 
-        // Format time in 12-hour format with AM/PM
+        // Format time exactly like your working version
         const timeString = cityTime.toLocaleTimeString('en-US', {
-            hour12: true,
             hour: '2-digit',
             minute: '2-digit'
         });
 
-        // Format date
+        // Format date exactly like your working version
         const dateString = cityTime.toLocaleDateString('ar-EG', {
             weekday: 'short',
             year: 'numeric',
@@ -1180,9 +1169,10 @@ function updateCityClock(city, baseTime) {
             day: 'numeric'
         });
 
-        // Get hours for day/night indicator - use the actual city time hours
+        // Get hours for day/night indicator
         const hours = cityTime.getHours();
 
+        // Update DOM elements
         const timeElement = document.getElementById(`time-${city.name.replace(/\s+/g, '-')}`);
         const dateElement = document.getElementById(`date-${city.name.replace(/\s+/g, '-')}`);
         const iconElement = document.getElementById(`icon-${city.name.replace(/\s+/g, '-')}`);
@@ -1196,10 +1186,10 @@ function updateCityClock(city, baseTime) {
 
     } catch (error) {
         console.error(`❌ Error updating time for ${city.name}:`, error);
-        // Fallback: use offset calculation
         updateCityClockWithOffset(city, baseTime);
     }
 }
+
 
 // Also fix the fallback function
 function updateCityClockWithOffset(city, baseTime) {
