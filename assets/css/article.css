@@ -313,6 +313,9 @@ body.light {
   }
 }
 
+.nav {
+  max-width: none !important;
+}
 
 /* الهيكل الرئيسي */
 .article-main {

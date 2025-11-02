@@ -434,3 +434,24 @@ if (document.getElementById('single-slide-slider')) {
         spaceBetween: 20
     });
 }
+
+if (document.getElementById('articles-slider')) {
+    const articlesslider = new CustomSlider(document.getElementById('articles-slider'), {
+        loop: true,
+        autoplay: true,
+        autoplayDelay: 3000,
+        keyboard: true,
+        mousewheel: true,
+        rtl: true,
+        slidesPerView: {
+            mobile: 1,
+            tablet: 2,
+            desktop: 4
+        },
+        breakpoints: {
+            mobile: 640,
+            tablet: 1024
+        },
+        spaceBetween: 20
+    });
+}

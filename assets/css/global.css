@@ -308,6 +308,7 @@ body.light {
 .section-heading {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding-bottom: 10px;
     border-bottom: 2px solid #412665;
 
@@ -318,6 +319,11 @@ body.light {
     span {
         font-size: 1rem;
         font-weight: 500;
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
     }
 
     @media (max-width: 768px) {
