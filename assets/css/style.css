@@ -2118,26 +2118,6 @@ body.light {
         width: 100%;
       }
 
-      .section-heading {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 20px;
-
-        h2 {
-          font-size: 24px;
-          font-weight: 700;
-        }
-
-        span {
-          color: var(--primary);
-          cursor: pointer;
-          font-weight: 600;
-          transition: color 0.3s;
-
-
-        }
-      }
 
       .car-prices-section {
         background: var(--faded-background);
