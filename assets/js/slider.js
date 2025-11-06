@@ -446,7 +446,27 @@ if (document.getElementById('articles-slider')) {
         slidesPerView: {
             mobile: 1,
             tablet: 2,
-            desktop: 4
+            desktop: 3
+        },
+        breakpoints: {
+            mobile: 640,
+            tablet: 1024
+        },
+        spaceBetween: 20
+    });
+}
+if (document.getElementById('news-slider')) {
+    const newslider = new CustomSlider(document.getElementById('news-slider'), {
+        loop: true,
+        autoplay: true,
+        autoplayDelay: 3000,
+        keyboard: true,
+        mousewheel: true,
+        rtl: true,
+        slidesPerView: {
+            mobile: 1,
+            tablet: 2,
+            desktop: 5
         },
         breakpoints: {
             mobile: 640,
