@@ -4683,7 +4683,7 @@ body.light {
   }
 }
 
-.wrapper {
+.pagerapper {
   width: 80vw;
 
   @media (max-width: 1200px) {
