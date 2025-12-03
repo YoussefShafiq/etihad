@@ -55,6 +55,10 @@ body.light {
         padding: 4px 8px;
         border-radius: 4px;
       }
+
+      .footer {
+        color: rgba(0, 0, 0, 0.518) !important;
+      }
     }
   }
 
@@ -162,6 +166,7 @@ body.light {
   .section-heading {
     color: #1a1a1a;
     border-bottom-color: rgba(205, 0, 0, 0.2);
+
   }
 
 
@@ -706,30 +711,29 @@ body.light {
 
     }
 
-    .سياسه {
+    .s1 {
       border: #e42e58 solid 2px;
     }
 
-    .فن {
+    .s2 {
       border: #8a2be2 solid 2px;
     }
 
-    .رياضه {
+    .s3 {
       border: #32cda1 solid 2px;
     }
 
-    .اقتصاد {
+    .s4 {
       border: #14aadd solid 2px;
     }
 
-    .تكنولوجيا {
+    .s5 {
       border: #ff7300 solid 2px;
     }
 
-    .انساني {
+    .s6 {
       border: #e5dcd6 solid 2px;
     }
-
 
 
     a.active {
@@ -842,7 +846,7 @@ body.light {
         display: flex;
         width: 100%;
         gap: 12px;
-        color: #00000081;
+        color: #ffffffa0;
 
         div {
           display: flex;

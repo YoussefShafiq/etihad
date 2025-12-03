@@ -475,3 +475,25 @@ if (document.getElementById('news-slider')) {
         spaceBetween: 20
     });
 }
+
+// Initialize sliders only if they exist on the page
+if (document.getElementById('gallery-article-slider')) {
+    const galleryArticleSlider = new CustomSlider(document.getElementById('gallery-article-slider'), {
+        loop: true,
+        autoplay: true,
+        autoplayDelay: 2000,
+        keyboard: true,
+        mousewheel: true,
+        rtl: true,
+        slidesPerView: {
+            mobile: 1,
+            tablet: 1,
+            desktop: 1
+        },
+        breakpoints: {
+            mobile: 640,
+            tablet: 1024
+        },
+        spaceBetween: 20
+    });
+}

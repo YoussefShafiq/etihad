@@ -106,6 +106,14 @@ body.light {
     padding: 8px;
     border-bottom: solid #666 1px;
 
+    #social-media {
+        a {
+            text-decoration: none;
+            color: inherit;
+
+        }
+    }
+
 
     #sub-header-nav {
         display: flex;
@@ -266,27 +274,27 @@ body.light {
 
         }
 
-        .سياسه {
+        .s1 {
             border: #e42e58 solid 2px;
         }
 
-        .فن {
+        .s2 {
             border: #8a2be2 solid 2px;
         }
 
-        .رياضه {
+        .s3 {
             border: #32cda1 solid 2px;
         }
 
-        .اقتصاد {
+        .s4 {
             border: #14aadd solid 2px;
         }
 
-        .تكنولوجيا {
+        .s5 {
             border: #ff7300 solid 2px;
         }
 
-        .انساني {
+        .s6 {
             border: #e5dcd6 solid 2px;
         }
 
@@ -328,6 +336,12 @@ body.light {
 
     @media (max-width: 768px) {
         font-size: 1.5rem;
+    }
+
+
+    a {
+        text-decoration: none;
+        color: white;
     }
 
     font-weight: bold;
